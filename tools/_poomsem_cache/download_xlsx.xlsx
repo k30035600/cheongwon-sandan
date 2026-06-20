@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- META -->
+<meta charset="utf-8">
+<meta name="Generator" content="XpressEngine">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- TITLE -->
+<title>(주)티티엔지니어링- 토목적산프로그램</title>
+<!-- CSS -->
+<link rel="stylesheet" href="/common/css/xe.min.css?20190102093905" />
+<link rel="stylesheet" href="/common/js/plugins/ui/jquery-ui.min.css?20190102093905" />
+<link rel="stylesheet" href="/modules/message/skins/xedition/css/message.css?20190102093905" />
+<link rel="stylesheet" href="/layouts/tteng/css/layout.min.css?20190117144024" />
+<link rel="stylesheet" href="/layouts/tteng/css/idangerous.swiper.css?20190102093904" />
+<link rel="stylesheet" href="/layouts/tteng/css/welcome.min.css?20190119103525" />
+<link rel="stylesheet" href="/layouts/tteng/css/webfont.min.css?20190102093904" />
+<link rel="stylesheet" href="/common/xeicon/xeicon.min.css?20190102093905" />
+<link rel="stylesheet" href="/layouts/tteng/css/widget.login.min.css?20190102093904" />
+<link rel="stylesheet" href="/modules/editor/styles/ckeditor_light/style.css?20190103144515" />
+<link rel="stylesheet" href="/widgets/notice/skins/notice_slider/css/widget.css?20190117100931" />
+<link rel="stylesheet" href="/widgets/content/skins/default/css/widget.css?20190102093904" />
+<!-- JS -->
+<script>
+var current_url = "http://tteng.co.kr/?act=procFileOutput&file_srl=35132&file_key=f52782b29dff21530d78cf1d56078b1e";
+var request_uri = "http://tteng.co.kr/";
+var current_mid = "tteng_home";
+var waiting_message = "서버에 요청 중입니다. 잠시만 기다려주세요.";
+var ssl_actions = new Array("dispMemberModifyPassword&quot;,&quot;dispMemberSignUpForm&quot;,&quot;dispMemberModifyInfo&quot;,&quot;dispMemberModifyEmailAddress&quot;,&quot;dispMemberGetTempPassword&quot;,&quot;dispMemberResendAuthMail&quot;,&quot;dispMemberLoginForm&quot;,&quot;dispMemberFindAccount&quot;,&quot;dispMemberLeave&quot;,&quot;procMemberLogin&quot;,&quot;procMemberModifyPassword&quot;,&quot;procMemberInsert&quot;,&quot;procMemberModifyInfo&quot;,&quot;procMemberFindAccount&quot;,&quot;procMemberModifyEmailAddress&quot;,&quot;procMemberResendAuthMail&quot;,&quot;procMemberLeave&quot;,&quot;procMemberFindAccountByQuestion&quot;,&quot;dispBoardWrite&quot;,&quot;dispBoardWriteComment&quot;,&quot;dispBoardReplyComment&quot;,&quot;dispBoardModifyComment&quot;,&quot;dispBoardDelete&quot;,&quot;dispBoardDeleteComment&quot;,&quot;procBoardInsertDocument&quot;,&quot;procBoardDeleteDocument&quot;,&quot;procBoardInsertComment&quot;,&quot;procBoardDeleteComment&quot;,&quot;procBoardVerificationPassword&quot;,&quot;dispTempSavedList");
+var default_url = "http://tteng.co.kr";
+var https_port = 42701;</script>
+<!--[if lt IE 9]><script src="/common/js/jquery-1.x.min.js?20190102093905"></script>
+<![endif]--><!--[if gte IE 9]><!--><script src="/common/js/jquery.min.js?20190102093905"></script>
+<!--<![endif]--><script src="/common/js/x.min.js?20190102093905"></script>
+<script src="/common/js/xe.min.js?20190102093905"></script>
+<script src="/layouts/tteng/js/idangerous.swiper.min.js?20190102093904"></script>
+<script src="/layouts/tteng/js/layout.min.js?20190104105800"></script>
+<script src="/layouts/tteng/js/welcome.min.js?20190102093904"></script>
+<script src="/layouts/tteng/js/jquery.parallax-scroll.min.js?20190102093904"></script>
+<script src="/widgets/content/skins/default/js/content_widget.js?20190102093904"></script>
+<!-- RSS -->
+<link rel="alternate" type="application/rss+xml" title="Site RSS" href="http://tteng.co.kr/rss" /><link rel="alternate" type="application/atom+xml" title="Site Atom" href="http://tteng.co.kr/atom" /><!-- ICON -->
+
+
+<meta name="viewport" content="width=1240">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<link rel="canonical" href="http://tteng.co.kr/" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://tteng.co.kr/" />
+<meta property="og:site_name" content="(주)티티엔지니어링- 토목적산프로그램" />
+<meta property="og:title" content="(주)티티엔지니어링- 토목적산프로그램" /><script>
+//<![CDATA[
+xe.current_lang = "ko";
+xe.cmd_find = "찾기";
+xe.cmd_cancel = "취소";
+xe.cmd_confirm = "확인";
+xe.msg_no_root = "루트는 선택 할 수 없습니다.";
+xe.msg_no_shortcut = "바로가기는 선택 할 수 없습니다.";
+xe.msg_select_menu = "대상 메뉴 선택";
+//]]>
+</script>
+</head>
+<body>
+	
+																																					
+							
+																						
+		
+	<p class="skip"><a href="#content">메뉴 건너뛰기</a></p>
+<div class="container fixed_header  ">
+	<!-- HEADER -->
+	<div class="header_wrap xe-clearfix">
+		 
+			<ul class="mobile-footer-member">
+								<li><a href="https://tteng.co.kr:42701/index.php?act=dispMemberLoginForm&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e&amp;mid=tteng_home" rel="nofollow">로그인</a></li>
+				<li><a href="https://tteng.co.kr:42701/index.php?act=dispMemberSignUpForm&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e&amp;mid=tteng_home" rel="nofollow">회원가입</a></li>
+							</ul>
+		 
+		<div class="search_wrap">
+			<div class="search_area">
+				<!-- SEARCH -->
+				<form action="http://tteng.co.kr/" method="get" class="search" >
+					<input type="hidden" name="vid" value="" />
+					<input type="hidden" name="mid" value="tteng_home" />
+					<input type="hidden" name="act" value="IS" />
+					<input type="text" name="is_keyword" value="" required="required" title="검색" placeholder="Search" />
+				</form>
+				<!-- /SEARCH -->
+				<a href="#" class="btn_close" title="검색창 닫기" onclick="return false"><i class="xi-close"></i><span class="blind">검색창 닫기</span></a>
+			</div>
+		</div>		<header class="header main">
+			
+			<h1 class="logo-item">
+												<a href="http://tteng.co.kr/">
+																									<img src="http://tteng.co.kr/files/attach/images/161/7fd0db275fca5443d8b2068618127261.png" alt="(주)티티엔지니어링" />
+															</a>
+			</h1>
+			
+			<div class="side">
+				<ul>
+					<!-- search -->
+					<li class="click">
+						<a href="#" title="검색"><i class="xi-magnifier"></i><span class="blind">검색</span></a>
+					</li>					<!-- admin -->
+										<!-- login -->
+					<li class="hover">
+													<!-- before_login -->
+							<a href="https://tteng.co.kr:42701/index.php?act=dispMemberLoginForm&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e&amp;mid=tteng_home" id="ly_btn"><i class="xi-user-add"></i><span class="blind">로그인/회원가입</span></a>
+							<div class="ly ly_login">
+								<ul>
+									<li><a id="ly_login_btn" href="https://tteng.co.kr:42701/index.php?act=dispMemberLoginForm&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e&amp;mid=tteng_home" rel="nofollow">로그인</a></li>
+									<li><a href="https://tteng.co.kr:42701/index.php?act=dispMemberSignUpForm&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e&amp;mid=tteng_home" rel="nofollow">회원가입</a></li>
+								</ul>
+								<span class="edge"></span>
+							</div>
+							<!-- /before_login -->
+											</li>
+				</ul>
+			</div>
+			<!-- SNB -->
+						<!-- GNB -->
+			<nav class="gnb" id="gnb">
+				<div id="mobile_menu_btn" class="menu_btn">
+					<div class="menu_bar">
+						<div class="btn1"></div>
+						<div class="btn2"></div>
+						<div class="btn3"></div>
+					</div>
+				</div>
+				<ul>
+					<li>
+						<a href="http://tteng.co.kr/tteng_home">HOME</a>
+																	</li><li>
+						<a href="http://tteng.co.kr/company">회사소개</a>
+												<ul class="depth2">
+							<li>
+								<a href="http://tteng.co.kr/company">인사말</a>
+															</li><li>
+								<a href="http://tteng.co.kr/history">연혁</a>
+															</li><li>
+								<a href="http://tteng.co.kr/product">제품안내</a>
+															</li><li>
+								<a href="http://tteng.co.kr/map">위치</a>
+															</li>						</ul>					</li><li>
+						<a href="http://tteng.co.kr/tteng_notice">공지사항</a>
+																	</li><li>
+						<a href="http://tteng.co.kr/tt01">티티자료실</a>
+												<ul class="depth2">
+							<li>
+								<a href="http://tteng.co.kr/tt01">기술자료</a>
+															</li><li>
+								<a href="http://tteng.co.kr/tt02">설계자료</a>
+															</li><li>
+								<a href="http://tteng.co.kr/tt03">참고자료</a>
+															</li>						</ul>					</li><li>
+						<a href="http://tteng.co.kr/member01">일반자료실</a>
+												<ul class="depth2">
+							<li>
+								<a href="http://tteng.co.kr/member01">회원자료</a>
+															</li><li>
+								<a href="http://tteng.co.kr/member02">기타자료</a>
+															</li>						</ul>					</li><li>
+						<a href="http://tteng.co.kr/tteng_free">자유게시판</a>
+												<ul class="depth2">
+							<li>
+								<a href="http://tteng.co.kr/tteng_free">기술문의</a>
+															</li><li>
+								<a href="http://tteng.co.kr/madang">열린마당</a>
+															</li>						</ul>					</li><li>
+						<a href="#">TT Engineering</a>
+												<ul class="depth2">
+							<li>
+								<a href="http://tteng.co.kr/provision">이용약관</a>
+															</li><li>
+								<a href="http://tteng.co.kr/privacy">개인정보취급방침</a>
+															</li>						</ul>					</li>				</ul>
+			</nav>			<!-- /GNB -->
+		</header>
+	</div>
+	<!-- END:HEADER -->
+	<!-- VISUAL-SUBHEADER -->
+	    <!-- Swiper -->
+    <div class="visual swiper-container">
+		<!-- 슬라이드 -->
+		<div class="swiper-wrapper">
+					<div style="background-image:url('./layouts/tteng/img/ttend_main01.jpg');" class="swiper-slide">
+	<div>
+		<div>
+			<h1>TECHNICAL TURNKEY<br />ENGINEERING</h1>
+			<p>토목 설계 용역 및 토목관련 s/w 개발</p>
+		</div>
+	</div>
+</div>
+<div style="background-image:url('./layouts/tteng/img/ttend_main02.jpg');" class="swiper-slide">
+	<div>
+		<div>
+			<h1>TECHNICAL TURNKEY<br />ENGINEERING</h1>
+			<p>토목 설계 용역 및 토목관련 s/w 개발</p>
+		</div>
+	</div>
+</div>
+ 
+<div style="background-image:url('./layouts/tteng/img/ttend_main03.jpg');" class="swiper-slide">
+	<div>
+		<div>
+			<h1>TECHNICAL TURNKEY<br />ENGINEERING</h1>
+			<p>토목 설계 용역 및 토목관련 s/w 개발</p>
+		</div>
+	</div>
+</div>
+ 
+ 				</div>
+		<!-- END:슬라이드 -->
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button left"><button type="button" class="swiper-button-prev"><i class="xi-angle-left"></i></button></div>
+		<div class="swiper-button right"><button type="button" class="swiper-button-next"><i class="xi-angle-right"></i></button></div>
+    </div>	<!-- /VISUAL -->
+	<!-- BODY -->
+	<div class="body main">
+		<!-- LNB -->
+		  
+		<!-- /LNB -->
+		<!-- CONTENT -->
+ 
+			<div class="content" id="content">
+								<div id="access">
+	<div class="login-header">
+		<p>OOPS!</p>
+		<h1>잘못된 요청입니다.</h1>
+	</div>
+	<div class="login-body">
+		<p><a href="https://tteng.co.kr:42701/index.php?act=dispMemberLoginForm">로그인</a></p>
+	</div>
+	<div class="login-footer">
+		<a href="https://tteng.co.kr:42701/index.php?act=dispMemberFindAccount">ID/PW 찾기</a>
+		<span class="bar">|</span>
+		<a href="https://tteng.co.kr:42701/index.php?act=dispMemberSignUpForm">회원가입</a>
+	</div>
+</div>
+			</div>
+							<!-- WelcomeXE -->
+<div class="welcomeXE">
+ 
+ 
+	<section class="features">
+		<span class="noti">DOWNLOAD CENTER</span>
+		<h1 class="tit">AN ONLINE DATABASE</h1>
+ 		<ul>
+		<li>
+			<div class="fe_box">
+ 				<div class="fe_tit">
+					<a href="/tt01" class="more"><i class="xi-plus"></i></a> 
+					<h2>다운로드</h2>
+				</div>
+				<div class="fe_boardList">
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"> 
+ 
+<div class="noticeSlider marquee">
+	<ul class="noticeUL">
+				<li>
+						<a href="http://tteng.co.kr/29088">
+																		 <span style="font-weight:bold">TTSW win_plus 실행파일(원가계산 제비...</span> 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/17842">
+																		 TTSW  메뉴얼 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+				</ul>
+</div>
+ </div></div>
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt01/34872"><span style="font-weight:bold">2026 상반기 변동단가 업데이트(가...</span></a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt01/34555">2025 하반기 변동단가 업데이트</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt01/34170">2025 화순군 설치파일</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt01/34082">2025 상반기 변동단가 업데이트</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div>
+				</div>
+ 			</div>
+		</li>
+		<li>
+			<div class="fe_box">
+ 				<div class="fe_tit">
+					<a href="/tt02" class="more"><i class="xi-plus"></i></a> 
+					<h2>설계자료</h2>
+				</div>
+				<div class="fe_boardList">
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"> 
+ 
+<div class="noticeSlider marquee">
+	<ul class="noticeUL">
+				<li>
+						<a href="http://tteng.co.kr/34930">
+																		 2026년 조달청 시설공사 원가계산 간접... 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/34889">
+																		 2026년 중기기초단가(환율,유류) -6월 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/34805">
+																		 2026년 적용 건설공사 표준품셈 공고 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+				</ul>
+</div>
+ </div></div>
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt02/35127"><span style="font-weight:bold">2026년 조달청 표준일위대가 공개(...</span></a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt02/35003">2025 하반기 발표 표준시장단가,시...</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt02/34960">2026년 건설기계의 기계경비 산출표</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt02/34928">2026년도 조달청 시설공사 환율 및 ...</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt02/34917">2026년 학술연구용역 인건비 기준 단가</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div>
+				</div>
+ 			</div>
+		</li>
+		<li>
+			<div class="fe_box">
+ 				<div class="fe_tit">
+					<a href="/tt03" class="more"><i class="xi-plus"></i></a> 
+					<h2>참고자료</h2>
+				</div>
+				<div class="fe_boardList">
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"> 
+ 
+<div class="noticeSlider marquee">
+	<ul class="noticeUL">
+				<li>
+						<a href="http://tteng.co.kr/20558">
+																		 엑셀변환 작업시 주의사항(공용) 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/20557">
+																		 tt(변경)데이타-&gt;(변경)엑셀로의 변환 
+									<span class="icon"></span>
+												</a>
+					</li>
+				</ul>
+</div>
+ </div></div>
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt03/35231">TT 내역서</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt03/34837">2025 배수로정비공사 내역서</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tt03/34784">2025섬종합발전사업</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div>
+				</div>
+ 			</div>
+		</li>
+		<li>
+			<div class="fe_box">
+ 				<div class="fe_tit">
+					<a href="/member02" class="more"><i class="xi-plus"></i></a> 
+					<h2>기타자료</h2>
+				</div>
+				<div class="fe_boardList">
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"> 
+ 
+<div class="noticeSlider marquee">
+	<ul class="noticeUL">
+			</ul>
+</div>
+ </div></div>
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/member02/34046">엔지니어링사업대가의 기준(20241...</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/member02/33346">[조달청] 입찰참가자격사전심사기...</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/member02/33345">[조달청] 시설공사 적격심사세부...</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/member02/33344">[조달청] 공사계약 종합심사낙찰...</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/member02/33342">[조달청] 건설엔지니어링사업자 ...</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div>
+				</div>
+ 			</div>
+		</li>
+		</ul>
+	</section>
+	<section class="connect">
+		<span class="noti">CONNECT WITH US</span>
+		<h1 class="tit">ONLINE APPLICATION</h1>
+		<ul>
+			<li>
+				<a href="/tteng_notice" class="ico"><i class="xi-community"></i><span class="blind">공지사항</span></a>
+				<h2>공지사항</h2>
+ 
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"> 
+ 
+<div class="noticeSlider marquee">
+	<ul class="noticeUL">
+				<li>
+						<a href="http://tteng.co.kr/34858">
+																		 <span style="font-weight:bold">2026년 사용자 필독사항</span> 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/34849">
+																		 <span style="font-weight:bold">프로그램 기술지원 종료 안내</span> 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/29240">
+																		 티티프로그램 교육 신청 안내 
+									<span class="icon"></span>
+												</a>
+					</li>
+				</ul>
+</div>
+ </div></div>
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tteng_notice/32502">2024~2025 사용자 필독사항</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tteng_notice/32204">티티 휴무기간 공지</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div>
+			</li>
+			<li>
+				<a href="/tteng_free"  class="ico"><i class="xi-users"></i><span class="blind">자유게시판</span></a>
+				<h2>자유게시판</h2>
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"> 
+ 
+<div class="noticeSlider marquee">
+	<ul class="noticeUL">
+				<li>
+						<a href="http://tteng.co.kr/30687">
+																		 회사검색(사업자등록번호/회사명/대표자... 
+									<span class="icon"></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/28338">
+																		 프로그램 교육 신청 안내 
+									<span class="icon"></span>
+												</a>
+					</li>
+					<li>
+						<a href="http://tteng.co.kr/23269">
+																		 티티 프로그램 제품가격 
+									<span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+												</a>
+					</li>
+				</ul>
+</div>
+ </div></div>
+<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"><div class="widgetContainer">
+                    <table class="widgetTableA" border="1" cellspacing="0">
+        <tbody>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tteng_free/35437">다운로드 후 기존데이터 공사명 없어짐</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tteng_free/35390">파일이 손상되어 열수 엇읍니다.</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tteng_free/35385">에러 코드  TTS/W   ver 9.30</a>
+                                                    <span class="icon"></span>
+                    </td>
+                </tr>
+                <tr>
+                <td class="title">
+                                    <a href="http://tteng.co.kr/tteng_free/35370">티티 사용시  F3 검색시 오류발생-010-3...</a>
+                                                    <span class="icon"><img src="http://tteng.co.kr/modules/document/tpl/icons//file.gif" alt="file" title="file" style="margin-right:2px;" /></span>
+                    </td>
+                </tr>
+                </tbody>
+    </table>
+        </div>
+</div></div>
+			</li>
+			<li>
+				<a href="/index.php?mid=tteng_service&act=dispBoardWrite"  class="ico"><i class="xi-download-square"></i><span class="blind">견적신청</span></a>
+				<h2>견적신청</h2>
+				<p>프로그램 견적 / 구입 / 교육을<br/>온라인에서 편리하게<br/>신청하실 수 있습니다</p>
+			</li>
+			<li>
+				<a href="https://open.kakao.com/o/sIx54F8b" target="_blank" class="ico"><i class="xi-kakaotalk"></i><span class="blind">카카오톡 상담문의 </span></a>
+				<h2>카카오톡 상담문의</h2>
+				<p>보다 편리하게 카카오톡으로 <br/>상담 받으실 수 있습니다. <br/>클릭하세요!</p>
+			</li>
+		</ul>
+	</section>
+</div>
+<!-- /WelcomeXE -->
+					<!-- /CONTENT -->
+	</div>
+	<!-- END:BODY -->
+	<footer class="footer" style="border-bottom-color:#CDA25A">
+	   <div class="f_info_area">
+		<div class="f_info callcenter">
+				<h2>고객센터</h2>
+				<h3><a href="tel:061-373-9002">061.373.9002</a></h3>
+				<ul>
+					<!--<li><span>070-7008-0029</span></li>
+					<li><span>팩스  061-544-9113</span></li>-->
+					<li>근무시간 : 평일 AM 9:00 ~ PM 6:00</li><br>
+					<h4><a href="/tteng_free/15422" target="_blank">원격 A/S요청</a></h4>
+				
+								
+					</ul>
+		</div>
+		<div class="f_info banking">
+				<h2>입금계좌</h2>
+				<ul>
+					<li><strong>광주은행 736-127-007386</strong></li>
+					<li><strong>농협 685-01-095336</strong></li>
+					<li>예금주 (주)티티엔지니어링</li>
+				</ul>
+				
+		</div>
+		<div class="f_info">
+			    <h2>잦은 문의사항 <a href="/faq"><i class="xi-plus"></i></a></h2>
+				<div class="xe-widget-wrapper " style=""><div style="*zoom:1;padding:0px 0px 0px 0px !important;"><div class="widgetContainer">
+                    <ul class="widgetA">
+                <li>
+                                                                                        <a href="http://tteng.co.kr/faq/15519" class="title">소수점 세자리수 이상의 요율적용 방법은 무엇인가요?(예;이윤)</a>
+                                                                                                </li>
+                <li>
+                                                                                        <a href="http://tteng.co.kr/faq/15517" class="title">내역서 화면에 적용된 데이터를 검색할 수 있는 방법은 무엇인가요?</a>
+                                                                                                </li>
+                <li>
+                                                                                        <a href="http://tteng.co.kr/faq/15523" class="title">회원이 주지해야 할 사항은 무엇인가요?</a>
+                                                                                                </li>
+                <li>
+                                                                                        <a href="http://tteng.co.kr/faq/15505" class="title">외부에서 받은 티티자료를 프로그램에 추가시키는 방법은 무엇인가요?</a>
+                                                                                                </li>
+                <li>
+                                                                                        <a href="http://tteng.co.kr/faq/15507" class="title">프로그램에 저장된 티티자료를 외부로 이동시키는 방법은 무엇인가요?</a>
+                                                                                                </li>
+            </ul>
+        </div>
+</div></div>
+		</div>
+</div> 
+		<div class="f_cr_area">
+ 									<div class="footer_menu">
+	<a href="/company">소개</a>
+	<a href="/provision">이용약관</a>
+	<a href="/privacy">개인정보취급방침</a>
+	<a href="#" onclick=fNewwin()>이메일주소무단수집거부</a>
+</div>				 
+		</div>
+		<p class="copyright">
+ 			<strong>(주)티티엔지니어링<span>/</span>주소  (58932) 전남 진도군 진도읍 진도대로 6630<span>/</span>전화  061-373-9002 / 070-7008-0029<span>/</span>팩스  061-544-9113</strong> 
+<span>copyright 2009 TTengineering co, Ltd. All rights reserved. </span> 		</p>
+	</footer>
+</div>
+<!-- TOP -->
+<a href="#" class="btn_top"><i class="xi-angle-up"><span class="blind">위로</span></i></a>
+<!-- /TOP -->
+<!-- Login widget -->
+<section class="login_widget" style="display:none">
+		<div class="ly_dimmed"></div>
+	<div class="signin">
+		<div class="login-header">
+			<h1>LOGIN</h1>
+		</div>
+		<div class="login-body">
+			<form action="https://tteng.co.kr:42701/index.php?act=procMemberLogin" method="post" autocomplete="off"><input type="hidden" name="error_return_url" value="/index.php?act=procFileOutput&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e" /><input type="hidden" name="mid" value="tteng_home" /><input type="hidden" name="vid" value="" />
+				<input type="hidden" name="act" value="procMemberLogin" />
+				<input type="hidden" name="success_return_url" value="http://tteng.co.kr/index.php?act=procFileOutput&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e" />
+				<input type="hidden" name="xe_validator_id" value="layouts/xedition/layout/1" />
+				<fieldset>
+					<legend class="blind">로그인</legend>
+					<div class="control-group">
+						<div class="group">
+							<input type="text" name="user_id" id="uemail" required="true" />
+							<span class="highlight"></span>
+							<span class="bar"></span>
+							<label class="info_label" for="uemail">아이디</label>
+						</div>
+						<div class="group">
+							<input type="password" name="password" id="upw" required="true" />
+							<span class="highlight"></span>
+							<span class="bar"></span>
+							<label class="info_label" for="upw">비밀번호</label>
+						</div>
+					</div>
+										<div class="control-group">
+						<label class="chk_label" for="keepid_opt">
+							<input type="checkbox" name="keep_signed" id="keepid_opt" value="Y" />
+							<span class="checkbox"></span> 로그인 유지						</label>
+						<div id="warning">
+							<p style="text-align:right;"><i class="xi-close"></i></p>
+							<p>브라우저를 닫더라도 로그인이 계속 유지될 수 있습니다.<br />로그인 유지 기능을 사용할 경우 다음 접속부터는 로그인할 필요가 없습니다.<br />단, 게임방, 학교 등 공공장소에서 이용 시 개인정보가 유출될 수 있으니 꼭 로그아웃을 해주세요.</p>
+							<div class="edge"></div>
+						</div>
+						<button type="submit" class="btn_submit">로그인</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<div class="login-footer">
+			<a href="https://tteng.co.kr:42701/index.php?act=dispMemberFindAccount&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e&amp;mid=tteng_home" rel="nofollow">ID/PW 찾기</a>
+			<span class="f_bar">|</span>
+			<a href="https://tteng.co.kr:42701/index.php?act=dispMemberSignUpForm&amp;file_srl=35132&amp;file_key=f52782b29dff21530d78cf1d56078b1e&amp;mid=tteng_home" rel="nofollow">회원가입</a>
+		</div>
+		<a href="#" class="btn_ly_popup"><span class="blind">닫기</span></a>
+	</div>
+	<script>
+	jQuery(function ($) {
+		var keep_msg = $("#warning");
+		$(".chk_label").on("mouseenter mouseleave focusin focusout", function (e) {
+			if(e.type == "mouseenter" || e.type == "focusin") {
+				keep_msg.show();
+			}
+			else {
+				keep_msg.hide();
+			}
+		});
+		$("#ly_login_btn, #ly_btn").click(function () {
+			$(".login_widget").show();
+			return false;
+		});
+		$(".btn_ly_popup").click(function () {
+			$(".login_widget").hide();
+			return false;
+		});
+		$("input").blur(function () {
+			var $this = $(this);
+			if ($this.val()) {
+				$this.addClass("used");
+			}
+			else {
+				$this.removeClass("used");
+			}
+		});
+	});
+	</script>
+</section><!-- /Login widget -->    
+<script>
+jQuery(document).ready(function () {
+	var swiper = new Swiper('.swiper-container', {
+	    autoplay: 6000,
+	    loop: true,
+	    pagination: '.swiper-pagination',
+	    paginationClickable: true
+	});
+	jQuery('.swiper-button-next').on('click', function(e){
+		e.preventDefault();
+		swiper.swipeNext();
+	});
+	jQuery('.swiper-button-prev').on('click', function(e){
+		e.preventDefault();
+		swiper.swipePrev();
+	});
+});
+</script><!-- ETC -->
+<div class="wfsr"></div>
+<script src="/addons/autolink/autolink.js?20190102093904"></script><script src="/common/js/plugins/ui/jquery-ui.min.js?20190102093905"></script><script src="/common/js/plugins/ui/jquery.ui.datepicker-ko.js?20190102093905"></script><script src="/addons/resize_image/js/resize_image.min.js?20190102093904"></script></body>
+</html>
