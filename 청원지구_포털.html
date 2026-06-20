@@ -213,6 +213,54 @@
   .md-body th{background:#eef2f9;}
   .md-body a{color:#2f5fb3;}
   .md-body img{max-width:100%;}
+
+  /* 인쇄 — 활성 패널만 (Ctrl+P · 인쇄 메뉴 공통) */
+  @media print {
+    html, body{
+      height:auto!important; overflow:visible!important;
+      display:block!important; background:#fff!important;
+    }
+    .top, footer.bar{display:none!important;}
+    .workspace{display:block!important; min-height:0!important;}
+    .pane{
+      display:none!important; border:none!important;
+      width:100%!important; max-width:none!important;
+      min-height:0!important; page-break-inside:auto;
+    }
+    .pane-head{
+      background:#fff!important; border-bottom:1px solid #ccc!important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+    }
+    body.print-scope-left .pane.left{display:flex!important;}
+    body.print-scope-right .pane.right{display:flex!important;}
+    body.print-scope-right.print-ref-preview #refs-list{display:none!important;}
+    .pane-body{
+      position:static!important; overflow:visible!important;
+      height:auto!important; min-height:0!important;
+    }
+    #main-frame, #main-placeholder{
+      position:static!important; width:100%!important;
+      height:auto!important; min-height:0!important; overflow:visible!important;
+    }
+    #main-placeholder .md-body,
+    #main-placeholder .xlsx-wrap,
+    #main-placeholder .xlsx-body{overflow:visible!important; max-height:none!important;}
+    .refs{overflow:visible!important; display:block!important;}
+    .ref-preview{
+      border-top:none!important; overflow:visible!important;
+      display:block!important; height:auto!important;
+    }
+    .ref-preview[hidden]{display:none!important;}
+    .ref-preview .xlsx-body,
+    .ref-preview .md-body{
+      overflow:visible!important; max-height:none!important; height:auto!important;
+    }
+    .ref-img{max-width:100%; page-break-inside:avoid;}
+    .xlsx-tabs{display:none!important;}
+  }
+  @media screen {
+    .pane-focused .pane-head{box-shadow:inset 0 -2px 0 var(--blue);}
+  }
 </style>
 <script src="assets/vendor/xlsx.full.min.js"></script>
 <script src="assets/vendor/marked.min.js"></script>
@@ -660,6 +708,85 @@
   const refTag = document.getElementById("ref-tag");
   const tabBtns = document.querySelectorAll(".tab[data-tab]");
   const dropNav = document.getElementById("drop-nav");
+  const paneLeft = document.querySelector(".pane.left");
+  const paneRight = document.querySelector(".pane.right");
+
+  let activePane = "left";
+  let _printFrameHeight = "";
+
+  function setActivePane(pane) {
+    activePane = pane === "right" ? "right" : "left";
+    if (paneLeft) paneLeft.classList.toggle("pane-focused", activePane === "left");
+    if (paneRight) paneRight.classList.toggle("pane-focused", activePane === "right");
+  }
+
+  function applyPrintScope(pane) {
+    const p = pane === "right" ? "right" : "left";
+    document.body.classList.remove("print-scope-left", "print-scope-right", "print-ref-preview");
+    document.body.classList.add(p === "right" ? "print-scope-right" : "print-scope-left");
+    if (p === "right" && refPreview && !refPreview.hidden) {
+      document.body.classList.add("print-ref-preview");
+    }
+    if (p === "left" && !frame.hidden) {
+      try {
+        const h = frame.contentDocument.documentElement.scrollHeight;
+        _printFrameHeight = frame.style.height;
+        frame.style.height = Math.max(h, 400) + "px";
+      } catch (_) { /* iframe 미로드 */ }
+    }
+  }
+
+  function clearPrintScope() {
+    document.body.classList.remove("print-scope-left", "print-scope-right", "print-ref-preview");
+    if (_printFrameHeight !== undefined) {
+      frame.style.height = _printFrameHeight;
+      _printFrameHeight = "";
+    }
+  }
+
+  function printActivePane() {
+    if (activePane === "left" && !frame.hidden) {
+      try {
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+        return;
+      } catch (_) { /* placeholder 등 폴백 */ }
+    }
+    applyPrintScope(activePane);
+    window.print();
+  }
+
+  [paneLeft, paneRight].forEach(el => {
+    if (!el) return;
+    el.addEventListener("pointerdown", () => setActivePane(el === paneRight ? "right" : "left"));
+    el.addEventListener("focusin", () => setActivePane(el === paneRight ? "right" : "left"));
+  });
+  setActivePane("left");
+
+  document.addEventListener("keydown", e => {
+    if (!(e.ctrlKey || e.metaKey) || (e.key !== "p" && e.key !== "P")) return;
+    e.preventDefault();
+    printActivePane();
+  }, true);
+
+  window.addEventListener("beforeprint", () => {
+    if (!document.body.classList.contains("print-scope-left") &&
+        !document.body.classList.contains("print-scope-right")) {
+      applyPrintScope(activePane);
+    }
+  });
+  window.addEventListener("afterprint", clearPrintScope);
+
+  frame.addEventListener("load", () => {
+    try {
+      frame.contentWindow.addEventListener("keydown", e => {
+        if (!(e.ctrlKey || e.metaKey) || (e.key !== "p" && e.key !== "P")) return;
+        setActivePane("left");
+        e.preventDefault();
+        frame.contentWindow.print();
+      }, true);
+    } catch (_) {}
+  });
 
   function closeAllDrops() {
     document.querySelectorAll(".tab-drop.open").forEach(el => {
@@ -725,6 +852,8 @@
     if (xlsxLinks.length === 1) {
       const a = xlsxLinks[0];
       openRefPreview(a.getAttribute("href"), (a.textContent || "").trim(), "xlsx");
+    } else {
+      setActivePane("left");
     }
     location.hash = id;
   }
@@ -742,6 +871,7 @@
   }
 
   function openRefPreview(encPath, label, kind) {
+    setActivePane("right");
     refPreview.hidden = false;
     markRefActive(encPath);
     if (kind === "md") mountMdViewer(refPreview, encPath, label);
