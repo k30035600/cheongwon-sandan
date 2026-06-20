@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 청원지구 공내역서 — 표준단가 산출 총괄표</title>
+<style>
+  :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;
+        --ok:#1a7f37;--warn:#b25e00;--bad:#b3261e;--mid:#7a5cc0;}
+  *{box-sizing:border-box;}
+  body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;margin:0;
+       background:var(--bg);color:#1c2430;line-height:1.6;font-size:15px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 22px 64px;}
+  header.doc{border-bottom:3px solid var(--navy);padding-bottom:16px;margin-bottom:8px;}
+  header.doc h1{font-size:23px;color:var(--navy);margin:0 0 6px;letter-spacing:-.5px;}
+  .meta{color:#5a6675;font-size:13px;} .meta b{color:#36424f;}
+  h2{font-size:18px;color:var(--navy);margin:30px 0 10px;padding-left:10px;border-left:5px solid var(--blue);}
+  .kpis{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0;}
+  .kpi{flex:1 1 180px;background:#fff;border:1px solid var(--line);border-radius:10px;
+       padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .kpi .lab{font-size:12.5px;color:#6b7785;} .kpi .val{font-size:22px;font-weight:800;color:var(--navy);margin-top:2px;}
+  .kpi .sub{font-size:12px;color:#8a94a3;margin-top:2px;}
+  .summary{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);
+           border-radius:8px;padding:14px 20px;margin:16px 0;}
+  .summary ol{margin:0;padding-left:22px;} .summary li{margin:5px 0;}
+  table{width:100%;border-collapse:collapse;background:#fff;margin:8px 0 4px;
+        border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:12.8px;}
+  th,td{padding:8px 9px;border:1px solid var(--line);vertical-align:middle;}
+  th{background:#eaf0f8;color:var(--navy);font-weight:700;text-align:center;}
+  td.l{text-align:left;} td.r{text-align:right;white-space:nowrap;} td.c{text-align:center;white-space:nowrap;}
+  tfoot td,tr.total td{font-weight:800;background:#fff2cc;}
+  .bar{height:9px;border-radius:5px;background:#e6ecf5;overflow:hidden;}
+  .bar>span{display:block;height:100%;}
+  .mat{background:#5b8def;} .lab{background:#27ae60;} .exp{background:#e67e22;}
+  .badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700;color:#fff;}
+  .b-ok{background:var(--ok);} .b-mid{background:var(--mid);} .b-warn{background:var(--warn);} .b-bad{background:var(--bad);}
+  .note{background:#fff7ed;border:1px solid #f0c98a;border-radius:8px;padding:12px 18px;margin:14px 0;font-size:13.5px;}
+  .note b{color:var(--warn);}
+  .note ol{margin:6px 0 0;padding-left:20px;} .note li{margin:4px 0;}
+  code{background:#eef2f8;padding:1px 5px;border-radius:4px;font-size:12px;}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:#8a94a3;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc">
+  <h1>화성 청원지구 공내역서 — 표준단가 산출 총괄표</h1>
+  <div class="meta">
+    <b>작성일</b> 2026. 6. 19. &nbsp;|&nbsp;
+    <b>범위</b> 01·02·04·05·06·07 공내역서 표준단가·협회단가 산출 결과 통합 &nbsp;|&nbsp;
+    <b>합계 산식</b> 01+02+04+05+06+07 (<b>03 전기(지구외)=02 중복·#REF! → 제외</b>)
+  </div>
+  <div class="meta" style="margin-top:4px">
+    <b>금액 성격</b> 직접공사비(재료·노무·경비) 추정 — <b>제경비·부가가치세·원단위 절사 미포함</b>
+  </div>
+</header>
+
+<div class="kpis">
+  <div class="kpi"><div class="lab">직접공사비 합계</div><div class="val">약 62.48억</div><div class="sub">6,247,504,709원</div></div>
+  <div class="kpi"><div class="lab">재료비</div><div class="val">15.5억</div><div class="sub">1,551,879,572원 · 24.8%</div></div>
+  <div class="kpi"><div class="lab">노무비</div><div class="val">40.2억</div><div class="sub">4,015,732,330원 · 64.3%</div></div>
+  <div class="kpi"><div class="lab">경비</div><div class="val">6.8억</div><div class="sub">679,892,807원 · 10.9%</div></div>
+  <div class="kpi"><div class="lab">매칭률</div><div class="val">64.2%</div><div class="sub">매칭 785 / 전체 1,223건</div></div>
+</div>
+
+<div class="summary">
+  <ol>
+    <li><b>직접공사비 합계</b> — <b>약 62.5억원</b>(6,247,504,709원). <span class="meta">※ 물가정보 철근·형강 단가 반영(이형철근 952천원/톤 등, 크레인 오매칭 정정). 03 전기(지구외)는 02와 동일 내역서(중복·#REF!)로 합계에서 제외.</span></li>
+    <li><b>재료비</b> 15.5억 · <b>노무비</b> 40.2억 · <b>경비</b> 6.8억.</li>
+    <li><b>매칭</b> 785 / <b>미매칭</b> 250 / <b>전체</b> 1,223건(매칭률 <b>64.2%</b>).</li>
+    <li><b>검토</b> 188건 — 금액 합계에 포함(매칭+검토 = 973건).</li>
+  </ol>
+</div>
+
+<h2>1. 내역서별 직접공사비</h2>
+<table>
+  <thead><tr>
+    <th style="width:34px">No</th><th style="width:170px">구분</th>
+    <th style="width:110px">재료비</th><th style="width:110px">노무비</th><th style="width:100px">경비</th>
+    <th style="width:120px">합계</th><th style="width:62px">합계(억)</th>
+  </tr></thead>
+  <tbody>
+    <tr><td class="c">01</td><td class="l">토목</td><td class="r">369,069,519</td><td class="r">1,757,960,020</td><td class="r">258,997,412</td><td class="r">2,386,026,951</td><td class="r">23.86</td></tr>
+    <tr><td class="c">01</td><td class="l">조경</td><td class="r">8,039,640</td><td class="r">106,764,222</td><td class="r">2,136,313</td><td class="r">116,940,175</td><td class="r">1.17</td></tr>
+    <tr><td class="c">02</td><td class="l">전기설비</td><td class="r">496,416,069</td><td class="r">184,025,686</td><td class="r">6,585,391</td><td class="r">687,027,145</td><td class="r">6.87</td></tr>
+    <tr><td class="c">04</td><td class="l">진입도로</td><td class="r">123,409,916</td><td class="r">392,785,780</td><td class="r">43,512,215</td><td class="r">559,707,911</td><td class="r">5.60</td></tr>
+    <tr><td class="c">05</td><td class="l">화성 청원로(회전교차로)</td><td class="r">214,380,064</td><td class="r">512,094,488</td><td class="r">34,722,077</td><td class="r">761,196,629</td><td class="r">7.61</td></tr>
+    <tr><td class="c">06</td><td class="l">개발행위</td><td class="r">340,564,364</td><td class="r">1,062,102,134</td><td class="r">302,481,087</td><td class="r">1,705,147,585</td><td class="r">17.05</td></tr>
+    <tr><td class="c">07</td><td class="l">건설폐기물처리</td><td class="r">0</td><td class="r">0</td><td class="r">31,458,312</td><td class="r">31,458,312</td><td class="r">0.31</td></tr>
+  </tbody>
+  <tfoot><tr class="total"><td class="c">계</td><td class="l">01·02·04~07</td><td class="r">1,551,879,572</td><td class="r">4,015,732,330</td><td class="r">679,892,807</td><td class="r">6,247,504,709</td><td class="r">62.48</td></tr></tfoot>
+</table>
+<p class="meta" style="margin-top:4px">※ <b>03 전기(지구외) 제외</b> — 02와 품목 209개가 100% 동일한 복사본이고 값 셀이 전부 <code>#REF!</code>(깨진 수식). 02 파일이 지구내+지구외 전체를 포함하므로 03을 더하면 약 6.87억 이중계상됨.</p>
+
+<h2>2. 재료·노무·경비 구성</h2>
+<table>
+  <thead><tr><th style="width:90px">구분</th><th style="width:140px">금액(원)</th><th style="width:70px">비율</th><th>구성</th></tr></thead>
+  <tbody>
+    <tr><td class="c">재료비</td><td class="r">1,551,879,572</td><td class="c">24.8%</td><td><div class="bar"><span class="mat" style="width:24.8%"></span></div></td></tr>
+    <tr><td class="c">노무비</td><td class="r">4,015,732,330</td><td class="c">64.3%</td><td><div class="bar"><span class="lab" style="width:64.3%"></span></div></td></tr>
+    <tr><td class="c">경비</td><td class="r">679,892,807</td><td class="c">10.9%</td><td><div class="bar"><span class="exp" style="width:10.9%"></span></div></td></tr>
+  </tbody>
+  <tfoot><tr class="total"><td class="c">합계</td><td class="r">6,247,504,709</td><td class="c">100%</td><td></td></tr></tfoot>
+</table>
+
+<h2>3. 매칭·검토·미매칭 현황 (내역서별)</h2>
+<table>
+  <thead><tr>
+    <th style="width:30px">No</th><th style="width:150px">구분</th>
+    <th style="width:54px">매칭</th><th style="width:54px">검토</th><th style="width:60px">미매칭</th><th style="width:50px">전체</th>
+    <th style="width:64px">매칭률</th><th>주요 미매칭 원인</th>
+  </tr></thead>
+  <tbody>
+    <tr><td class="c">01</td><td class="l">토목</td><td class="r">290</td><td class="r">106</td><td class="r">97</td><td class="r">493</td><td class="c"><span class="badge b-mid">58.8%</span></td><td class="l">화강석 경계석 보정 필요(A) · 특수관/이형관 규격 유사도 미달(B)</td></tr>
+    <tr><td class="c">01</td><td class="l">조경</td><td class="r">20</td><td class="r">7</td><td class="r">56</td><td class="r">83</td><td class="c"><span class="badge b-bad">24.1%</span></td><td class="l">조경 수목 자재가 표준단가 폐지(A) · 조경일위·forestinfo 별도 보완</td></tr>
+    <tr><td class="c">02</td><td class="l">전기설비</td><td class="r">208</td><td class="r">0</td><td class="r">1</td><td class="r">209</td><td class="c"><span class="badge b-ok">99.5%</span></td><td class="l">크레인 10톤 — 원본 「단위」 공란(C)</td></tr>
+    <tr><td class="c">04</td><td class="l">진입도로</td><td class="r">96</td><td class="r">20</td><td class="r">36</td><td class="r">152</td><td class="c"><span class="badge b-mid">63.2%</span></td><td class="l">경계석류·부대공 특수품목 유사도 미달(B) · 제경비·VAT 식(1) 요율행(D)</td></tr>
+    <tr><td class="c">05</td><td class="l">화성 청원로(회전교차로)</td><td class="r">91</td><td class="r">22</td><td class="r">34</td><td class="r">147</td><td class="c"><span class="badge b-mid">61.9%</span></td><td class="l">경계석류·표지·신호 부대품목 유사도 미달(B) · 식(1) 요율행(D)</td></tr>
+    <tr><td class="c">06</td><td class="l">개발행위</td><td class="r">78</td><td class="r">33</td><td class="r">26</td><td class="r">137</td><td class="c"><span class="badge b-mid">56.9%</span></td><td class="l">규격 세분·특수 품목 유사도 미달(B) · 식(1) 요율행(D)</td></tr>
+    <tr><td class="c">07</td><td class="l">건설폐기물처리</td><td class="r">2</td><td class="r">0</td><td class="r">0</td><td class="r">2</td><td class="c"><span class="badge b-ok">100%</span></td><td class="l">없음(협회단가 100% 적용)</td></tr>
+  </tbody>
+  <tfoot><tr class="total"><td class="c">계</td><td class="l">01·02·04~07</td><td class="r">785</td><td class="r">188</td><td class="r">250</td><td class="r">1,223</td><td class="c">64.2%</td><td class="l">유형 A~D는 「4. 미매칭 원인 상세」 참조</td></tr></tfoot>
+</table>
+<p class="meta" style="margin-top:4px">※ <b>매칭</b>=단가 매칭 확정(전기 「원본」 기입 포함) · <b>미매칭</b>=미매칭+미산출 · <b>전체</b>=매칭+검토+미매칭. 금액은 <b>매칭+검토+원본</b> 건만 반영, <b>미매칭·미산출은 금액 0</b>(누락분이므로 실제 총액은 더 커질 수 있음).</p>
+
+<h2>4. 미매칭 원인 상세</h2>
+<p class="meta">미매칭 250건은 다음 4개 유형으로 정리됩니다. <b>금액에 반영되지 않은 누락분</b>이므로, A·C 유형은 보정 시 총액이 증가합니다.</p>
+<table>
+  <thead><tr>
+    <th style="width:34px">유형</th><th style="width:170px">원인</th><th>설명 · 해당 내역서</th><th style="width:200px">보정 방법</th>
+  </tr></thead>
+  <tbody>
+    <tr><td class="c"><span class="badge b-bad">A</span></td><td class="l"><b>표준단가 미수록</b></td>
+        <td class="l">① 조경 수목·잔디 등 식재 자재 — 2021년 수목 표준단가 고시 폐지로 표준 DB에 단가 없음(<b>01 조경</b> 83건 중 매칭 20건). ② 화강석 경계석 — 표준 DB에 콘크리트 「경계블록」만 있고 화강석 단가 없음(01·04·05).</td>
+        <td class="l">거래실례가(물가정보·견적 시세) 별도 입력. 화강석은 m·ea 환산값에 화강석 시세로 재료비 보정</td></tr>
+    <tr><td class="c"><span class="badge b-mid">B</span></td><td class="l"><b>품명·규격 유사도 임계(0.56) 미달</b></td>
+        <td class="l">특수관·이형관·밸브, 전기/신호 부대자재 등 규격이 세분되어 표준 품명과의 매칭 점수가 임계 미달(01·04·05·06의 다수).</td>
+        <td class="l">유사 품명 수동 지정 또는 일위대가 직접 작성. <code>토목_미매칭_수동단가입력표.xlsx</code> 활용</td></tr>
+    <tr><td class="c"><span class="badge b-warn">C</span></td><td class="l"><b>원본 「단위」 누락</b></td>
+        <td class="l">전기 02의 크레인 10톤 행은 단가는 존재하나 원본의 단위 셀이 공란이라 수량×단가 산출 불가(1건, 미산출).</td>
+        <td class="l">원본 단위(예: hr/대) 보정 시 즉시 산출 — 단가 자체는 단가조사에 있음</td></tr>
+    <tr><td class="c"><span class="badge b-bad">D</span></td><td class="l"><b>요율·식 행(매칭 대상 아님)</b></td>
+        <td class="l">제경비·부가세 <code>식(1)</code>, 품질관리비 등은 단가 매칭 항목이 아니라 직접공사비 확정 후 <b>별도 요율 산정</b> 대상(04·05·06·01).</td>
+        <td class="l">「5. 간접비 적용」 체계로 별도 계산(미매칭이 아닌 정상)</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <b>보완 단가원 점검(2026-06-19).</b> 조달청 「나라장터 가격정보」 OpenAPI 수집분은 <code>05_내역서\조달청_미매칭점검.xlsx</code>에, forestinfo 조경수 관측시세 점검분은 <code>05_내역서\조경수_미매칭점검.xlsx</code>에 검토용으로 저장했습니다.
+  <br>※ forestinfo는 산림조합중앙회·임산물유통정보시스템의 조경수 관측시세로, 한국농촌경제원 임업관측 참고가이며 정부 고시가가 아닙니다. 그린나우·트리디비·트리4989는 실거래·직거래 단가 확인용 보조 단가원으로 정리했으나 로그인·유료·공개 API 부재로 자동 합산하지 않았습니다.
+</div>
+
+<h2>5. 간접비(부대비용) 적용 가능 여부</h2>
+<div class="note">
+  <b>결론 — 적용 가능합니다.</b> 본 총괄표의 62.48억은 <b>「직접공사비」(재료+노무+경비)</b>까지만 산출한 것이며, 그 위에 <b>표준 제비율(간접비)</b>을 적용하면 <b>총공사비(도급액)</b>를 산출할 수 있습니다.
+  (04·05·06 원본에는 제경비·부가세 <code>식(1)</code> 행이 이미 별도로 들어 있어, 직접노무비 확정 후 요율로 계산하도록 설계돼 있습니다.)
+</div>
+<p class="meta">국가계약 「예정가격 작성기준」(기획재정부 계약예규) 및 국토교통부 「(건설)공사 원가계산 제비율 적용기준」에 따른 표준 산출 순서:</p>
+<table>
+  <thead><tr><th style="width:40px">단계</th><th style="width:170px">항목</th><th>산정 기준(요지)</th></tr></thead>
+  <tbody>
+    <tr><td class="c">①</td><td class="l">직접공사비</td><td class="l">재료비 + 직접노무비 + 직접경비 <b>(= 본 총괄표 6,247,504,709원)</b></td></tr>
+    <tr><td class="c">②</td><td class="l">간접노무비</td><td class="l">직접노무비 × 간접노무비율(공종·기간별, 통상 수 %~십수 %)</td></tr>
+    <tr><td class="c">③</td><td class="l">경비(산출경비)</td><td class="l">산재·고용·건강·연금·노인장기요양 보험료, 산업안전보건관리비, 환경보전비, 퇴직공제부금비, 기타경비 등 — 각 법정 요율</td></tr>
+    <tr><td class="c">④</td><td class="l">일반관리비</td><td class="l">(① + ② + ③) × 일반관리비율(공사규모별 체감, 보통 6% 이내)</td></tr>
+    <tr><td class="c">⑤</td><td class="l">이윤</td><td class="l">(직접노무비 + 간접노무비 + 경비 + 일반관리비) × 이윤율(15% 이내)</td></tr>
+    <tr><td class="c">⑥</td><td class="l">공급가액</td><td class="l">① + ② + ③ + ④ + ⑤</td></tr>
+    <tr><td class="c">⑦</td><td class="l">부가가치세</td><td class="l">공급가액 × 10%</td></tr>
+    <tr class="total"><td class="c">⑧</td><td class="l">도급액(총공사비)</td><td class="l">공급가액 + 부가가치세</td></tr>
+  </tbody>
+</table>
+<div class="note">
+  <b>주의.</b> ① 요율(②~⑤)은 <b>공사규모·공종·연도</b>별 기준에 따라 달라지므로, 정확한 도급액은 해당 연도 기준을 적용해 별도 산정해야 합니다. ② 본 산출은 노무비 비중이 <b>64.3%</b>로 높아, 간접노무비·이윤 적용 시 총공사비가 직접공사비 대비 큰 폭으로 증가합니다. ③ <b>미매칭 A·C 유형(누락 단가)을 먼저 보정</b>한 뒤 제비율을 적용해야 총액 왜곡이 없습니다. ④ 상세 산출은 <code>총괄표.xlsx</code> 「원가계산서」·「요율비교」 시트 참조.
+</div>
+
+<h2>6. 간접비 자동계산 — 총공사비(도급액)</h2>
+<div class="note">
+  <b>적용 요율 = 03_화성 청원지구 전기설비.xlsx 「원가」 시트 제비율.</b> 발주처 지정 요율이 확정되면 <code>tools\calc_overhead.py</code>의 <code>ELECTRIC_RATES</code>만 교체하면 결과가 갱신됩니다. 본 산출은 <b>01·02·04·05·06·07 직접공사비 합계(03 제외)</b>에 일괄 적용한 <b>개략 추정</b>이며, 한전수탁비(5,131,000원) 등 전기 전용 고정액은 미포함입니다.
+</div>
+<div class="kpis">
+  <div class="kpi"><div class="lab">직접공사비</div><div class="val">62.48억</div><div class="sub">6,247,504,706원</div></div>
+  <div class="kpi"><div class="lab">간접비·일반관리비·이윤</div><div class="val">+33.5억</div><div class="sub">순공사원가+일반관리비+이윤 − 직접공사비</div></div>
+  <div class="kpi"><div class="lab">공급가액</div><div class="val">96.01억</div><div class="sub">9,600,880,499원</div></div>
+  <div class="kpi"><div class="lab">부가가치세</div><div class="val">9.60억</div><div class="sub">960,088,050원</div></div>
+  <div class="kpi"><div class="lab">도급액(총공사비)</div><div class="val">약 105.6억</div><div class="sub">10,560,968,549원 · 직접비의 1.690배</div></div>
+</div>
+
+<h3 style="margin:14px 0 6px;font-size:14.5px;color:#243b58">적용 요율표</h3>
+<table>
+  <thead><tr><th style="width:170px">항목</th><th style="width:80px">요율</th><th>적용 기준(대상액)</th></tr></thead>
+  <tbody>
+    <tr><td class="l">간접노무비</td><td class="c">16.70%</td><td class="l">× 직접노무비</td></tr>
+    <tr><td class="l">산재보험료</td><td class="c">3.56%</td><td class="l">× 노무비(직접+간접)</td></tr>
+    <tr><td class="l">고용보험료</td><td class="c">1.01%</td><td class="l">× 노무비(직접+간접)</td></tr>
+    <tr><td class="l">퇴직금(퇴직공제부금)</td><td class="c">2.30%</td><td class="l">× 직접노무비</td></tr>
+    <tr><td class="l">안전관리비</td><td class="c">2.07%</td><td class="l">× (재료비+직접노무비)</td></tr>
+    <tr><td class="l">기타경비</td><td class="c">5.3%</td><td class="l">× (재료비+노무비계)</td></tr>
+    <tr><td class="l">국민건강보험료</td><td class="c">3.595%</td><td class="l">× 직접노무비</td></tr>
+    <tr><td class="l">국민연금보험료</td><td class="c">4.75%</td><td class="l">× 직접노무비</td></tr>
+    <tr><td class="l">노인장기요양보험료</td><td class="c">13.14%</td><td class="l">× 건강보험료</td></tr>
+    <tr><td class="l">석면분담금</td><td class="c">0.006%</td><td class="l">× 노무비(직접+간접)</td></tr>
+    <tr><td class="l">임금채권부담금</td><td class="c">0.09%</td><td class="l">× 노무비(직접+간접)</td></tr>
+    <tr><td class="l">일반관리비</td><td class="c">6.5%</td><td class="l">× (재료+노무+경비)</td></tr>
+    <tr><td class="l">이윤</td><td class="c">15.0%</td><td class="l">× (노무+경비+일반관리비), 재료비 제외</td></tr>
+    <tr><td class="l">부가가치세</td><td class="c">10.0%</td><td class="l">× 공급가액</td></tr>
+  </tbody>
+</table>
+
+<h3 style="margin:14px 0 6px;font-size:14.5px;color:#243b58">산출 내역</h3>
+<table>
+  <thead><tr><th style="width:40px">단계</th><th style="width:210px">항목</th><th style="width:140px">금액(원)</th><th>산식</th></tr></thead>
+  <tbody>
+    <tr class="total"><td class="c">①</td><td class="l">직접공사비</td><td class="r">6,247,504,706</td><td class="l">재료비+직접노무비+직접경비</td></tr>
+    <tr><td class="c"></td><td class="l" style="padding-left:22px">· 재료비</td><td class="r">1,551,879,570</td><td class="l"></td></tr>
+    <tr><td class="c"></td><td class="l" style="padding-left:22px">· 직접노무비</td><td class="r">4,015,732,330</td><td class="l"></td></tr>
+    <tr><td class="c"></td><td class="l" style="padding-left:22px">· 직접경비</td><td class="r">679,892,807</td><td class="l"></td></tr>
+    <tr><td class="c">②</td><td class="l">간접노무비</td><td class="r">670,627,299</td><td class="l">직접노무비 × 16.7%</td></tr>
+    <tr><td class="c"></td><td class="l"><b>노무비계(직접+간접)</b></td><td class="r"><b>4,686,359,629</b></td><td class="l"></td></tr>
+    <tr><td class="c">③</td><td class="l">산재보험료</td><td class="r">166,834,403</td><td class="l">노무비계 × 3.56%</td></tr>
+    <tr><td class="c">③</td><td class="l">고용보험료</td><td class="r">47,332,232</td><td class="l">노무비계 × 1.01%</td></tr>
+    <tr><td class="c">③</td><td class="l">퇴직금(퇴직공제부금)</td><td class="r">92,361,844</td><td class="l">직접노무비 × 2.3%</td></tr>
+    <tr><td class="c">③</td><td class="l">안전관리비</td><td class="r">115,249,566</td><td class="l">(재료비+직접노무비) × 2.07%</td></tr>
+    <tr><td class="c">③</td><td class="l">기타경비</td><td class="r">330,626,678</td><td class="l">(재료비+노무비계) × 5.3%</td></tr>
+    <tr><td class="c">③</td><td class="l">국민건강보험료</td><td class="r">144,365,577</td><td class="l">직접노무비 × 3.595%</td></tr>
+    <tr><td class="c">③</td><td class="l">국민연금보험료</td><td class="r">190,747,286</td><td class="l">직접노무비 × 4.75%</td></tr>
+    <tr><td class="c">③</td><td class="l">노인장기요양보험료</td><td class="r">18,969,637</td><td class="l">건강보험료 × 13.14%</td></tr>
+    <tr><td class="c">③</td><td class="l">석면분담금</td><td class="r">281,182</td><td class="l">노무비계 × 0.006%</td></tr>
+    <tr><td class="c">③</td><td class="l">임금채권부담금</td><td class="r">4,217,724</td><td class="l">노무비계 × 0.09%</td></tr>
+    <tr><td class="c"></td><td class="l"><b>경비계(직접경비+산출경비)</b></td><td class="r"><b>1,790,878,935</b></td><td class="l"></td></tr>
+    <tr class="total"><td class="c">⑥</td><td class="l">순공사원가</td><td class="r">8,029,118,134</td><td class="l">재료비+노무비계+경비계</td></tr>
+    <tr><td class="c">⑦</td><td class="l">일반관리비</td><td class="r">521,892,679</td><td class="l">(재료+노무+경비) × 6.5%</td></tr>
+    <tr><td class="c">⑧</td><td class="l">이윤</td><td class="r">1,049,869,686</td><td class="l">(노무+경비+일반관리비) × 15.0%</td></tr>
+    <tr><td class="c"></td><td class="l"><b>공급가액</b></td><td class="r"><b>9,600,880,499</b></td><td class="l">순공사원가+일반관리비+이윤</td></tr>
+    <tr><td class="c"></td><td class="l">부가가치세</td><td class="r">960,088,050</td><td class="l">공급가액 × 10%</td></tr>
+    <tr class="total"><td class="c">★</td><td class="l">도급액(총공사비)</td><td class="r">10,560,968,549</td><td class="l">공급가액 + 부가세 (직접비의 1.690배)</td></tr>
+  </tbody>
+</table>
+<div class="note">
+  <b>주의.</b> ① 위 요율은 03 전기 원가 시트와 동일 수치입니다. ② 미매칭 A·C 유형(누락 단가)을 보정하면 직접공사비가 늘어 도급액도 비례 증가합니다. ③ 04·05·06 원본 제경비·VAT <code>식(1)</code> 행과 이중계상 여부는 별도 확인이 필요합니다.
+</div>
+
+<h2>7. 원본 · 단가 출처</h2>
+<table>
+  <thead><tr><th style="width:34px">No</th><th style="width:240px">원본 파일</th><th>단가 출처 · 비고</th></tr></thead>
+  <tbody>
+    <tr><td class="c">01</td><td class="l"><code>01_화성 청원지구 토목.XLS</code></td><td class="l">표준시장단가2026 + 시장시공가격 + 표준일위대가2026 + 물가정보2026(철근·형강). 물가정보 이형철근 952천원/톤·H형강 등 반영</td></tr>
+    <tr><td class="c">01</td><td class="l"><code>01_화성 청원지구 조경.XLS</code></td><td class="l">표준시장단가2026 + 시장시공가격 + 표준일위대가2026 + 조경일위2024(폴백). 조경 수목 자재가 표준단가 폐지 → 별도 시세</td></tr>
+    <tr><td class="c">02</td><td class="l"><code>02_화성 청원지구 전기설비.xlsx</code></td><td class="l">파일 내장 일위대가(품셈) + 합산자재 + 단가조사(중기) + 표준시장단가. 품셈 88 + 합산자재 46 + 크레인트럭, 미산출 3→1. <b>지구내+지구외 전체 포함</b></td></tr>
+    <tr style="opacity:.6"><td class="c">03</td><td class="l"><code>03_…전기설비(지구외).xlsx</code></td><td class="l"><b>제외</b> — 02와 품목 209개 100% 동일한 복사본, 값 셀 전부 <code>#REF!</code>(원본 깨진 수식). 이중계상 방지를 위해 합계·도급액에서 제외</td></tr>
+    <tr><td class="c">04</td><td class="l"><code>04_…진입도로 실시설계.XLS</code></td><td class="l">표준시장단가2026 + 시장시공가격 + 표준일위대가2026 + 물가정보2026(철근·형강). 제경비·VAT <code>식(1)</code> 별도, 미매칭 38→36</td></tr>
+    <tr><td class="c">05</td><td class="l"><code>05_화성 청원로(회전교차로).XLS</code></td><td class="l">표준시장단가2026 + 시장시공가격 + 표준일위대가2026 + 물가정보2026(철근·형강). 제경비·VAT <code>식(1)</code> 별도, 미매칭 40→34</td></tr>
+    <tr><td class="c">06</td><td class="l"><code>06_…산업유통형 개발행위.XLS</code></td><td class="l">표준시장단가2026 + 시장시공가격 + 표준일위대가2026. 미매칭 26</td></tr>
+    <tr><td class="c">07</td><td class="l"><code>07_화성 청원지구 건설폐기물처리.XLS</code></td><td class="l">동일 파일 경비 시트(26. 협회단가). 경비 100%(재·노 0)</td></tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <b>유의사항</b>
+  <ol>
+    <li><b>전기(02)</b> — 파일 내장 일위대가(품셈)·합산자재·단가조사(중기) 우선 적용해 208/209건(99.5%) 산출. 크레인트럭 20ton은 단가조사(94,126/hr)로 산출, 미산출 1건은 크레인 10톤(원본 단위 누락). 02 파일이 지구내+지구외 전체를 포함. <b>03(지구외)은 02의 중복 복사본(#REF!)이라 제외</b>(2026-06-18).</li>
+    <li><b>토목(01·04·05·06)</b> — 원본에 품셈 시트가 없어 표준시장단가2026(6,347)·시장시공가격(575)·표준일위대가2026(10,765) 총 17,687건을 품명+규격 유사도(임계 0.56)로 매칭. <b>01은 2026-06-19 토목·조경 XLS 분리</b>(토목 493·조경 83건). (조경 수목 자재가는 2021년 고시 폐지로 표준 단가 없음 → 별도 시세 입력 필요)</li>
+    <li><b>경계석류(화강석)</b> — 표준 DB에 화강석 경계석 단가가 없어 m·ea 행 모두 콘크리트 「경계블록 설치(m)」로 환산 매칭 → <b>재료비 과소 계상 가능</b>, 정밀 견적 시 화강석 시세 별도 보정.</li>
+    <li><b>04·05·06</b> 상단 제경비·부가세 <code>식(1)</code> 행은 직접노무비 확정 후 별도 계산.</li>
+    <li><b>금액 합계</b>는 매칭+검토+원본 건만 반영(미매칭·미산출 0). 세부 내역은 각 <code>내역서작업\*_표준단가산출.xlsx</code> 통합내역 시트 참조.</li>
+    <li><b>조경수 보완 점검</b> — forestinfo 조경수 관측시세로 01·주 미매칭 31건을 별도 시뮬레이션한 결과 매칭 30·검토 1·미매칭 0. 결과는 <code>05_내역서\조경수_미매칭점검.xlsx</code>에 두며, 표준단가산출 금액에는 자동 합산하지 않음.</li>
+    <li><b>폴더(2026-06-18 재편)</b> — 원본 7종은 <code>05_내역서\공내역서\</code>, 산출물(<code>*_표준단가산출.xlsx</code>·<code>_요약.md</code>·총괄표)은 <code>05_내역서\내역서작업\</code>.</li>
+  </ol>
+</div>
+
+<footer>
+  화성 청원지구 공내역서 표준단가 산출 총괄표 — 직접공사비(제경비·VAT 미포함) 기준. 2026. 6. 19. 최종 갱신. 끝.
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 청원지구 포털</title>
+<style>
+  :root{
+    --navy:#1f3a5f; --blue:#2c5aa0; --line:#d9e1ec; --bg:#eef1f6;
+    --panel:#fff; --ok:#1a7f37; --warn:#b25e00;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+    background:var(--bg); color:#1c2430; font-size:14px;
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  .top{
+    flex:0 0 auto; background:var(--navy); color:#fff;
+    padding:12px 20px 0; box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+  .top h1{margin:0 0 10px;font-size:20px;font-weight:700;letter-spacing:-.3px;}
+  .top .sub{font-size:12px;opacity:.85;margin-bottom:10px;}
+  .tabs{display:flex;flex-wrap:wrap;gap:4px;}
+  .tab{
+    appearance:none;border:none;background:rgba(255,255,255,.12);
+    color:#e8eef7;padding:9px 16px;border-radius:8px 8px 0 0;
+    cursor:pointer;font:inherit;font-size:13.5px;font-weight:600;
+    transition:background .15s,color .15s;
+  }
+  .tab:hover{background:rgba(255,255,255,.22);}
+  .tab.active{background:var(--bg);color:var(--navy);}
+  .tab-drop{position:relative;align-self:flex-end;}
+  .tab-drop-btn{display:flex;align-items:center;gap:4px;}
+  .tab-drop-btn .caret{font-size:10px;opacity:.85;}
+  .tab-drop.active .tab-drop-btn{background:var(--bg);color:var(--navy);}
+  .tab-drop-menu{
+    display:none;position:absolute;top:100%;left:0;min-width:148px;z-index:200;
+    background:#fff;border:1px solid var(--line);border-radius:0 0 8px 8px;
+    box-shadow:0 6px 16px rgba(0,0,0,.14);overflow:hidden;
+  }
+  .tab-drop.open .tab-drop-menu{display:block;}
+  .tab-drop-item{
+    display:block;width:100%;text-align:left;appearance:none;border:none;
+    background:#fff;color:var(--navy);padding:10px 16px;font:inherit;font-size:13.5px;
+    font-weight:600;cursor:pointer;border-bottom:1px solid var(--line);
+  }
+  .tab-drop-item:last-child{border-bottom:none;}
+  .tab-drop-item:hover{background:#eaf0f8;}
+  .tab-drop-item.active{background:#d9e1f2;}
+  .workspace{
+    flex:1 1 auto; display:flex; min-height:0;
+    gap:0; padding:0;
+  }
+  .pane{
+    display:flex; flex-direction:column; min-width:0; min-height:0;
+    background:var(--panel); border-top:1px solid var(--line);
+  }
+  .pane.left{flex:1 1 50%; border-right:2px solid var(--line);}
+  .pane.right{flex:1 1 50%; background:#f8fafc;}
+  .pane-head{
+    flex:0 0 auto; padding:10px 16px; font-weight:700; font-size:13px;
+    color:var(--navy); background:#eaf0f8; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+  }
+  .pane-head .tag{
+    font-weight:600; font-size:11px; padding:2px 8px; border-radius:10px;
+    background:var(--navy); color:#fff;
+  }
+  .pane-body{flex:1 1 auto; min-height:0; overflow:hidden; position:relative;}
+  .pane.left .pane-body{padding:0;}
+  #main-frame,
+  #main-placeholder{
+    position:absolute; inset:0; width:100%; height:100%;
+    border:none; background:#f4f6fa;
+  }
+  #main-frame[hidden],
+  #main-placeholder[hidden]{display:none!important;}
+  #main-frame:not([hidden]){display:block;}
+  #main-placeholder:not([hidden]){
+    display:block; overflow-x:auto; overflow-y:auto;
+  }
+  .main-placeholder{padding:28px 24px;background:#f4f6fa;}
+  /* placeholder 안쪽은 스크롤 없음 — 바깥(#main-placeholder)만 스크롤 */
+  #main-placeholder .md-body,
+  #main-placeholder .xlsx-wrap,
+  #main-placeholder .xlsx-body{
+    height:auto; overflow:visible; max-height:none;
+  }
+  .refs{
+    padding:0; display:flex; flex-direction:column; min-height:0; overflow:hidden;
+  }
+  #refs-list{padding:12px 14px 8px; flex:0 0 auto; overflow:visible;}
+  .ref-preview{
+    flex:1 1 auto; min-height:0; border-top:2px solid var(--line);
+    background:#fff; display:flex; flex-direction:column; overflow:hidden;
+  }
+  .ref-preview[hidden]{display:none!important;}
+  .ref-preview .xlsx-wrap{
+    flex:1 1 auto; min-height:0; height:100%;
+    display:flex; flex-direction:column; background:#fff;
+  }
+  .ref-preview .xlsx-head,
+  .ref-preview .xlsx-tabs{flex:0 0 auto;}
+  .ref-preview .xlsx-body{
+    flex:1 1 auto; min-height:0; overflow:auto; max-height:none;
+  }
+  .ref-preview .md-body{
+    flex:1 1 auto; min-height:0; overflow:auto; max-height:none;
+    padding:16px 18px; font-size:13px;
+  }
+  /* 스크롤바 크기 통일 (Chrome·Edge·Firefox) */
+  #main-placeholder,
+  .ref-preview .xlsx-body,
+  .ref-preview .md-body,
+  #main-frame{
+    scrollbar-width:thin;
+    scrollbar-color:#9aabbF #e8edf4;
+  }
+  #main-placeholder::-webkit-scrollbar,
+  .ref-preview .xlsx-body::-webkit-scrollbar,
+  .ref-preview .md-body::-webkit-scrollbar{
+    width:10px; height:10px;
+  }
+  #main-placeholder::-webkit-scrollbar-thumb,
+  .ref-preview .xlsx-body::-webkit-scrollbar-thumb,
+  .ref-preview .md-body::-webkit-scrollbar-thumb{
+    background:#9aabbF; border-radius:5px; border:2px solid #e8edf4;
+  }
+  #main-placeholder::-webkit-scrollbar-track,
+  .ref-preview .xlsx-body::-webkit-scrollbar-track,
+  .ref-preview .md-body::-webkit-scrollbar-track{
+    background:#e8edf4;
+  }
+  .ref-list a.ref-active{color:var(--navy);text-decoration:underline;}
+  .ref-card{
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    margin-bottom:12px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,.04);
+  }
+  .ref-card h3{
+    margin:0; padding:10px 12px; font-size:13px; color:var(--navy);
+    background:#f4f7fb; border-bottom:1px solid var(--line);
+  }
+  .ref-card .body{padding:10px 12px;font-size:13px;line-height:1.55;}
+  .ref-list{list-style:none;margin:0;padding:0;}
+  .ref-list li{
+    padding:8px 0; border-bottom:1px dashed var(--line);
+  }
+  .ref-list li:last-child{border-bottom:none;}
+  .ref-list a{color:var(--blue);text-decoration:none;font-weight:600;}
+  .ref-list a:hover{text-decoration:underline;}
+  .ref-list .desc{display:block;color:#5a6675;font-size:12px;margin-top:3px;font-weight:400;}
+  .ref-img{
+    display:block; width:100%; max-height:200px; object-fit:contain;
+    background:#eef2f8; border-radius:6px; margin-top:6px; cursor:pointer;
+    border:1px solid var(--line);
+  }
+  .ref-img:hover{opacity:.92;}
+  .badge{
+    display:inline-block;font-size:11px;font-weight:700;color:#fff;
+    padding:1px 7px;border-radius:9px;margin-right:4px;vertical-align:middle;
+  }
+  .b-pdf{background:#c0392b;} .b-img{background:var(--ok);}
+  .b-txt{background:#6c757d;} .b-html{background:var(--blue);} .b-link{background:var(--warn);}
+  .b-xls{background:#217346;}
+  .embed-pdf{width:100%;height:420px;border:1px solid var(--line);border-radius:6px;margin-top:8px;}
+  .drop-nav{display:contents;}
+  .viewer-note h2{font-size:18px;color:var(--navy);margin:0 0 10px;}
+  .viewer-note p{margin:0 0 8px;line-height:1.65;font-size:15px;}
+  .viewer-note .sub{color:#6b7785;font-size:13px;margin-top:14px;}
+  .empty{color:#6b7785;font-size:13px;padding:20px;text-align:center;}
+  footer.bar{
+    flex:0 0 auto; font-size:11px; color:#8a94a3; padding:6px 16px;
+    border-top:1px solid var(--line); background:#fff;
+  }
+  @media (max-width:900px){
+    body{overflow:auto;height:auto;}
+    .workspace{flex-direction:column; min-height:70vh;}
+    .pane.left,.pane.right{flex:1 1 auto; min-height:360px;}
+    .pane.left{border-right:none;border-bottom:2px solid var(--line);}
+  }
+  .xlsx-wrap{display:flex;flex-direction:column;height:100%;background:#fff;}
+  .xlsx-head{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#f4f6fa;flex:0 0 auto;}
+  .xlsx-head strong{font-size:14px;}
+  .xlsx-status{color:#8a94a6;font-size:12px;}
+  .xlsx-dl{margin-left:auto;font-size:12px;color:#2f5fb3;text-decoration:none;border:1px solid #c5d0e6;padding:3px 10px;border-radius:6px;}
+  .xlsx-dl:hover{background:#eaf0fb;}
+  .xlsx-tabs{display:flex;gap:4px;padding:6px 10px;overflow-x:auto;border-bottom:1px solid #eef1f6;background:#fafbfd;flex:0 0 auto;}
+  .xlsx-tabs button{font-size:12px;padding:3px 10px;border:1px solid #d6deea;background:#fff;border-radius:6px;cursor:pointer;white-space:nowrap;}
+  .xlsx-tabs button.active{background:#2f5fb3;color:#fff;border-color:#2f5fb3;}
+  .xlsx-body{flex:1 1 auto;min-height:0;overflow:auto;padding:0;}
+  .xlsx-body table{border-collapse:collapse;font-size:12px;width:max-content;}
+  .xlsx-body td,.xlsx-body th{border:1px solid #dce1ea;padding:3px 8px;white-space:nowrap;max-width:360px;overflow:hidden;text-overflow:ellipsis;}
+  .xlsx-body tr:first-child td{background:#eef2f9;font-weight:600;position:sticky;top:0;z-index:1;}
+  .xlsx-fallback{padding:28px 24px;line-height:1.6;}
+  .xlsx-fallback h3{margin:0 0 8px;font-size:15px;}
+  .xlsx-fallback .pick{margin:14px 0;}
+  .md-body{padding:28px 34px;background:#fff;line-height:1.7;color:#1f2733;font-size:15px;}
+  .md-body h1{font-size:22px;margin:.2em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--line);}
+  .md-body h2{font-size:18px;margin:1.4em 0 .5em;padding-bottom:.25em;border-bottom:1px solid var(--line);}
+  .md-body h3{font-size:16px;margin:1.2em 0 .4em;}
+  .md-body h4{font-size:14.5px;margin:1em 0 .3em;}
+  .md-body p{margin:.5em 0;}
+  .md-body ul,.md-body ol{margin:.5em 0;padding-left:1.6em;}
+  .md-body li{margin:.2em 0;}
+  .md-body code{background:#eef2f7;padding:1px 5px;border-radius:4px;font-size:13px;}
+  .md-body pre{background:#f4f6fa;padding:12px 14px;border-radius:8px;overflow:auto;}
+  .md-body pre code{background:none;padding:0;}
+  .md-body blockquote{margin:.6em 0;padding:.4em 1em;border-left:4px solid #c5d0e6;background:#f7f9fc;color:#445;}
+  .md-body table{border-collapse:collapse;margin:1em 0;font-size:13px;}
+  .md-body th,.md-body td{border:1px solid #dce1ea;padding:5px 10px;text-align:left;}
+  .md-body th{background:#eef2f9;}
+  .md-body a{color:#2f5fb3;}
+  .md-body img{max-width:100%;}
+</style>
+<script src="assets/vendor/xlsx.full.min.js"></script>
+<script src="assets/vendor/marked.min.js"></script>
+</head>
+<body>
+
+<header class="top">
+  <h1>화성 청원지구 포털</h1>
+  <div class="sub">산업유통형 지구단위계획 · 마도면 청원리 산175-2번지 일원 80,617㎡</div>
+  <nav class="tabs" role="tablist" aria-label="주요 메뉴">
+    <button type="button" class="tab active" data-tab="jinmyeong" role="tab" aria-selected="true">진명개발(주)</button>
+    <button type="button" class="tab" data-tab="toji" role="tab">토지조서</button>
+    <button type="button" class="tab" data-tab="env" role="tab">환경영향평가</button>
+    <button type="button" class="tab" data-tab="plan" role="tab">지구단위계획</button>
+    <button type="button" class="tab" data-tab="permit" role="tab">인허가도면</button>
+    <div id="drop-nav" class="drop-nav"></div>
+    <button type="button" class="tab" data-tab="report" role="tab">종합보고</button>
+  </nav>
+</header>
+
+<main class="workspace">
+  <section class="pane left" aria-label="본문">
+    <div class="pane-head">
+      <span>본문</span>
+      <span class="tag" id="main-tag">진명개발(주)</span>
+    </div>
+    <div class="pane-body">
+      <iframe id="main-frame" title="본문" src="00_진명개발(주)/진명개발_팩트체크.html"></iframe>
+      <div id="main-placeholder" class="main-placeholder" hidden></div>
+    </div>
+  </section>
+  <section class="pane right" aria-label="근거자료">
+    <div class="pane-head">
+      <span>근거자료</span>
+      <span class="tag" id="ref-tag">등기·공개정보</span>
+    </div>
+    <div class="pane-body refs">
+      <div id="refs-list"></div>
+      <div id="ref-preview" class="ref-preview" hidden></div>
+    </div>
+  </section>
+</main>
+
+<footer class="bar">화성 청원지구 포털 · 좌측 본문 · 우측 근거자료 · 2026. 6. 19.</footer>
+
+<script>
+(function(){
+  const enc = p => p.split("/").map(encodeURIComponent).join("/");
+
+  const TABS = {
+    jinmyeong: {
+      label: "진명개발(주)",
+      refTag: "등기·공개정보",
+      main: "00_진명개발(주)/진명개발_팩트체크.html",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 1차 근거 (법인)</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a href="${enc("00_진명개발(주)/진명개발(주)_법인등기부등본.pdf")}" target="_blank" rel="noopener">진명개발(주) 법인등기부등본</a>
+                <span class="desc">법인등록번호 134811-0724593 · 본점 청원산단로 129 · 설립 2023. 1. 10.</span>
+                <iframe class="embed-pdf" src="${enc("00_진명개발(주)/진명개발(주)_법인등기부등본.pdf")}#view=FitH" title="법인등기부"></iframe>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅱ. 공개 참고</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://seenthis.kr/page/index?b_no=8398702917" target="_blank" rel="noopener">기업정보 (사업자 839-87-02917)</a>
+                <span class="desc">주소·업종(부동산 개발·공급) 교차 확인용</span>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://www.eiass.go.kr/" target="_blank" rel="noopener">EIASS 사업조회 HG20250176</a>
+                <span class="desc">전략환경영향평가 협의서 「사업시행자」란 확인</span>
+              </li>
+            </ul>
+          </div>
+        </div>`
+    },
+    toji: {
+      label: "토지조서",
+      refTag: "지적도·열람",
+      main: "01_토지조서/청원지구_토지조서.html",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 토지이음 지적·구역도</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-img">JPG</span>
+                <a href="${enc("01_토지조서/토지이음_지구단위구역도.jpg")}" target="_blank" rel="noopener">지구단위구역도 (전체)</a>
+                <img class="ref-img" src="${enc("01_토지조서/토지이음_지구단위구역도.jpg")}" alt="지구단위구역도" onclick="window.open(this.src,'_blank')">
+              </li>
+              <li>
+                <span class="badge b-img">JPG</span>
+                <a href="${enc("01_토지조서/토지이음_지구단위구역도_1.jpg")}" target="_blank" rel="noopener">지구단위구역도 1</a>
+                <img class="ref-img" src="${enc("01_토지조서/토지이음_지구단위구역도_1.jpg")}" alt="구역도 1" onclick="window.open(this.src,'_blank')">
+              </li>
+              <li>
+                <span class="badge b-img">JPG</span>
+                <a href="${enc("01_토지조서/토지이음_지구단위구역도_2.jpg")}" target="_blank" rel="noopener">지구단위구역도 2</a>
+                <img class="ref-img" src="${enc("01_토지조서/토지이음_지구단위구역도_2.jpg")}" alt="구역도 2" onclick="window.open(this.src,'_blank')">
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅱ. 공식 열람</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li><span class="badge b-link">링크</span><a href="https://www.eum.go.kr/web/cp/cm/cmMain.jsp" target="_blank" rel="noopener">토지이음 토지이용계획 열람</a></li>
+              <li><span class="badge b-link">링크</span><a href="https://www.eum.go.kr/web/gs/gv/gvGosiList.jsp" target="_blank" rel="noopener">토지이음 고시정보</a></li>
+            </ul>
+          </div>
+        </div>`
+    },
+    env: {
+      label: "환경영향평가",
+      refTag: "협의서·평가서",
+      main: "02_환경영향평가/청원지구_전략환경영향평가_요약.html",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 전략환경영향평가 원문</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a href="${enc("02_환경영향평가/250410_전략환경영향평가_초안.pdf")}" target="_blank" rel="noopener">전략환경영향평가 초안 (2025. 4. 10.)</a>
+                <span class="desc">초안 공람·협의 (2025. 4. 10.~5. 20.)</span>
+                <iframe class="embed-pdf" src="${enc("02_환경영향평가/250410_전략환경영향평가_초안.pdf")}#view=FitH" title="환평 초안"></iframe>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a href="${enc("02_환경영향평가/250721_전략환경영향평가_본협의.pdf")}" target="_blank" rel="noopener">전략환경영향평가 본협의 (2025. 7. 21.)</a>
+                <span class="desc">본협의 완료 2025. 7. 21.~9. 30. · 협의기관 한강유역환경청</span>
+                <iframe class="embed-pdf" src="${enc("02_환경영향평가/250721_전략환경영향평가_본협의.pdf")}#view=FitH" title="환평 본협의"></iframe>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅱ. EIASS 등록</h3>
+          <div class="body">
+            <p style="margin:0 0 8px">사업코드 <b>HG20250176</b> · 「화성 청원지구 산업유통형 지구단위계획」</p>
+            <ul class="ref-list">
+              <li><span class="badge b-link">링크</span><a href="https://www.eiass.go.kr/" target="_blank" rel="noopener">환경영향평가정보지원시스템(EIASS)</a>
+                <span class="desc">검색어 「청원지구」 또는 「마도 산175」 · 상세·첨부는 PKI 로그인 필요할 수 있음</span></li>
+            </ul>
+          </div>
+        </div>`
+    },
+    plan: {
+      label: "지구단위계획",
+      refTag: "고시·법령·특례",
+      main: "03_지구단위계획/청원지구_지구단위계획_관련자료.html",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 결정고시 원문</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a href="${enc("03_지구단위계획/화성시 고시 제2026_76호(청원지구)_.pdf")}" target="_blank" rel="noopener">화성시 고시 제2026-76호</a>
+                <iframe class="embed-pdf" src="${enc("03_지구단위계획/화성시 고시 제2026_76호(청원지구)_.pdf")}#view=FitH" title="고시"></iframe>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a href="${enc("03_지구단위계획/화성특례시청_행정정보_공고고시_고시.pdf")}" target="_blank" rel="noopener">화성특례시청 행정정보 공고·고시</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅱ. 법령 원문</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li><span class="badge b-txt">TXT</span><a href="${enc("03_지구단위계획/법령원문_국토계획법_제51조_제52조.txt")}" target="_blank" rel="noopener">국토계획법 제51조·제52조</a></li>
+              <li><span class="badge b-txt">TXT</span><a href="${enc("03_지구단위계획/법령원문_국토계획법시행령_지구단위계획(제43-47조).txt")}" target="_blank" rel="noopener">국토계획법 시행령 (지구단위계획 제43~47조)</a></li>
+              <li><span class="badge b-txt">TXT</span><a href="${enc("03_지구단위계획/법령원문_산업단지인허가절차간소화특례법.txt")}" target="_blank" rel="noopener">산업단지 인·허가 절차 간소화 특례법</a></li>
+              <li><span class="badge b-txt">TXT</span><a href="${enc("03_지구단위계획/원문_다운로드_안내.txt")}" target="_blank" rel="noopener">원문 다운로드 안내</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅲ. 제도·특례 정리</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a href="${enc("03_지구단위계획/산업유통형_특례_법령정리.html")}" target="_blank" rel="noopener">산업유통형 지구단위계획 — 특례·법령 정리</a>
+                <span class="desc">산업단지 vs 지구단위계획 트랙 · 수도권(화성) 입지 논점</span>
+              </li>
+              <li><span class="badge b-link">링크</span><a href="https://www.hscity.go.kr/www/gosi/BD_notice.do" target="_blank" rel="noopener">화성특례시 고시 게시판</a></li>
+              <li><span class="badge b-link">링크</span><a href="https://www.nabis.go.kr/" target="_blank" rel="noopener">NABIS 정책자료실</a></li>
+            </ul>
+          </div>
+        </div>`
+    },
+    permit: {
+      label: "인허가도면",
+      refTag: "설계도면 PDF",
+      main: "04_인허가도면/인허가도면_안내.html",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 실시계획인가·공사도면</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a href="${enc("04_인허가도면/00. 청원로(중로1-2호선)  공사설계도서_실시계획인가 공사도면.pdf")}" target="_blank" rel="noopener">청원로(중로1-2호선) 실시계획인가 공사도면</a>
+                <iframe class="embed-pdf" src="${enc("04_인허가도면/00. 청원로(중로1-2호선)  공사설계도서_실시계획인가 공사도면.pdf")}#view=FitH" title="청원로 도면"></iframe>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a href="${enc("04_인허가도면/00. 토공 합본_260616_102331.pdf")}" target="_blank" rel="noopener">토공 합본 (2026. 6. 16.)</a>
+                <iframe class="embed-pdf" src="${enc("04_인허가도면/00. 토공 합본_260616_102331.pdf")}#view=FitH" title="토공 합본"></iframe>
+              </li>
+            </ul>
+          </div>
+        </div>`
+    },
+    gong: {
+      label: "공내역서 · 목록",
+      refTag: "원본 XLS·xlsx",
+      dropGroup: "gong",
+      main: "05_내역서/공내역서_안내.html",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 공내역서 원본 (01~07)</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li><span class="badge b-xls">XLS</span><a href="${enc("05_내역서/공내역서/01_화성 청원지구 토목.XLS")}" target="_blank" rel="noopener">01 토목</a></li>
+              <li><span class="badge b-xls">XLS</span><a href="${enc("05_내역서/공내역서/01_화성 청원지구 조경.XLS")}" target="_blank" rel="noopener">01 조경</a></li>
+              <li><span class="badge b-xls">xlsx</span><a href="${enc("05_내역서/공내역서/02_화성 청원지구 전기설비.xlsx")}" target="_blank" rel="noopener">02 전기설비 (지구내+지구외)</a></li>
+              <li><span class="badge b-xls">xlsx</span><a href="${enc("05_내역서/공내역서/03_화성 청원지구 전기설비(지구외).xlsx")}" target="_blank" rel="noopener">03 전기(지구외)</a>
+                <span class="desc">02와 중복 · 총괄 합계 제외</span></li>
+              <li><span class="badge b-xls">XLS</span><a href="${enc("05_내역서/공내역서/04_화성 청원지구 진입도로 실시설계.XLS")}" target="_blank" rel="noopener">04 진입도로</a></li>
+              <li><span class="badge b-xls">XLS</span><a href="${enc("05_내역서/공내역서/05_화성 청원로(회전교차로).XLS")}" target="_blank" rel="noopener">05 화성 청원로(회전교차로)</a></li>
+              <li><span class="badge b-xls">XLS</span><a href="${enc("05_내역서/공내역서/06_화성 청원지구 산업유통형 개발행위.XLS")}" target="_blank" rel="noopener">06 개발행위</a></li>
+              <li><span class="badge b-xls">XLS</span><a href="${enc("05_내역서/공내역서/07_화성 청원지구 건설폐기물처리.XLS")}" target="_blank" rel="noopener">07 건설폐기물처리</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅱ. 안내</h3>
+          <div class="body"><p style="margin:0">엑셀 원본은 다운로드 후 Excel에서 열람하세요.</p></div>
+        </div>`
+    }
+  };
+
+  const B = "05_내역서";
+
+  function refFile(path, title, desc, badge) {
+    const b = badge || (path.endsWith(".md") ? "MD" : "xlsx");
+    const cls = path.endsWith(".md") ? "ref-open-md" : "ref-open-xlsx";
+    return `<div class="ref-card"><h3>Ⅰ. 근거 파일</h3><div class="body"><ul class="ref-list">
+      <li><span class="badge b-${b === "MD" ? "txt" : "xls"}">${b}</span>
+      <a class="${cls}" href="${enc(path)}" role="button">${title}</a>
+      ${desc ? `<span class="desc">${desc}</span>` : ""}
+      <span class="desc">클릭하면 아래 패널에 표·본문 미리보기(저장 창 없음)</span></li></ul></div></div>`;
+  }
+
+  function refFiles(items) {
+    const lis = items.map(([path, title, desc, badge]) => {
+      const b = badge || (path.endsWith(".md") ? "MD" : "xlsx");
+      const cls = path.endsWith(".md") ? "ref-open-md" : "ref-open-xlsx";
+      return `<li><span class="badge b-${b === "MD" ? "txt" : "xls"}">${b}</span>
+        <a class="${cls}" href="${enc(path)}" role="button">${title}</a>
+        ${desc ? `<span class="desc">${desc}</span>` : ""}</li>`;
+    }).join("");
+    return `<div class="ref-card"><h3>Ⅰ. 근거 파일</h3><div class="body"><ul class="ref-list">${lis}</ul></div></div>`;
+  }
+
+  function viewerNote(title, body) {
+    return `<div class="viewer-note"><h2>${title}</h2><p>${body}</p><p class="sub">우측 「근거자료」에서 파일을 열어주세요.</p></div>`;
+  }
+
+  const GONG_ITEMS = [
+    ["01t", "01_화성 청원지구 토목.XLS", "XLS", "01 토목", ""],
+    ["01j", "01_화성 청원지구 조경.XLS", "XLS", "01 조경", ""],
+    ["02", "02_화성 청원지구 전기설비.xlsx", "xlsx", "02 전기설비", "지구내+지구외 통합"],
+    ["03", "03_화성 청원지구 전기설비(지구외).xlsx", "xlsx", "03 전기(지구외)", "02와 중복 · 총괄 제외"],
+    ["04", "04_화성 청원지구 진입도로 실시설계.XLS", "XLS", "04 진입도로", ""],
+    ["05", "05_화성 청원로(회전교차로).XLS", "XLS", "05 화성 청원로(회전교차로)", ""],
+    ["06", "06_화성 청원지구 산업유통형 개발행위.XLS", "XLS", "06 개발행위", ""],
+    ["07", "07_화성 청원지구 건설폐기물처리.XLS", "XLS", "07 건설폐기물", ""],
+  ];
+  GONG_ITEMS.forEach(([no, file, badge, title, desc]) => {
+    TABS["gong-" + no] = {
+      label: title,
+      refTag: "원본 XLS",
+      dropGroup: "gong",
+      placeholder: viewerNote(
+        title,
+        (desc ? desc + " · " : "") + "우측 「근거자료」에서 해당 공내역서 원본(XLS·xlsx)을 열람·다운로드하세요."
+      ),
+      refs: refFile(B + "/공내역서/" + file, title, desc, badge),
+    };
+  });
+
+  const NY_ITEMS = [
+    ["01t", "01_화성 청원지구 토목_표준단가산출", "01 토목"],
+    ["01j", "01_화성 청원지구 조경_표준단가산출", "01 조경"],
+    ["02", "02_화성 청원지구 전기설비_표준단가산출", "02 전기설비"],
+    ["04", "04_화성 청원지구 진입도로 실시설계_표준단가산출", "04 진입도로"],
+    ["05", "05_화성 청원로(회전교차로)_표준단가산출", "05 화성 청원로(회전교차로)"],
+    ["06", "06_화성 청원지구 산업유통형 개발행위_표준단가산출", "06 개발행위"],
+    ["07", "07_화성 청원지구 건설폐기물처리_표준단가산출", "07 건설폐기물"],
+  ];
+  NY_ITEMS.forEach(([no, stem, title]) => {
+    TABS["ny-" + no] = {
+      label: title,
+      refTag: "표준단가산출",
+      dropGroup: "ny",
+      main: B + "/내역서작업/" + stem + "_요약.md",
+      refs: refFile(B + "/내역서작업/" + stem + ".xlsx", stem + ".xlsx"),
+    };
+  });
+
+  const SUM_DESC = "직접공사비 63.83억(오패치·이상치 교정 완료) · 매칭 985 / 검토 113 / 미매칭 102";
+  TABS["sum-html"] = {
+    label: "집계표 · HTML",
+    refTag: "xlsx·md 원본",
+    dropGroup: "sum",
+    main: B + "/내역서_표준단가산출_총괄표.html",
+    refs: refFiles([
+      [B + "/총괄표.xlsx", "총괄표.xlsx", SUM_DESC],
+      [B + "/총괄표_공종별.xlsx", "총괄표_공종별.xlsx", "공종별 직접공사비"],
+      [B + "/총괄표.md", "총괄표.md", "마크다운 요약", "MD"],
+    ]),
+  };
+  TABS["sum-xlsx"] = {
+    label: "집계표 · xlsx",
+    refTag: "Excel",
+    dropGroup: "sum",
+    main: B + "/총괄표.md",
+    refs: refFiles([
+      [B + "/총괄표.xlsx", "총괄표.xlsx", SUM_DESC],
+      [B + "/총괄표_공종별.xlsx", "총괄표_공종별.xlsx", "공종별 직접공사비"],
+    ]),
+  };
+  TABS["sum-md"] = {
+    label: "집계표 · md",
+    refTag: "xlsx 원본",
+    dropGroup: "sum",
+    main: B + "/총괄표.md",
+    refs: refFiles([
+      [B + "/총괄표.xlsx", "총괄표.xlsx", SUM_DESC],
+      [B + "/총괄표_공종별.xlsx", "총괄표_공종별.xlsx", "공종별 직접공사비"],
+      [B + "/총괄표.md", "총괄표.md", "마크다운 원본", "MD"],
+    ]),
+  };
+
+  const UM_ITEMS = [
+    ["um-all", "미매칭_전체", "미매칭_전체.xlsx", "전 내역서 미매칭·미산출 통합"],
+    ["um-unm-il", "미매칭 일위대가", "미매칭_일위대가산출.xlsx", "미매칭 잔여 — 품셈·표준DB·조경시세·확정단가"],
+    ["um-tok", "토목 수동입력", "토목_미매칭_수동단가입력표.xlsx", "01토목·04·05·06 토목 미매칭"],
+    ["um-tree", "조경수 점검", "조경수_미매칭점검.xlsx", "forestinfo 조경수 시세 시뮬"],
+    ["um-g2b", "조달청 점검", "조달청_미매칭점검.xlsx", "나라장터 가격정보 시뮬"],
+    ["um-g2b-fix", "조달청 보정", "조달청보정_매칭결과.xlsx", "수동 보정 매칭 결과"],
+    ["um-kpa", "물가협회 점검", "한국물가협회_미매칭점검.xlsx", "한국물가협회 OCR 점검"],
+  ];
+  const RV_ITEMS = [
+    ["rv-valid", "자동확정 품목검증", "검토_품목검증.xlsx", "자동확정 105건 — 내역품명↔DB매칭품명 일치도 4분류(A일치/B시세·품셈/C교정완료/D검토요)"],
+    ["rv-all", "검토_전체", "검토_전체.xlsx", "검토필요 항목 통합(01~07)"],
+    ["rv-il", "검토 일위대가", "검토_일위대가산출.xlsx", "검토 — 확정·환산·재산출 경로"],
+    ["rv-togong", "검토 토공 일위대가", "검토_토공_일위대가산출.xlsx", "검토_전체 1.토공 17건 — 품셈·일위대가"],
+    ["rv-sec", "검토 공종별 일위대가", "검토_공종별_일위대가산출.xlsx", "우수·오수·상수·포장·구조물·부대·하수처리·저류조·지원·주차 130건"],
+  ];
+  UM_ITEMS.forEach(([id, menu, file, desc]) => {
+    TABS[id] = {
+      label: menu,
+      refTag: "xlsx 산출",
+      dropGroup: "um",
+      placeholder: viewerNote(menu, desc + " — 우측 「근거자료」에서 Excel 산출 파일을 열람·다운로드하세요."),
+      refs: refFile(B + "/" + file, file, desc),
+    };
+  });
+  RV_ITEMS.forEach(([id, menu, file, desc]) => {
+    TABS[id] = {
+      label: menu,
+      refTag: "xlsx 산출",
+      dropGroup: "rv",
+      placeholder: viewerNote(menu, desc + " — 우측 「근거자료」에서 Excel 산출 파일을 열람·다운로드하세요."),
+      refs: refFile(B + "/" + file, file, desc),
+    };
+  });
+
+  TABS["report"] = {
+    label: "종합보고",
+    refTag: "검토·집계 근거",
+    main: B + "/청원지구_종합보고서.html",
+    refs: refFiles([
+      [B + "/검토_전체.xlsx", "검토_전체.xlsx", "검토필요 항목 통합(01~07)"],
+      [B + "/검토_공종별_일위대가산출.xlsx", "검토_공종별_일위대가산출.xlsx", "공종별 130건"],
+      [B + "/총괄표.xlsx", "총괄표.xlsx", "현 총괄(오패치 포함·복구 대상)"],
+      [B + "/총괄표.md", "총괄표.md", "마크다운 총괄", "MD"],
+    ]),
+  };
+
+  const DROPS = [
+    {
+      group: "gong", label: "공내역서",
+      items: [{ id: "gong", menu: "목록 안내" }].concat(
+        GONG_ITEMS.map(([no, , , title]) => ({ id: "gong-" + no, menu: title }))
+      ),
+    },
+    {
+      group: "ny", label: "내역서",
+      items: NY_ITEMS.map(([no, , title]) => ({ id: "ny-" + no, menu: title })),
+    },
+    {
+      group: "sum", label: "집계표",
+      items: [
+        { id: "sum-html", menu: "총괄표(HTML)" },
+        { id: "sum-xlsx", menu: "총괄표.xlsx" },
+        { id: "sum-md", menu: "총괄표.md" },
+      ],
+    },
+    {
+      group: "um", label: "미매칭",
+      items: UM_ITEMS.map(([id, menu]) => ({ id, menu })),
+    },
+    {
+      group: "rv", label: "검토",
+      items: RV_ITEMS.map(([id, menu]) => ({ id, menu })),
+    },
+  ];
+
+  const TAB_DROP = {};
+  DROPS.forEach(d => d.items.forEach(it => { TAB_DROP[it.id] = d.group; }));
+
+  const frame = document.getElementById("main-frame");
+  const placeholder = document.getElementById("main-placeholder");
+  const refsList = document.getElementById("refs-list");
+  const refPreview = document.getElementById("ref-preview");
+  const mainTag = document.getElementById("main-tag");
+  const refTag = document.getElementById("ref-tag");
+  const tabBtns = document.querySelectorAll(".tab[data-tab]");
+  const dropNav = document.getElementById("drop-nav");
+
+  function closeAllDrops() {
+    document.querySelectorAll(".tab-drop.open").forEach(el => {
+      el.classList.remove("open");
+      el.querySelector(".tab-drop-btn").setAttribute("aria-expanded", "false");
+    });
+  }
+
+  function updateDrops(activeId) {
+    DROPS.forEach(d => {
+      const wrap = dropNav.querySelector('[data-drop="' + d.group + '"]');
+      if (!wrap) return;
+      const active = TAB_DROP[activeId] === d.group;
+      wrap.classList.toggle("active", active);
+      const item = d.items.find(x => x.id === activeId);
+      wrap.querySelector(".tab-drop-label").textContent = active && item ? item.menu : d.label;
+      wrap.querySelectorAll(".tab-drop-item").forEach(el => {
+        el.classList.toggle("active", el.dataset.tab === activeId);
+      });
+    });
+  }
+
+  function showLeftPane(mode) {
+    /* mode: "iframe" | "placeholder" */
+    if (mode === "iframe") {
+      frame.hidden = false;
+      placeholder.hidden = true;
+      placeholder.innerHTML = "";
+    } else {
+      frame.hidden = true;
+      placeholder.hidden = false;
+    }
+  }
+
+  function switchTab(id) {
+    const cfg = TABS[id];
+    if (!cfg) return;
+    tabBtns.forEach(btn => {
+      const on = btn.dataset.tab === id;
+      btn.classList.toggle("active", on);
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    closeAllDrops();
+    updateDrops(id);
+    if (cfg.placeholder) {
+      showLeftPane("placeholder");
+      placeholder.innerHTML = cfg.placeholder;
+    } else if (cfg.main && /\.md(\?|#|$)/i.test(cfg.main)) {
+      showLeftPane("placeholder");
+      renderMdUrl(enc(cfg.main), cfg.label);
+    } else if (cfg.main) {
+      showLeftPane("iframe");
+      frame.src = enc(cfg.main);
+    } else {
+      showLeftPane("placeholder");
+      placeholder.innerHTML = viewerNote(cfg.label, "본문 경로가 없습니다.");
+    }
+    mainTag.textContent = cfg.label;
+    refTag.textContent = cfg.refTag;
+    refsList.innerHTML = cfg.refs;
+    clearRefPreview();
+    const xlsxLinks = refsList.querySelectorAll("a.ref-open-xlsx");
+    if (xlsxLinks.length === 1) {
+      const a = xlsxLinks[0];
+      openRefPreview(a.getAttribute("href"), (a.textContent || "").trim(), "xlsx");
+    }
+    location.hash = id;
+  }
+
+  function clearRefPreview() {
+    refPreview.hidden = true;
+    refPreview.innerHTML = "";
+    refsList.querySelectorAll("a.ref-active").forEach(a => a.classList.remove("ref-active"));
+  }
+
+  function markRefActive(href) {
+    refsList.querySelectorAll("a.ref-open-xlsx, a.ref-open-md").forEach(a => {
+      a.classList.toggle("ref-active", a.getAttribute("href") === href);
+    });
+  }
+
+  function openRefPreview(encPath, label, kind) {
+    refPreview.hidden = false;
+    markRefActive(encPath);
+    if (kind === "md") mountMdViewer(refPreview, encPath, label);
+    else mountXlsxViewer(refPreview, encPath, label);
+  }
+
+  refsList.addEventListener("click", e => {
+    const a = e.target.closest ? e.target.closest("a.ref-open-xlsx, a.ref-open-md") : null;
+    if (!a) return;
+    e.preventDefault();
+    const href = a.getAttribute("href") || "";
+    const label = (a.textContent || "").trim();
+    if (/\.xls[xm]?(\?|#|$)/i.test(href)) openRefPreview(href, label, "xlsx");
+    else if (/\.md(\?|#|$)/i.test(href)) openRefPreview(href, label, "md");
+  });
+
+  function buildDropNav() {
+    DROPS.forEach(d => {
+      const wrap = document.createElement("div");
+      wrap.className = "tab-drop";
+      wrap.dataset.drop = d.group;
+      wrap.innerHTML =
+        '<button type="button" class="tab tab-drop-btn" aria-haspopup="true" aria-expanded="false">' +
+        '<span class="tab-drop-label">' + d.label + '</span> <span class="caret">▾</span></button>' +
+        '<div class="tab-drop-menu" role="menu">' +
+        d.items.map(it =>
+          '<button type="button" class="tab-drop-item" data-tab="' + it.id + '" role="menuitem">' + it.menu + "</button>"
+        ).join("") +
+        "</div>";
+      dropNav.appendChild(wrap);
+      wrap.querySelector(".tab-drop-btn").addEventListener("click", e => {
+        e.stopPropagation();
+        const wasOpen = wrap.classList.contains("open");
+        /* 그룹 탭 클릭 → 드롭다운 1번 항목으로 본문·근거 출력 */
+        switchTab(d.items[0].id);
+        if (!wasOpen) {
+          wrap.classList.add("open");
+          wrap.querySelector(".tab-drop-btn").setAttribute("aria-expanded", "true");
+        }
+      });
+      wrap.querySelectorAll(".tab-drop-item").forEach(item => {
+        item.addEventListener("click", () => switchTab(item.dataset.tab));
+      });
+    });
+  }
+
+  let _xlsxCtx = { root: null, wb: null };
+  function _xlsxRenderSheet(name) {
+    const root = _xlsxCtx.root;
+    if (!root) return;
+    const body = root.querySelector(".xlsx-body");
+    root.querySelectorAll(".xlsx-tabs button").forEach(b =>
+      b.classList.toggle("active", b.dataset.sheet === name));
+    if (!_xlsxCtx.wb || !body) return;
+    body.innerHTML = XLSX.utils.sheet_to_html(_xlsxCtx.wb.Sheets[name], { editable: false });
+  }
+  function _xlsxRenderWorkbook(buf) {
+    _xlsxCtx.wb = XLSX.read(buf, { type: "array" });
+    const root = _xlsxCtx.root;
+    const names = _xlsxCtx.wb.SheetNames;
+    const st = root.querySelector(".xlsx-status");
+    if (st) st.textContent = names.length + "개 시트";
+    const tabs = root.querySelector(".xlsx-tabs");
+    tabs.innerHTML = names.map(n =>
+      '<button type="button" data-sheet="' + n.replace(/"/g, "&quot;") + '">' + n + "</button>").join("");
+    tabs.querySelectorAll("button").forEach(b =>
+      b.addEventListener("click", () => _xlsxRenderSheet(b.dataset.sheet)));
+    _xlsxRenderSheet(names[0]);
+  }
+  function _xlsxFallback(encPath) {
+    const root = _xlsxCtx.root;
+    if (!root) return;
+    const st = root.querySelector(".xlsx-status");
+    const body = root.querySelector(".xlsx-body");
+    if (st) st.textContent = "자동 미리보기 불가";
+    if (!body) return;
+    body.innerHTML =
+      '<div class="xlsx-fallback"><h3>브라우저 보안으로 자동 읽기가 차단되었습니다</h3>' +
+      "<p>로컬 파일(file://)에서는 Chrome·Edge가 xlsx 자동 읽기를 막습니다. " +
+      "아래 <b>파일 선택</b>으로 같은 xlsx를 고르면 표 미리보기가 열립니다(저장 창 없음).</p>" +
+      '<div class="pick"><input type="file" accept=".xls,.xlsx"></div></div>';
+    const inp = body.querySelector("input[type=file]");
+    inp.addEventListener("change", e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const rd = new FileReader();
+      rd.onload = ev => {
+        try {
+          _xlsxRenderWorkbook(new Uint8Array(ev.target.result));
+          if (st) st.textContent = f.name + " · " + _xlsxCtx.wb.SheetNames.length + "개 시트";
+        } catch (x) {
+          body.innerHTML = '<div class="xlsx-fallback">읽기 실패: ' + x + "</div>";
+        }
+      };
+      rd.readAsArrayBuffer(f);
+    });
+  }
+  function mountXlsxViewer(container, encPath, label) {
+    _xlsxCtx.root = container;
+    _xlsxCtx.wb = null;
+    const name = label || decodeURIComponent(encPath.split("/").pop());
+    container.innerHTML =
+      '<div class="xlsx-wrap"><div class="xlsx-head"><strong>' + name + "</strong>" +
+      '<span class="xlsx-status">불러오는 중…</span></div>' +
+      '<div class="xlsx-tabs"></div><div class="xlsx-body"></div></div>';
+    if (typeof XLSX === "undefined") { _xlsxFallback(encPath); return; }
+    fetch(encPath)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+      .then(buf => _xlsxRenderWorkbook(buf))
+      .catch(() => _xlsxFallback(encPath));
+  }
+  function renderXlsxUrl(encPath, label) {
+    showLeftPane("placeholder");
+    mountXlsxViewer(placeholder, encPath, label);
+  }
+
+  function mountMdViewer(container, encPath, label) {
+    const name = label || decodeURIComponent(encPath.split("/").pop());
+    container.innerHTML = '<div class="md-body">불러오는 중…</div>';
+    const body = container.querySelector(".md-body");
+    const base = encPath.slice(0, encPath.lastIndexOf("/") + 1);
+    fetch(encPath)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(txt => {
+        if (typeof marked === "undefined") { body.innerHTML = "<pre>" + txt.replace(/[<&]/g, c => c === "<" ? "&lt;" : "&amp;") + "</pre>"; return; }
+        body.innerHTML = marked.parse(txt);
+        body.querySelectorAll('a[href]').forEach(a => {
+          const h = a.getAttribute("href") || "";
+          if (!/^([a-z]+:|\/|#)/i.test(h)) a.setAttribute("href", base + h);
+          if (/^https?:/i.test(a.getAttribute("href"))) a.setAttribute("target", "_blank");
+        });
+      })
+      .catch(() => {
+        body.innerHTML = '<div class="xlsx-fallback"><h3>마크다운을 불러오지 못했습니다</h3>' +
+          "<p>로컬 파일(file://)에서는 자동 읽기가 차단될 수 있습니다. " +
+          "로컬 서버(http://localhost)로 포털을 여거나, 좌측 본문 탭을 이용하세요.</p></div>";
+      });
+  }
+  function renderMdUrl(encPath, label) {
+    showLeftPane("placeholder");
+    mountMdViewer(placeholder, encPath, label);
+  }
+
+  /* 본문(좌) 안의 md/xlsx 링크만 좌측 미리보기 — 우측 근거자료 링크는 target=_blank 유지 */
+  placeholder.addEventListener("click", e => {
+    const a = e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a || a.hasAttribute("download") || a.classList.contains("xlsx-dl")) return;
+    const href = a.getAttribute("href") || "";
+    const label = (a.textContent || "").trim();
+    if (/\.xls[xm]?(\?|#|$)/i.test(href)) {
+      e.preventDefault();
+      renderXlsxUrl(href, label);
+    } else if (/\.md(\?|#|$)/i.test(href)) {
+      e.preventDefault();
+      renderMdUrl(href, label);
+    }
+  });
+
+  tabBtns.forEach(btn => btn.addEventListener("click", () => switchTab(btn.dataset.tab)));
+  document.addEventListener("click", closeAllDrops);
+  buildDropNav();
+
+  const HASH_ALIAS = { "um-review": "rv-all", "um-review-il": "rv-il" };
+  const hash = HASH_ALIAS[location.hash.replace("#", "")] || location.hash.replace("#", "");
+  if (TABS[hash]) switchTab(hash);
+  else switchTab("jinmyeong");
+})();
+</script>
+</body>
+</html>
