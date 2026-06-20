@@ -174,11 +174,106 @@
     flex:0 0 auto; font-size:11px; color:#8a94a3; padding:6px 16px;
     border-top:1px solid var(--line); background:#fff;
   }
+  /* 본문·근거 전환 (좁은 화면) */
+  .pane-switch{
+    display:none; flex:0 0 auto; gap:6px; padding:8px 12px;
+    background:#fff; border-bottom:1px solid var(--line);
+  }
+  .pane-switch-btn{
+    flex:1 1 50%; appearance:none; border:1px solid var(--line);
+    background:#f4f7fb; color:var(--navy); padding:10px 12px;
+    border-radius:8px; font:inherit; font-size:13px; font-weight:700;
+    cursor:pointer; transition:background .15s,border-color .15s,color .15s;
+  }
+  .pane-switch-btn.active{
+    background:var(--navy); color:#fff; border-color:var(--navy);
+  }
+  .pane-switch-btn .sub{
+    display:block; font-size:11px; font-weight:500; opacity:.85;
+    margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+
+  /* ── 반응형: 태블릿 ── */
+  @media (max-width:1100px){
+    .top h1{font-size:18px;}
+    .top .sub{font-size:11px;line-height:1.45;}
+    .pane-head{padding:8px 12px;font-size:12.5px;}
+    .main-placeholder{padding:20px 16px;}
+    .md-body{padding:20px 16px;font-size:14px;}
+    .embed-pdf{height:320px;}
+  }
   @media (max-width:900px){
-    body{overflow:auto;height:auto;}
-    .workspace{flex-direction:column; min-height:70vh;}
-    .pane.left,.pane.right{flex:1 1 auto; min-height:360px;}
-    .pane.left{border-right:none;border-bottom:2px solid var(--line);}
+    body{overflow:auto;height:auto;min-height:100dvh;}
+    .workspace{
+      flex-direction:column; min-height:0;
+      flex:1 1 auto;
+    }
+    .pane.left{
+      border-right:none; border-bottom:2px solid var(--line);
+      flex:1 1 auto; min-height:min(55vh,520px);
+    }
+    .pane.right{flex:1 1 auto; min-height:min(45vh,420px);}
+    .xlsx-head strong{font-size:13px;}
+    .xlsx-body table{font-size:11px;}
+  }
+
+  /* ── 반응형: 모바일 — 한 패널씩 전환 ── */
+  @media (max-width:768px){
+    html{height:100%;}
+    body{
+      overflow:hidden; height:100%; min-height:100dvh;
+      padding-bottom:env(safe-area-inset-bottom,0);
+    }
+    .top{
+      padding:10px 12px 0;
+      padding-top:max(10px, env(safe-area-inset-top));
+    }
+    .top h1{margin-bottom:6px;font-size:16px;}
+    .top .sub{margin-bottom:8px;font-size:10.5px;}
+    .tabs{
+      flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
+      -webkit-overflow-scrolling:touch; scrollbar-width:none;
+      gap:3px; padding-bottom:6px; margin:0 -4px;
+    }
+    .tabs::-webkit-scrollbar{display:none;}
+    .tab{
+      flex:0 0 auto; padding:8px 11px; font-size:12px;
+      border-radius:6px 6px 0 0; white-space:nowrap;
+    }
+    .tab-drop-menu{min-width:132px;max-width:min(92vw,280px);}
+    .tab-drop-item{padding:9px 12px;font-size:12.5px;}
+    .pane-switch{display:flex;}
+    .workspace{
+      flex:1 1 auto; min-height:0; overflow:hidden;
+      flex-direction:column;
+    }
+    body[data-view-pane="left"] .pane.right{display:none!important;}
+    body[data-view-pane="right"] .pane.left{display:none!important;}
+    .pane.left,.pane.right{
+      flex:1 1 auto; min-height:0!important; border-bottom:none;
+    }
+    .pane-body{min-height:0;}
+    .main-placeholder{padding:16px 12px;}
+    .md-body{padding:16px 14px;font-size:14px;}
+    .md-body h1{font-size:19px;}
+    .md-body h2{font-size:16px;}
+    .md-body table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .ref-card h3{font-size:12px;padding:8px 10px;}
+    .ref-card .body{padding:8px 10px;font-size:12.5px;}
+    .ref-img{max-height:160px;}
+    .embed-pdf{height:240px;}
+    footer.bar{
+      font-size:10px; padding:5px 12px;
+      padding-bottom:max(5px, env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (max-width:480px){
+    .top h1{font-size:15px;}
+    .pane-switch-btn{padding:9px 8px;font-size:12px;}
+    .pane-head .tag{max-width:46vw; overflow:hidden; text-overflow:ellipsis;}
+    .xlsx-head{padding:8px 10px;gap:8px;}
+    .xlsx-dl{margin-left:0;width:100%;text-align:center;}
   }
   .xlsx-wrap{display:flex;flex-direction:column;height:100%;background:#fff;}
   .xlsx-head{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#f4f6fa;flex:0 0 auto;}
@@ -233,6 +328,11 @@
     }
     body.print-scope-left .pane.left{display:flex!important;}
     body.print-scope-right .pane.right{display:flex!important;}
+    body[data-view-pane="left"] .pane.right,
+    body[data-view-pane="right"] .pane.left{display:none!important;}
+    body.print-scope-left[data-view-pane="right"] .pane.left,
+    body.print-scope-right[data-view-pane="left"] .pane.right{display:flex!important;}
+    .pane-switch{display:none!important;}
     body.print-scope-right.print-ref-preview #refs-list{display:none!important;}
     .pane-body{
       position:static!important; overflow:visible!important;
@@ -280,6 +380,17 @@
     <button type="button" class="tab" data-tab="report" role="tab">종합보고</button>
   </nav>
 </header>
+
+<div class="pane-switch" role="tablist" aria-label="본문·근거자료 전환">
+  <button type="button" class="pane-switch-btn active" data-pane="left" role="tab" aria-selected="true">
+    본문
+    <span class="sub" id="switch-main-label">진명개발(주)</span>
+  </button>
+  <button type="button" class="pane-switch-btn" data-pane="right" role="tab" aria-selected="false">
+    근거자료
+    <span class="sub" id="switch-ref-label">등기·공개정보</span>
+  </button>
+</div>
 
 <main class="workspace">
   <section class="pane left" aria-label="본문">
@@ -710,14 +821,33 @@
   const dropNav = document.getElementById("drop-nav");
   const paneLeft = document.querySelector(".pane.left");
   const paneRight = document.querySelector(".pane.right");
+  const paneSwitchBtns = document.querySelectorAll(".pane-switch-btn");
+  const switchMainLabel = document.getElementById("switch-main-label");
+  const switchRefLabel = document.getElementById("switch-ref-label");
 
   let activePane = "left";
   let _printFrameHeight = "";
+
+  function syncPaneSwitchLabels() {
+    if (switchMainLabel) switchMainLabel.textContent = mainTag.textContent || "본문";
+    if (switchRefLabel) switchRefLabel.textContent = refTag.textContent || "근거자료";
+  }
+
+  function setMobileViewPane(pane) {
+    const p = pane === "right" ? "right" : "left";
+    document.body.dataset.viewPane = p;
+    paneSwitchBtns.forEach(btn => {
+      const on = btn.dataset.pane === p;
+      btn.classList.toggle("active", on);
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
 
   function setActivePane(pane) {
     activePane = pane === "right" ? "right" : "left";
     if (paneLeft) paneLeft.classList.toggle("pane-focused", activePane === "left");
     if (paneRight) paneRight.classList.toggle("pane-focused", activePane === "right");
+    setMobileViewPane(activePane);
   }
 
   function applyPrintScope(pane) {
@@ -760,6 +890,9 @@
     if (!el) return;
     el.addEventListener("pointerdown", () => setActivePane(el === paneRight ? "right" : "left"));
     el.addEventListener("focusin", () => setActivePane(el === paneRight ? "right" : "left"));
+  });
+  paneSwitchBtns.forEach(btn => {
+    btn.addEventListener("click", () => setActivePane(btn.dataset.pane));
   });
   setActivePane("left");
 
@@ -846,6 +979,7 @@
     }
     mainTag.textContent = cfg.label;
     refTag.textContent = cfg.refTag;
+    syncPaneSwitchLabels();
     refsList.innerHTML = cfg.refs;
     clearRefPreview();
     const xlsxLinks = refsList.querySelectorAll("a.ref-open-xlsx");
