@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 청원지구 — 공사공정표</title>
+<style>
+  :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;
+        --ok:#1a7f37;--warn:#b25e00;--bad:#b3261e;
+        --c01:#2c5aa0;--c04:#1a7f37;--c05:#b25e00;--c06:#6b4c9a;
+        --c02o:#a85f00;--c02i:#e8a317;--c07:#6b7785;--c00:#1f3a5f;--cjg:#3d8b8b;}
+  *{box-sizing:border-box;}
+  body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;margin:0;
+       background:var(--bg);color:#1c2430;line-height:1.7;font-size:15px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:30px 22px 60px;}
+  header.doc{border-bottom:3px solid var(--navy);padding-bottom:16px;margin-bottom:10px;}
+  header.doc h1{font-size:23px;color:var(--navy);margin:0 0 6px;letter-spacing:-.4px;}
+  .meta{color:#5a6675;font-size:13px;}
+  h2{font-size:18px;color:var(--navy);margin:30px 0 10px;padding-left:10px;border-left:5px solid var(--blue);}
+  h3{font-size:15.5px;color:#2a3a4d;margin:18px 0 6px;}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+        border-radius:8px;overflow:hidden;font-size:13px;margin:8px 0;}
+  th,td{padding:7px 9px;border:1px solid var(--line);vertical-align:middle;}
+  th{background:#eaf0f8;color:var(--navy);text-align:center;}
+  td.l{text-align:left;} td.r{text-align:right;white-space:nowrap;} td.c{text-align:center;white-space:nowrap;}
+  .kpis{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;}
+  .kpi{flex:1 1 140px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+  .kpi .lab{font-size:12px;color:#6b7785;} .kpi .val{font-size:19px;font-weight:800;color:var(--navy);margin-top:2px;}
+  .kpi .sub{font-size:11.5px;color:#8a94a3;margin-top:2px;}
+  .box{border-radius:8px;padding:13px 18px;margin:14px 0;border:1px solid var(--line);background:#fff;}
+  .box.ok{border-left:5px solid var(--ok);background:#f2fbf4;}
+  .box.warn{border-left:5px solid var(--warn);background:#fff8ef;}
+  .box ol,.box ul{margin:6px 0;padding-left:20px;} .box li{margin:4px 0;}
+  .muted{color:#6b7785;font-size:12.5px;}
+  footer{margin-top:34px;font-size:12px;color:#8a94a3;border-top:1px solid var(--line);padding-top:12px;}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:10px 0 4px;font-size:12px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{display:inline-block;width:14px;height:10px;border-radius:2px;}
+  .gantt-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff;margin:10px 0;}
+  .gantt{min-width:980px;font-size:11px;}
+  .gantt-head,.gantt-row{display:grid;grid-template-columns:228px 88px 1fr;border-bottom:1px solid var(--line);}
+  .gantt-head{background:#eaf0f8;font-weight:700;color:var(--navy);}
+  .gantt-head div,.gantt-row>div{padding:6px 8px;border-right:1px solid var(--line);}
+  .gantt-head div:last-child,.gantt-row>div:last-child{border-right:none;}
+  .gantt-months{display:grid;grid-template-columns:repeat(34,1fr);height:100%;min-height:28px;}
+  .gantt-months span{
+    border-right:1px solid #edf1f6;text-align:center;font-size:9.5px;padding:2px 0;
+    color:#6b7785;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:-.2px;
+  }
+  .gantt-months span:nth-child(4n+1){background:#f8fafc;color:var(--navy);font-weight:600;}
+  .gantt-track{position:relative;height:22px;background:#f4f6fa;border-radius:4px;margin:4px 0;}
+  .gantt-bar{
+    position:absolute;top:2px;height:18px;border-radius:3px;opacity:.92;
+    font-size:9px;color:#fff;line-height:18px;padding:0 4px;overflow:hidden;white-space:nowrap;
+  }
+  .gantt-row:nth-child(even){background:#fcfdff;}
+  .gantt-sep{background:#eef2f8;font-weight:700;color:var(--navy);font-size:10.5px;}
+  .gantt-sep div{padding:5px 8px;border-bottom:1px solid var(--line);}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;padding:1px 7px;border-radius:8px;}
+  @media print{
+    body{background:#fff;font-size:12px;}
+    .wrap{max-width:none;padding:12px;}
+    .gantt-wrap{overflow:visible;}
+    .gantt-months span{font-size:8px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="doc">
+  <h1>화성 청원지구 — 공사공정표</h1>
+  <div class="meta">산업유통형 지구단위계획 · 마도면 청원리 산175-2번지 일원 80,617㎡ · 작성 2026. 6. 20. (전기·구역 구분 반영)</div>
+</header>
+
+<div class="box warn">
+  <b>가정·전제.</b> 착공일 <b>2026. 10. 1.</b>, 총공기 <b>34개월</b>(내역서 01 토목 부대공 기준).
+  공사는 <b>단지외</b>(진입도로·회전교차로·단지외 전기)와 <b>단지내</b>(토목·개발행위·단지내 전기·조경) 두 트랙으로 구분하며, 02 전기는 내역서 02의 <b>지구외(2-x)·지구내(1-x)</b> 구분을 따른다.
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="lab">착공예정</div><div class="val">2026. 10. 1.</div><div class="sub">M1</div></div>
+  <div class="kpi"><div class="lab">준공목표</div><div class="val">2029. 7. 31.</div><div class="sub">M34</div></div>
+  <div class="kpi"><div class="lab">총공기</div><div class="val">34개월</div><div class="sub">내역서 부대공 기준</div></div>
+  <div class="kpi"><div class="lab">전기 구분</div><div class="val">단지외·내</div><div class="sub">02 지구외 / 02 지구내</div></div>
+</div>
+
+<h2>Ⅰ. 공사 트랙·전기 구분</h2>
+<div class="box ok">
+  <b>02 전기설비</b>는 발주·시공 단위가 <b>단지외(지구외)</b>와 <b>단지내(지구내)</b>로 나뉜다. 공정표에서도 동일하게 분리 표기한다.
+</div>
+<table>
+  <tr>
+    <th style="width:88px">트랙</th>
+    <th style="width:88px">기간</th>
+    <th style="width:130px">공종·내역</th>
+    <th>주요 범위</th>
+  </tr>
+  <tr>
+    <td class="c"><b>단지외</b></td>
+    <td class="c">M2~M18</td>
+    <td class="l"><b>①</b> 05 회전교차로 + <span class="tag" style="background:var(--c02o)">02外</span>(M5~)<br><b>②</b> 04 진입도로 + <span class="tag" style="background:var(--c02o)">02外</span>(M12~)<br><b>③</b> 01 토목(외부)(M10~)</td>
+    <td class="l">시공 <b>순위</b> — 회전교차로 → 진입도로 → 토목. <span class="tag" style="background:var(--c02o)">02外</span>는 <b>① 회전교차로(M5~)</b>에서 착수 → ② 진입도로 구간 연장(M12~). 진입도로 <b>중도(M10)</b> 후 차량 지출입·③ 토목·단지내.</td>
+  </tr>
+  <tr>
+    <td class="c"><b>단지내</b></td>
+    <td class="c">M10~M28</td>
+    <td class="l">01 토목(토공·관로·포장)<br>06 개발행위 구역<br><span class="tag" style="background:var(--c02i)">02 단지내</span><br><span class="tag" style="background:var(--cjg)">01 조경</span></td>
+    <td class="l">진입도로 중도 개통(<b>M10~</b>) 이후 본격. 80,617㎡ 구역 토공·관로·포장, A1~B2, 전기(지구내), 조경.</td>
+  </tr>
+  <tr>
+    <td class="c"><b>공통</b></td>
+    <td class="c">M1~M34</td>
+    <td class="l">07 건설폐기물<br>가설·준공</td>
+    <td class="l">07 폐기물은 전 트랙 연동. M33~M34 준공검사·가설 해체.</td>
+  </tr>
+</table>
+
+<h2>Ⅱ. 주요 마일스톤</h2>
+<table>
+  <tr><th style="width:110px">구분</th><th style="width:120px">목표 시점</th><th>내용</th></tr>
+  <tr><td class="c">착공</td><td class="c">2026. 10. 1.</td><td class="l">가설·측량·세륜세차, 07 폐기물 개시</td></tr>
+  <tr><td class="c">① 회전교차로</td><td class="c">2026. 11.~2027. 8.</td><td class="l">05 최우선 — 청원로 회전교차로 토공·관로·포장 착수(M2~)</td></tr>
+  <tr><td class="c">② 진입도로</td><td class="c">2027. 2.~2028. 1.</td><td class="l">04 — ① 일정 진행 후 진입도로(588-5~175-2) 본격(M5~)</td></tr>
+  <tr><td class="c">차량 지출입</td><td class="c">2027. 7. (M10)</td><td class="l">04 진입도로 <b>중도(50%+)·임시 포장</b> — 대형 차량·장비 단지 진입 가능</td></tr>
+  <tr><td class="c">③ 토목(외부)</td><td class="c">2027. 7.~2028. 3.</td><td class="l">01 단지외·접속부 토공·관로 — ② 중도 이후(M10~)</td></tr>
+  <tr><td class="c">02外(교차로)</td><td class="c">2027. 2.~2027. 8.</td><td class="l">02 지구외 — <b>05 회전교차로와 동시(M5~)</b> · 가로등·신호·관로(2-1·2-2) 우선</td></tr>
+  <tr><td class="c">02外(진입로)</td><td class="c">2027. 9.~2028. 3.</td><td class="l">02 지구외 — 04 진입도로 구간 연장·단속(2-3)(M12~M18)</td></tr>
+  <tr><td class="c">단지내 본격</td><td class="c">2027. 7.~2029. 2.</td><td class="l">01·06 — 진입로 개통(M10~) 후 구역별 토공·관로·포장</td></tr>
+  <tr><td class="c">단지내 전기</td><td class="c">2028. 1.~2029. 2.</td><td class="l">02 지구내 — 구역·공원·도로 조명·통신·신호</td></tr>
+  <tr><td class="c">조경</td><td class="c">2028. 5.~2029. 2.</td><td class="l">01 조경 — 구역별 식재·잔디(포장·전기 관로 후, M28까지)</td></tr>
+  <tr><td class="c">준공</td><td class="c">2029. 7. 31.</td><td class="l">양 트랙 시운전·준공검사·가설 해체</td></tr>
+</table>
+
+<h2>Ⅲ. 공종별 공정 (Gantt)</h2>
+<p class="muted">가로축 M1~M34 (2026. 10. ~ 2029. 7.). 단지외·단지내 트랙 구분.</p>
+<div class="legend">
+  <span><i style="background:var(--c00)"></i> 공통</span>
+  <span><i style="background:var(--c01)"></i> 01 토목</span>
+  <span><i style="background:var(--c04)"></i> 04 진입도로</span>
+  <span><i style="background:var(--c05)"></i> 05 회전교차로</span>
+  <span><i style="background:var(--c02o)"></i> 02 단지외</span>
+  <span><i style="background:var(--c06)"></i> 06 개발행위</span>
+  <span><i style="background:var(--c02i)"></i> 02 단지내</span>
+  <span><i style="background:var(--cjg)"></i> 01 조경</span>
+  <span><i style="background:var(--c07)"></i> 07 폐기물</span>
+</div>
+<div class="gantt-wrap">
+<div class="gantt" id="gantt"></div>
+</div>
+
+<h2>Ⅳ. 공정 상세</h2>
+<table>
+  <tr>
+    <th style="width:34px">No</th>
+    <th style="width:72px">트랙</th>
+    <th style="width:96px">공종</th>
+    <th style="width:48px">시작</th>
+    <th style="width:48px">종료</th>
+    <th style="width:40px">기간</th>
+    <th>주요 작업</th>
+    <th style="width:64px">내역</th>
+  </tr>
+  <tr><td class="c">1</td><td class="c">공통</td><td class="c"><span class="tag" style="background:var(--c00)">가설</span></td><td class="c">M1</td><td class="c">M2</td><td class="c">2</td><td class="l">측량·가설건물·세륜세차·방음판</td><td class="c">01</td></tr>
+  <tr><td class="c">2</td><td class="c">공통</td><td class="c"><span class="tag" style="background:var(--c07)">07</span></td><td class="c">M1</td><td class="c">M34</td><td class="c">34</td><td class="l">건설폐기물(토공·굴착 연동)</td><td class="c">07</td></tr>
+  <tr><td class="c">3</td><td class="c">단지외</td><td class="c"><span class="tag" style="background:var(--c05)">05①</span></td><td class="c">M2</td><td class="c">M11</td><td class="c">10</td><td class="l">회전교차로 토공·관로·포장·구조물 — <b>단지외 1순위</b></td><td class="c">05</td></tr>
+  <tr><td class="c">4</td><td class="c">단지외</td><td class="c"><span class="tag" style="background:var(--c04)">04②</span></td><td class="c">M5</td><td class="c">M15</td><td class="c">11</td><td class="l">진입도로 토공·관로·포장 — <b>2순위</b>(① 착수 후). <b>M10 중도</b> 임시포장·차량 통행</td><td class="c">04</td></tr>
+  <tr><td class="c">5</td><td class="c">단지외</td><td class="c"><span class="tag" style="background:var(--c01)">01③</span></td><td class="c">M10</td><td class="c">M18</td><td class="c">9</td><td class="l">토공·관로(접속·외부) — <b>3순위</b>, 진입로 중도 개통 후</td><td class="c">01</td></tr>
+  <tr><td class="c">6</td><td class="c">단지외</td><td class="c"><span class="tag" style="background:var(--c02o)">02外</span></td><td class="c">M5</td><td class="c">M11</td><td class="c">7</td><td class="l"><b>회전교차로 전기</b> — ① 토공·관로와 병행, 신호·가로등·케이블(2-1·2-2)</td><td class="c">02</td></tr>
+  <tr><td class="c">7</td><td class="c">단지외</td><td class="c"><span class="tag" style="background:var(--c02o)">02外</span></td><td class="c">M12</td><td class="c">M18</td><td class="c">7</td><td class="l"><b>진입도로 전기</b> — ② 구간 연장·단속(2-3), 04 포장·관로 후</td><td class="c">02</td></tr>
+  <tr><td class="c">8</td><td class="c">단지내</td><td class="c"><span class="tag" style="background:var(--c01)">01</span></td><td class="c">M10</td><td class="c">M22</td><td class="c">13</td><td class="l">토공·우·오·상수·포장·구조물 — 진입로 개통(M10) 후 본격</td><td class="c">01</td></tr>
+  <tr><td class="c">9</td><td class="c">단지내</td><td class="c"><span class="tag" style="background:var(--c06)">06</span></td><td class="c">M10</td><td class="c">M26</td><td class="c">17</td><td class="l">개발행위 A1~A5·B1~B2·지원·주차 — 장비 진입 후</td><td class="c">06</td></tr>
+  <tr><td class="c">10</td><td class="c">단지내</td><td class="c"><span class="tag" style="background:var(--c02i)">02內</span></td><td class="c">M16</td><td class="c">M28</td><td class="c">13</td><td class="l">단지내 전기 — 구역 포장·관로 후</td><td class="c">02</td></tr>
+  <tr><td class="c">11</td><td class="c">단지내</td><td class="c"><span class="tag" style="background:var(--cjg)">조경</span></td><td class="c">M20</td><td class="c">M28</td><td class="c">9</td><td class="l">조경 식재·잔디·시설(구역별, 포장·관로 후)</td><td class="c">01</td></tr>
+  <tr><td class="c">12</td><td class="c">공통</td><td class="c"><span class="tag" style="background:var(--c00)">준공</span></td><td class="c">M29</td><td class="c">M34</td><td class="c">6</td><td class="l">시운전·준공검사·하자·가설 해체·생육 관리</td><td class="c">—</td></tr>
+</table>
+
+<h2>Ⅴ. 시공 순서·병행 원칙</h2>
+<div class="box">
+  <ol>
+    <li><b>단지외 시공 순위</b> — <b>① 05 회전교차로(M2~)</b> → <b>② 04 진입도로(M5~)</b> → <b>③ 01 토목·단지내(M10~)</b>. 회전교차로·진입도로 없이 단지 내 대형 공사 불가.</li>
+    <li><b>차량 지출입 조건</b> — 04 진입도로 공정 <b>중도(약 M10, 50%+·임시포장)</b> 확보 후 덤프·굴삭기 등 지출입. M10을 단지내·③ 토목 본격 착수 기준으로 둔다.</li>
+    <li><b>단지외 전기(02外)</b> — <b>회전교차로부터(M5~)</b> ①과 병행(관로·신호·가로등 2-1·2-2). ② 진입도로 구간·단속(2-3)은 M12~M18.</li>
+    <li><b>단지내</b> — M10(진입로 개통) 이후 01·06 구역별 시공(M10~M28). 02 지구내·조경은 포장·관로 후 순차.</li>
+    <li><b>07 폐기물</b> — ③·단지내 토공과 연동, 전 기간 분산.</li>
+  </ol>
+</div>
+
+<h2>Ⅵ. 월별 일정표 (요약)</h2>
+<table id="month-table">
+  <tr><th style="width:56px">월차</th><th style="width:140px">연월</th><th>주요 공정</th></tr>
+</table>
+
+<footer>
+  화성 청원지구 공사공정표 · 착공 2026. 10. 1. · 34개월 · 단지외 ①⑤→②④→③① · 진입로 M10 중도 개통 · 작성 2026. 6. 20.
+</footer>
+</div>
+
+<script>
+(function(){
+  var TOTAL = 34;
+  var months = [];
+  var y = 2026, m = 10;
+  for (var i = 0; i < TOTAL; i++) {
+    months.push({ idx: i + 1, label: y + "." + String(m).padStart(2, "0") });
+    m++; if (m > 12) { m = 1; y++; }
+  }
+
+  var tasks = [
+    { sep: "공통" },
+    { name: "착공준비·가설", src: "01", color: "#1f3a5f", s: 1, e: 2 },
+    { name: "07 건설폐기물", src: "07", color: "#6b7785", s: 1, e: 34 },
+    { sep: "단지외 — ①⑤·02外(교차로) → ②④·02外(진입) → ③①" },
+    { name: "① 05 회전교차로", src: "05", color: "#b25e00", s: 2, e: 11 },
+    { name: "02外 — 회전교차로", src: "02外", color: "#a85f00", s: 5, e: 11 },
+    { name: "② 04 진입도로", src: "04", color: "#1a7f37", s: 5, e: 15 },
+    { name: "③ 01 토목(외부·접속)", src: "01", color: "#2c5aa0", s: 10, e: 18 },
+    { name: "02外 — 진입도로", src: "02外", color: "#c17817", s: 12, e: 18 },
+    { sep: "단지내 — 진입로 M10 개통 후 (M10~M28)" },
+    { name: "01 토목(구역 내)", src: "01", color: "#2c5aa0", s: 10, e: 22 },
+    { name: "06 개발행위 구역", src: "06", color: "#6b4c9a", s: 10, e: 26 },
+    { name: "02 단지내 전기(지구내)", src: "02內", color: "#e8a317", s: 16, e: 28 },
+    { name: "01 조경", src: "01", color: "#3d8b8b", s: 20, e: 28 },
+    { sep: "준공" },
+    { name: "시운전·준공·가설해체", src: "—", color: "#1f3a5f", s: 29, e: 34 }
+  ];
+
+  function barStyle(s, e) {
+    var left = ((s - 1) / TOTAL) * 100;
+    var width = ((e - s + 1) / TOTAL) * 100;
+    return "left:" + left + "%;width:" + width + "%;";
+  }
+
+  var gantt = document.getElementById("gantt");
+  var head = document.createElement("div");
+  head.className = "gantt-head";
+  head.innerHTML = '<div>공종·작업</div><div>내역</div><div><div class="gantt-months">' +
+    months.map(function(m){ return '<span title="M' + m.idx + '">' + m.label + "</span>"; }).join("") +
+    "</div></div>";
+  gantt.appendChild(head);
+
+  tasks.forEach(function(t){
+    if (t.sep) {
+      var sep = document.createElement("div");
+      sep.className = "gantt-sep";
+      sep.innerHTML = '<div style="grid-column:1/-1">' + t.sep + "</div>";
+      sep.style.display = "grid";
+      sep.style.gridTemplateColumns = "1fr";
+      gantt.appendChild(sep);
+      return;
+    }
+    var row = document.createElement("div");
+    row.className = "gantt-row";
+    row.innerHTML =
+      '<div>' + t.name + "</div>" +
+      '<div class="c">' + t.src + "</div>" +
+      '<div><div class="gantt-track">' +
+      '<div class="gantt-bar" style="' + barStyle(t.s, t.e) + "background:" + t.color + ';">M' + t.s + "~M" + t.e + "</div>" +
+      "</div></div>";
+    gantt.appendChild(row);
+  });
+
+  var monthSummary = [
+    [1,2,"착공·가설·07 폐기물"],
+    [3,4,"① 05 회전교차로 착수(단지외 1순위)"],
+    [5,9,"② 04 진입도로, 02外(회전교차로) — ①과 병행"],
+    [10,11,"★ M10 진입로 중도 · 02外(교차로) 마감 · ③·단지내 착수"],
+    [12,13,"02外(진입도로), 01·06 단지내, 04·05 마감"],
+    [14,18,"02外(진입) 완료, 단지내 토목·관로"],
+    [19,22,"02 단지내, 01·06, 조경(M20~)"],
+    [23,28,"단지내 전기·조경·06 마감"],
+    [29,34,"시운전·준공·가설 해체"]
+  ];
+
+  var mt = document.getElementById("month-table");
+  monthSummary.forEach(function(block){
+    var s = block[0], e = block[1], txt = block[2];
+    var tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td class="c">M' + s + (s === e ? "" : "~M" + e) + "</td>" +
+      '<td class="c">' + months[s-1].label + (s === e ? "" : "~" + months[e-1].label) + "</td>" +
+      '<td class="l">' + txt + "</td>";
+    mt.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>

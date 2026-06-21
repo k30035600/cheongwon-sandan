@@ -22,6 +22,8 @@
   .ok{background:#f1f8f2;border:1px solid #bfe0c5;} .ok b{color:var(--ok);}
   table{width:100%;border-collapse:collapse;background:#fff;margin:8px 0 4px;
         border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:12.5px;}
+  table.tbl-daeryang{table-layout:fixed;}
+  table.tbl-daeryang-sum{margin-top:4px;}
   th,td{padding:7px 9px;border:1px solid var(--line);text-align:left;vertical-align:top;}
   th{background:#eaf0f8;color:var(--navy);font-weight:700;text-align:center;}
   td.c,th.c{text-align:center;white-space:nowrap;}
@@ -31,6 +33,14 @@
   .b-ok{background:var(--ok);} .b-mid{background:var(--mid);} .b-warn{background:var(--warn);}
   .sub{color:#6b7785;font-size:12px;}
   footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:#8a94a3;}
+  @media print{
+    body{background:#fff;}
+    .wrap{max-width:none;padding:16px 18px 32px;}
+    .note,.danger,.ok{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    table{page-break-inside:auto;}
+    tr{page-break-inside:avoid;}
+    h2,h3{page-break-after:avoid;}
+  }
 </style>
 </head>
 <body>
@@ -45,12 +55,12 @@
   </div>
   <div class="meta" style="margin-top:4px">
     <b>근거</b> 화성시 고시 제2026-76호(2026. 1. 28.) 결정조서 +
-    정부24 토지·임야대장 등본(2026. 6. 20. 발급 10필지) + 토지이음 지적도(구역도 3장)
+    정부24 토지·임야대장 등본(2026. 6. 20.~21. 발급 21필지) + 토지이음 지적도(구역도)
   </div>
 </header>
 
 <div class="note ok">
-  <b>대장 반영(2026. 6. 20.).</b> 아래 Ⅰ항은 정부24 발급 <b>토지·임야대장 등본 10필지</b>를 OCR·대조하여 지목·지적공부 면적·현재 소유자·2026년 개별공시지가를 정리한 것입니다.
+  <b>대장 반영(2026. 6. 20.).</b> 아래 Ⅰ항은 정부24 발급 <b>토지·임야대장 등본</b>을 OCR·대조하여 지목·지적공부 면적·현재 소유자·<b>취득일(최종 소유권이전)</b>·2026년 개별공시지가를 정리한 것입니다.
   Ⅱ항 이하 「편입면적」은 여전히 <b>고시 결정조서상 획지·시설 면적</b>이며, 필지 전체가 아닌 <b>일부 편입</b>일 수 있습니다.
   편입선 확정·분할 후 지번은 실시계획인가 편입토지조서·지적(임야)도로 최종 확인해야 합니다.
 </div>
@@ -59,79 +69,108 @@
 </div>
 
 <h2>Ⅰ. 지적공부 — 토지·임야대장 정리</h2>
-<p class="sub">발급일 2026. 6. 20. · 발급처 정부24 · 소재지 「경기도 화성시 만세구 마도면 청원리」</p>
-<table>
+<p class="sub">발급일 2026. 6. 20.~21. · 발급처 정부24 · 소재지 「경기도 화성시 만세구 마도면 청원리」 · 임야 13필지 · 토지 8필지</p>
+<table class="tbl-daeryang">
+  <colgroup>
+    <col style="width:3.5%"><col style="width:7%"><col style="width:5%"><col style="width:5%">
+    <col style="width:8%"><col style="width:38%"><col style="width:9%"><col style="width:8%"><col style="width:16.5%">
+  </colgroup>
   <thead>
     <tr>
-      <th class="c" style="width:34px">연번</th>
-      <th class="c" style="width:88px">지번</th>
-      <th class="c" style="width:52px">대장</th>
-      <th class="c" style="width:52px">지목</th>
-      <th class="c" style="width:82px">면적(㎡)</th>
-      <th style="width:200px">현재 소유자</th>
-      <th class="c" style="width:88px">공시지가<br>2026(원/㎡)</th>
-      <th class="c" style="width:110px">합계금액(원)<br><span class="sub">면적×공시지가</span></th>
-      <th>근거 PDF</th>
+      <th class="c">연번</th>
+      <th class="c">지번</th>
+      <th class="c">대장</th>
+      <th class="c">지목</th>
+      <th class="c">면적(㎡)</th>
+      <th>현재 소유자</th>
+      <th class="c">취득일</th>
+      <th class="c">공시지가<br>2026(원/㎡)</th>
+      <th class="c">합계금액(원)<br><span class="sub">면적×공시지가</span></th>
     </tr>
   </thead>
   <tbody>
     <tr><td class="c">1</td><td class="c">산175</td><td class="c">임야</td><td class="c">임야</td><td class="r">9,535</td>
-        <td>이영순</td><td class="r">53,100</td><td class="r">506,308,500</td>
-        <td class="sub">임야대장_청원리 산175.pdf</td></tr>
+        <td>이영순</td><td class="c">2023. 12. 19.</td><td class="r">53,100</td><td class="r">506,308,500</td></tr>
     <tr><td class="c">2</td><td class="c">산175-1</td><td class="c">임야</td><td class="c">임야</td><td class="r">1,671</td>
-        <td>진명개발(주)</td><td class="r">54,100</td><td class="r">90,401,100</td>
-        <td class="sub">임야대장_청원리 산175-1.pdf</td></tr>
+        <td>진명개발(주)</td><td class="c">2024. 6. 28.</td><td class="r">54,100</td><td class="r">90,401,100</td></tr>
     <tr><td class="c">3</td><td class="c">산175-2</td><td class="c">임야</td><td class="c">임야</td><td class="r">10,880</td>
-        <td>진명개발(주)</td><td class="r">53,100</td><td class="r">577,728,000</td>
-        <td class="sub">임야대장_청원리 산175-2.pdf</td></tr>
-    <tr><td class="c">4</td><td class="c">산177-1</td><td class="c">임야</td><td class="c">임야</td><td class="r">8,490</td>
-        <td>이영순</td><td class="r">53,800</td><td class="r">456,762,000</td>
-        <td class="sub">임야대장_청원리 산177-1.pdf</td></tr>
-    <tr><td class="c">5</td><td class="c">산177-4</td><td class="c">임야</td><td class="c">임야</td><td class="r">9,149</td>
-        <td>진명개발(주)</td><td class="r">52,100</td><td class="r">476,662,900</td>
-        <td class="sub">임야대장_청원리 산177-4.pdf</td></tr>
-    <tr><td class="c">6</td><td class="c">산177-5</td><td class="c">임야</td><td class="c">임야</td><td class="r">7,568</td>
+        <td>진명개발(주)</td><td class="c">2024. 6. 28.</td><td class="r">53,100</td><td class="r">577,728,000</td></tr>
+    <tr><td class="c">4</td><td class="c">산175-3</td><td class="c">임야</td><td class="c">임야</td><td class="r">327</td>
+        <td>진명개발(주)</td><td class="c">2025. 12. 30.</td><td class="r">54,100</td><td class="r">17,690,700</td></tr>
+    <tr><td class="c">5</td><td class="c">산176</td><td class="c">임야</td><td class="c">임야</td><td class="r">1,488</td>
+        <td>성순이</td><td class="c">1987. 12. 19.</td><td class="r">54,100</td><td class="r">80,500,800</td></tr>
+    <tr><td class="c">6</td><td class="c">산177-1</td><td class="c">임야</td><td class="c">임야</td><td class="r">8,490</td>
+        <td>이영순</td><td class="c">1996. 5. 10.</td><td class="r">53,800</td><td class="r">456,762,000</td></tr>
+    <tr><td class="c">7</td><td class="c">산177-3</td><td class="c">임야</td><td class="c">임야</td><td class="r">2,363</td>
+        <td>진명개발(주)</td><td class="c">2025. 12. 30.</td><td class="r">54,800</td><td class="r">129,492,400</td></tr>
+    <tr><td class="c">8</td><td class="c">산177-4</td><td class="c">임야</td><td class="c">임야</td><td class="r">9,149</td>
+        <td>진명개발(주)</td><td class="c">2024. 6. 28.</td><td class="r">52,100</td><td class="r">476,662,900</td></tr>
+    <tr><td class="c">9</td><td class="c">산177-5</td><td class="c">임야</td><td class="c">임야</td><td class="r">7,568</td>
         <td>한국투자부동산신탁(주)<span class="sub"> ←2025.12.22 진명→신탁</span></td>
-        <td class="r">53,800</td><td class="r">407,158,400</td>
-        <td class="sub">임야대장_청원리 산177-5.pdf</td></tr>
-    <tr><td class="c">7</td><td class="c">산178</td><td class="c">임야</td><td class="c">임야</td><td class="r">5,950</td>
-        <td><b>국(산림청)</b></td><td class="r">54,700</td><td class="r">325,465,000</td>
-        <td class="sub">임야대장_청원리 산178.pdf</td></tr>
-    <tr><td class="c">8</td><td class="c">산183</td><td class="c">임야</td><td class="c">임야</td><td class="r">5,058</td>
-        <td>심재필</td><td class="r">53,800</td><td class="r">272,120,400</td>
-        <td class="sub">임야대장_청원리 산183.pdf</td></tr>
-    <tr><td class="c">9</td><td class="c">513-8</td><td class="c">토지</td><td class="c">전</td><td class="r">2,715</td>
-        <td>차상환 외 1인<span class="sub"> · 2026.3.27 분할</span></td><td class="r">79,800</td><td class="r">216,657,000</td>
-        <td class="sub">토지대장_청원리 513-8.pdf</td></tr>
-    <tr><td class="c">10</td><td class="c">513-9</td><td class="c">토지</td><td class="c">임야</td><td class="r">3,666</td>
-        <td>홍순호 외 1인<span class="sub"> · 2026.3.27 분할·경정</span></td><td class="r">53,100</td><td class="r">194,664,600</td>
-        <td class="sub">토지대장_청원리 513-9.pdf</td></tr>
+        <td class="c">2025. 12. 22.</td><td class="r">53,800</td><td class="r">407,158,400</td></tr>
+    <tr><td class="c">10</td><td class="c">산178</td><td class="c">임야</td><td class="c">임야</td><td class="r">5,950</td>
+        <td><b>국(산림청)</b></td><td class="c">1971. 8. 13.<span class="sub"> 보존</span></td><td class="r">54,700</td><td class="r">325,465,000</td></tr>
+    <tr><td class="c">11</td><td class="c">산183</td><td class="c">임야</td><td class="c">임야</td><td class="r">5,058</td>
+        <td>심재필</td><td class="c">1994. 4. 21.</td><td class="r">53,800</td><td class="r">272,120,400</td></tr>
+    <tr><td class="c">12</td><td class="c">산184-1</td><td class="c">임야</td><td class="c">임야</td><td class="r">1,308</td>
+        <td>이순열<span class="sub"> · 지구 편입 일부(408㎡)</span></td><td class="c">2003. 7. 28.</td><td class="r">54,800</td><td class="r">71,678,400</td></tr>
+    <tr><td class="c">13</td><td class="c">산184-3</td><td class="c">임야</td><td class="c">임야</td><td class="r">4,572</td>
+        <td>이영순</td><td class="c">2023. 12. 19.</td><td class="r">53,900</td><td class="r">246,430,800</td></tr>
+    <tr><td class="c">14</td><td class="c">513-8</td><td class="c">토지</td><td class="c">전</td><td class="r">2,715</td>
+        <td>차상환 외 1인<span class="sub"> · 2026.3.27 분할</span></td><td class="c">2026. 1. 8.</td><td class="r">79,800</td><td class="r">216,657,000</td></tr>
+    <tr><td class="c">15</td><td class="c">513-9</td><td class="c">토지</td><td class="c">임야</td><td class="r">3,666</td>
+        <td>홍순호 외 1인<span class="sub"> · 2026.3.27 분할·경정</span></td><td class="c">2026. 2. 10.</td><td class="r">53,100</td><td class="r">194,664,600</td></tr>
+    <tr><td class="c">16</td><td class="c">513-10</td><td class="c">토지</td><td class="c">임야</td><td class="r">1,122</td>
+        <td>한국투자부동산신탁(주)</td><td class="c">2026. 1. 20.</td><td class="r">54,100</td><td class="r">60,700,200</td></tr>
+    <tr><td class="c">17</td><td class="c">599</td><td class="c">토지</td><td class="c">전</td><td class="r">807</td>
+        <td>차상환</td><td class="c">2024. 10. 30.</td><td class="r">104,000</td><td class="r">83,928,000</td></tr>
+    <tr><td class="c">18</td><td class="c">600</td><td class="c">토지</td><td class="c">전</td><td class="r">721</td>
+        <td>유정숙 외 9인</td><td class="c">2021. 5. 10.</td><td class="r">99,600</td><td class="r">71,811,600</td></tr>
+    <tr><td class="c">19</td><td class="c">601</td><td class="c">토지</td><td class="c">전</td><td class="r">767</td>
+        <td>차상환</td><td class="c">2026. 2. 19.</td><td class="r">99,600</td><td class="r">76,393,200</td></tr>
+    <tr><td class="c">20</td><td class="c">601-1</td><td class="c">토지</td><td class="c">전</td><td class="r">2,345</td>
+        <td>허송</td><td class="c">2006. 3. 10.</td><td class="r">100,700</td><td class="r">236,141,500</td></tr>
+    <tr><td class="c">21</td><td class="c">601-2</td><td class="c">토지</td><td class="c">전</td><td class="r">531</td>
+        <td>허송</td><td class="c">2006. 3. 10.</td><td class="r">100,700</td><td class="r">53,471,700</td></tr>
   </tbody>
-  <tfoot>
-    <tr><td class="c" colspan="4">10필지 합계</td><td class="r">64,682</td>
-        <td class="c">—</td><td class="c">—</td>
-        <td class="r"><b>3,523,927,900</b><br><span class="sub">약 35.24억</span></td>
-        <td class="sub">2026년 개별공시지가×지적공부면적 · 실거래·보상가 아님</td></tr>
-  </tfoot>
 </table>
 
-<p class="sub">※ 합계금액 = 지적공부 면적(㎡) × 2026년 개별공시지가(원/㎡). 10필지 공시지가 합계 <b>3,523,927,900원(약 35.24억)</b> — 세금·보상·매입가 산정 기준이 아닌 공시 참고액.</p>
+<p class="sub">※ 취득일 = 대장상 현재 소유자의 최종 소유권이전(03) 일자. ※ 합계금액 = 지적공부 면적(㎡) × 2026년 개별공시지가(원/㎡).</p>
 
 <h3>소유자별 필지</h3>
 <table>
   <thead><tr><th>소유자</th><th class="c" style="width:120px">필지</th><th class="c" style="width:90px">면적합(㎡)</th><th>비고</th></tr></thead>
   <tbody>
-    <tr><td>진명개발(주)<span class="sub"> · 신탁 포함</span></td><td class="c">산175-1·175-2·177-4·177-5</td><td class="r">29,268</td><td>법인등록 134811-0724593 · 산177-5는 2025.12.22 한국투자부동산신탁 명의(진명계열) — 면적·협의 집계는 진명개발로 통합</td></tr>
-    <tr><td>이영순</td><td class="c">산175·177-1</td><td class="r">18,025</td><td>개인 — 협의·매입 대상 검토</td></tr>
+    <tr><td>진명개발(주)</td><td class="c">산175-1·175-2·175-3·177-3·177-4</td><td class="r">24,390</td><td>법인등록 134811-0724593</td></tr>
+    <tr><td>한국투자부동산신탁(주)<span class="sub"> · 진명계열</span></td><td class="c">산177-5·513-10</td><td class="r">8,690</td><td>2025.12.22·2026.1.20 신탁 명의 — 협의·집계는 진명개발과 연계</td></tr>
+    <tr><td>이영순</td><td class="c">산175·177-1·184-3</td><td class="r">22,597</td><td>개인 — 협의·매입 대상 검토</td></tr>
+    <tr><td>이순열</td><td class="c">산184-1</td><td class="r">1,308</td><td>지구 편입 일부(408㎡) · 필지 전체 1,308㎡</td></tr>
+    <tr><td>성순이</td><td class="c">산176</td><td class="r">1,488</td><td>개인</td></tr>
     <tr><td>국(산림청)</td><td class="c">산178</td><td class="r">5,950</td><td>국유림 — 경관녹지1(4,054㎡) 편입 시 절차 별도</td></tr>
     <tr><td>심재필</td><td class="c">산183</td><td class="r">5,058</td><td>공업용지 A1(C29) 획지</td></tr>
-    <tr><td>차상환 외 1인</td><td class="c">513-8</td><td class="r">2,715</td><td>지목 전 · 도로(중로2-1·소로1-1) 편입</td></tr>
+    <tr><td>차상환<span class="sub"> · 513-8 외 1인</span></td><td class="c">513-8·599·601</td><td class="r">4,289</td><td>도로·구역 서측 전답</td></tr>
     <tr><td>홍순호 외 1인</td><td class="c">513-9</td><td class="r">3,666</td><td>소공원1(4,034㎡) · 2026.3.27 분할</td></tr>
+    <tr><td>유정숙 외 9인</td><td class="c">600</td><td class="r">721</td><td>구역 북측 전답</td></tr>
+    <tr><td>허송</td><td class="c">601-1·601-2</td><td class="r">2,876</td><td>동측 전답</td></tr>
   </tbody>
 </table>
 
+<table class="tbl-daeryang tbl-daeryang-sum" aria-label="21필지 합계">
+  <colgroup>
+    <col style="width:3.5%"><col style="width:7%"><col style="width:5%"><col style="width:5%">
+    <col style="width:8%"><col style="width:38%"><col style="width:9%"><col style="width:8%"><col style="width:16.5%">
+  </colgroup>
+  <tfoot>
+    <tr><td class="c" colspan="4">21필지 합계</td><td class="r">81,033</td>
+        <td class="sub">2026년 개별공시지가×지적공부면적 · 실거래·보상가 아님 · 세금·보상·매입가 산정 기준이 아닌 공시 참고액</td>
+        <td class="c">—</td>
+        <td class="c">—</td>
+        <td class="r"><b>4,652,167,200</b><br><span class="sub">약 46.52억</span></td></tr>
+  </tfoot>
+</table>
+
 <h2>Ⅱ. 지번별 편입 토지조서 (고시 결정조서 대조)</h2>
-<p class="sub">「편입면적(고시)」= 결정조서 획지·시설 면적. 「지적공부면적」= Ⅰ항 대장. 한 지번에 도로·시설이 겹치면 고시면적만 표기.</p>
+<p class="sub">「편입면적(고시)」= 결정조서 획지·시설 면적. 「지적공부면적」= Ⅰ항 대장(21필지). Ⅰ항 미포함·일부편입 필지는 「—」. 한 지번에 도로·시설이 겹치면 고시면적만 표기.</p>
 <table>
   <thead>
     <tr>
@@ -155,33 +194,71 @@
         <td>공업용지 A5(C24) 3,425 · 지원시설 C1 1,139 · 주차장 C2 745 · 오수처리 D1 466 ·
             소공원2 1,712(유수지1 상부 중복) · 유수지1(저류) 1,712 · 도로(중로3-1·3-2·소로1-1·2-1·3-1) 다수 · 진입도로(중로3-4) 종점</td>
         <td class="r">7,487<span class="sub"> +시설·도로</span></td><td>진명개발(주)</td></tr>
-    <tr><td class="c">4</td><td class="c">산177-1</td><td class="c">임야</td><td class="r">8,490</td>
+    <tr><td class="c">4</td><td class="c">산175-3</td><td class="c">임야</td><td class="r">327</td>
+        <td><span class="sub">고시 미포함</span> · 175-2와 인접 · 구역 경계 인접</td>
+        <td class="c">—</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">5</td><td class="c">산176</td><td class="c">임야</td><td class="r">1,488</td>
+        <td><span class="sub">고시 미포함</span> · 구역 경계 인접</td>
+        <td class="c">—</td><td>성순이</td></tr>
+    <tr><td class="c">6</td><td class="c">산177-1</td><td class="c">임야</td><td class="r">8,490</td>
         <td>공업용지 A3(C24) 7,803 · 경관녹지2 10,405 · 전기공급설비(송전탑) 164</td>
         <td class="r">18,372</td><td>이영순</td></tr>
-    <tr><td class="c">5</td><td class="c">산177-4</td><td class="c">임야</td><td class="r">9,149</td>
+    <tr><td class="c">7</td><td class="c">산177-3</td><td class="c">임야</td><td class="r">2,363</td>
+        <td><span class="sub">고시 미포함</span> · 177-4·177-5와 인접 · 구역 경계 인접</td>
+        <td class="c">—</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">8</td><td class="c">산177-4</td><td class="c">임야</td><td class="r">9,149</td>
         <td>공업용지 A2(C24) 8,617</td>
         <td class="r">8,617</td><td>진명개발(주)</td></tr>
-    <tr><td class="c">6</td><td class="c">산177-5</td><td class="c">임야</td><td class="r">7,568</td>
+    <tr><td class="c">9</td><td class="c">산177-5</td><td class="c">임야</td><td class="r">7,568</td>
         <td>공업용지 B1(C25 금속가공) 8,897</td>
         <td class="r">8,897</td><td>한국투자부동산신탁(주)</td></tr>
-    <tr><td class="c">7</td><td class="c">산178</td><td class="c">임야</td><td class="r">5,950</td>
+    <tr><td class="c">10</td><td class="c">산178</td><td class="c">임야</td><td class="r">5,950</td>
         <td>경관녹지1 4,054</td>
         <td class="r">4,054</td><td><b>국(산림청)</b></td></tr>
-    <tr><td class="c">8</td><td class="c">산183</td><td class="c">임야</td><td class="r">5,058</td>
+    <tr><td class="c">11</td><td class="c">산183</td><td class="c">임야</td><td class="r">5,058</td>
         <td>공업용지 A1(C29 기타 기계·장비) 4,650</td>
         <td class="r">4,650</td><td>심재필</td></tr>
-    <tr><td class="c">9</td><td class="c">513-8</td><td class="c">전</td><td class="r">2,715</td>
+    <tr><td class="c">12</td><td class="c">산184-1</td><td class="c">임야</td><td class="r">1,308</td>
+        <td>일부편입(고시 결정조서) · 필지 전체 1,308㎡</td>
+        <td class="r">408<span class="sub"> 일부</span></td><td>이순열</td></tr>
+    <tr><td class="c">13</td><td class="c">산184-3</td><td class="c">임야</td><td class="r">4,572</td>
+        <td><span class="sub">고시 미포함</span> · 184-1과 인접 · 구역 경계 인접</td>
+        <td class="c">—</td><td>이영순</td></tr>
+    <tr><td class="c">14</td><td class="c">513-8</td><td class="c">전</td><td class="r">2,715</td>
         <td>도로(중로2-1 종점 / 소로1-1 기점) 편입 일부</td>
         <td class="r"><span class="sub">도로 일부</span></td><td>차상환 외 1인</td></tr>
-    <tr><td class="c">10</td><td class="c">513-9</td><td class="c">임야</td><td class="r">3,666</td>
+    <tr><td class="c">15</td><td class="c">513-9</td><td class="c">임야</td><td class="r">3,666</td>
         <td>소공원1 4,034</td>
         <td class="r">4,034</td><td>홍순호 외 1인</td></tr>
+    <tr><td class="c">16</td><td class="c">513-10</td><td class="c">임야</td><td class="r">1,122</td>
+        <td><span class="sub">고시 미포함</span> · 513-8·9 분할 인접(2026. 3. 27.) · 구역 서측</td>
+        <td class="c">—</td><td>한국투자부동산신탁(주)</td></tr>
+    <tr><td class="c">17</td><td class="c">599</td><td class="c">전</td><td class="r">807</td>
+        <td><span class="sub">고시 미포함</span> · 구역 서·북측 전답 인접</td>
+        <td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">18</td><td class="c">600</td><td class="c">전</td><td class="r">721</td>
+        <td><span class="sub">고시 미포함</span> · 구역 북측 전답 인접</td>
+        <td class="c">—</td><td>유정숙 외 9인</td></tr>
+    <tr><td class="c">19</td><td class="c">601</td><td class="c">전</td><td class="r">767</td>
+        <td><span class="sub">고시 미포함</span> · 구역 동·북측 전답 인접</td>
+        <td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">20</td><td class="c">601-1</td><td class="c">전</td><td class="r">2,345</td>
+        <td><span class="sub">고시 미포함</span> · 구역 동측 전답 인접</td>
+        <td class="c">—</td><td>허송</td></tr>
+    <tr><td class="c">21</td><td class="c">601-2</td><td class="c">전</td><td class="r">531</td>
+        <td><span class="sub">고시 미포함</span> · 구역 동측 전답 인접</td>
+        <td class="c">—</td><td>허송</td></tr>
   </tbody>
   <tfoot>
-    <tr><td class="c" colspan="3">지구단위계획구역(고시)</td><td class="r">64,682</td>
-        <td class="c">—</td><td class="r">80,617</td><td class="c">—</td></tr>
+    <tr><td class="c" colspan="3">고시 편입 해당(11지번·도로)</td><td class="r">65,990</td>
+        <td class="sub">184-1은 일부(408㎡)만 고시</td><td class="r">80,617</td><td class="c">—</td></tr>
+    <tr><td class="c" colspan="3">Ⅰ항 지적공부 합계(21필지)</td><td class="r">81,033</td>
+        <td class="sub">인접 10필지 — 고시 편입면적 없음</td><td class="c">—</td><td class="c">—</td></tr>
   </tfoot>
 </table>
+<div class="note ok">
+  <b>고시 외 인접 필지(10).</b> <b>산175-3·176·177-3·184-3</b> · <b>513-10</b> · <b>599·600·601·601-1·601-2</b> — Ⅰ항 대장 확보(2026. 6.). 고시 결정조서에는 개별 편입면적 없음. 실시계획인가·편입선 확정 후 재대조.
+</div>
 <div class="note">
   <b>진입도로(구역 외 별도 결정).</b> 중로3-4호선(L=294m, B=12~18m, 4,018㎡)은 <b>청원리 588-5</b>(기점) ~ <b>산175-2 일원</b>(종점)을 잇는 진입도로로, 지구단위계획구역(80,617㎡) 면적에는 포함되지 않습니다.
 </div>
@@ -279,23 +356,22 @@
 <table>
   <thead><tr><th class="c" style="width:170px">자료</th><th>확인 내용</th></tr></thead>
   <tbody>
-    <tr><td class="c">토지·임야대장<br>(10필지 PDF)</td>
-        <td>Ⅰ항 정리 완료. <b>513-8·513-9</b>는 2026. 3. 27. 분할 등기(면적 2,715·3,666㎡). <b>산178</b> 국유림(산림청). <b>산177-5</b> 2025. 12. 22. 진명개발→한국투자부동산신탁 이전.</td></tr>
-    <tr><td class="c">토지이음_지구단위구역도.jpg</td><td>광역(축소) — 구역과 인접 지번(산177·산175·산178·산183, 동측 생산녹지지역) 위치 확인</td></tr>
-    <tr><td class="c">토지이음_지구단위구역도_1.jpg<br>토지이음_지구단위구역도_2.jpg</td>
-        <td>확대 — 구역 경계(적색선)와 주 편입지번 <code>산177-5임</code>(획지 B1) 및 산177-3·산178 방향 확인. 경계 형상이 ‘산177-5 → 산178 → 산183 → 산177-4 → 산177-1’ 능선부를 따름</td></tr>
+    <tr><td class="c">토지·임야대장<br>(21필지 PDF)</td>
+        <td>Ⅰ항 정리(2026. 6. 20.~21.). <b>513-8·513-9</b> 2026. 3. 27. 분할 · <b>513-10</b> 신탁(2026. 1. 20.) · <b>599·601</b> 차상환 · <b>600</b> 유정숙 외 9인 · <b>601-1·601-2</b> 허송 · <b>산184-1</b> 이순열(편입 일부 408㎡).</td></tr>
+    <tr><td class="c">토지이음_지구단위구역도.jpg</td><td>구역 경계(적색선)와 인접·편입 지번(산177·175·178·183 등) 위치 확인. <b>산184-1</b> 일부(408㎡) 편입 표기.</td></tr>
   </tbody>
 </table>
 <div class="note danger">
   <b>잔여 확인 사항.</b>
   ① <b>편입면적(고시) &gt; 지적공부면적</b>인 필지(예: 산177-1 고시 18,372 vs 대장 8,490) — 인접 필지·분할 전 지번 또는 복수 필지 편입 가능성.<br>
   ② <b>국유림(산178)</b> · <b>타인 소유(이영순·심재필·홍순호 등)</b> — 협의·매입·수용 절차 별도.<br>
-  ③ 보상·인가용 최종은 <b>등기사항전부증명서</b> + <b>실시계획인가 편입토지조서</b>로 확정.
+  ③ <b>고시 외 인접 10필지</b>(175-3·176·177-3·184-3·513-10·599~601-2) — 편입선·편입면적 미확정.<br>
+  ④ 보상·인가용 최종은 <b>등기사항전부증명서</b> + <b>실시계획인가 편입토지조서</b>로 확정.
 </div>
 
 <div class="note">
-  <b>면적 대조.</b> 10필지 면적 합계(지적공부) <b>64,682㎡</b> — 구역면적 <b>80,617㎡</b>와 차이 <b>15,935㎡</b>.
-  미확보 필지·도로·분할 전 지번 등 <b>추가 대장</b> 필요.
+  <b>면적 대조.</b> 21필지 면적 합계(지적공부) <b>81,033㎡</b> — 구역면적 <b>80,617㎡</b>와 차이 <b>+416㎡</b>(인접·구역 외 필지 포함 가능).
+  Ⅰ항에 <b>599·600·601</b> 계열·<b>산176</b> 등 구역 경계 인접 필지 포함. 편입선·실시계획인가 후 재대조 필요.
 </div>
 
 <footer>

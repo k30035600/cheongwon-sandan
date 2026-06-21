@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>화성 청원지구 — 종합보고서</title>
 <style>
-  :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;
-        --ok:#1a7f37;--warn:#b25e00;--bad:#b3261e;}
+  :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;--ok:#1a7f37;}
   *{box-sizing:border-box;}
   body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;margin:0;
        background:var(--bg);color:#1c2430;line-height:1.7;font-size:15px;}
@@ -27,12 +26,8 @@
   .kpi .sub{font-size:11.5px;color:#8a94a3;margin-top:2px;}
   .box{border-radius:8px;padding:13px 18px;margin:14px 0;border:1px solid var(--line);background:#fff;}
   .box.ok{border-left:5px solid var(--ok);background:#f2fbf4;}
-  .box.warn{border-left:5px solid var(--warn);background:#fff8ef;}
-  .box.bad{border-left:5px solid var(--bad);background:#fdf2f1;}
-  .box ol,.box ul{margin:6px 0;padding-left:20px;} .box li{margin:4px 0;}
+  .box ol{margin:6px 0;padding-left:20px;} .box li{margin:4px 0;}
   code{background:#eef2f7;padding:1px 6px;border-radius:4px;font-size:12.5px;}
-  .tag{display:inline-block;font-size:11px;font-weight:700;color:#fff;padding:1px 8px;border-radius:9px;}
-  .t-ok{background:var(--ok);} .t-warn{background:var(--warn);} .t-bad{background:var(--bad);}
   .muted{color:#6b7785;font-size:12.5px;}
   footer{margin-top:34px;font-size:12px;color:#8a94a3;border-top:1px solid var(--line);padding-top:12px;}
 </style>
@@ -45,8 +40,7 @@
 </header>
 
 <div class="box">
-  본 보고서는 화성 청원지구 포털의 자료 구성과 공내역서 표준단가 산출 결과를 종합하고,
-  <b>최종 전수조사</b>에서 확인된 사항·결함·복구 권장사항을 정리한다.
+  본 보고서는 화성 청원지구 포털 자료와 공내역서 표준단가 산출 결과를 종합한 <b>최종본</b>이다.
   금액은 <b>직접공사비</b>(재료·노무·경비) 추정이며, 제경비·부가가치세·원단위 절사는 미포함이다.
 </div>
 
@@ -60,46 +54,38 @@
   <tr><td class="c">공내역서</td><td class="l">01 토목·조경 / 02 전기 / 04 진입도로 / 05 회전교차로 / 06 개발행위 / 07 폐기물 (03 전기 지구외는 02 중복·제외)</td></tr>
 </table>
 
-<h2>Ⅱ. 포털 구성 — 좌/우 2단 패널</h2>
-<p>좌측 「본문」(html·md·안내)과 우측 「근거자료」(xlsx·pdf·이미지) 2단 구조이며, 탭별 매핑은 다음과 같다.</p>
+<h2>Ⅱ. 포털 구성</h2>
+<p>좌측 「본문」과 우측 「근거자료」 2단 패널로 토지조서·환경·지구단위계획·공내역서·집계표·검토 자료를 연계한다.</p>
 <table>
   <tr><th style="width:150px">탭</th><th>좌측(본문)</th><th>우측(근거자료)</th></tr>
-  <tr><td class="c">진명·토지·환평·지구·인허가</td><td class="l">HTML 요약</td><td class="l">PDF·JPG·TXT·링크</td></tr>
-  <tr><td class="c">공내역서</td><td class="l">목록 안내 / 개별 안내</td><td class="l">원본 XLS (자동 미리보기)</td></tr>
-  <tr><td class="c">내역서</td><td class="l"><code>_요약.md</code></td><td class="l"><code>_표준단가산출.xlsx</code></td></tr>
-  <tr><td class="c">집계표</td><td class="l">총괄표 HTML·MD</td><td class="l">총괄표 xlsx·md</td></tr>
-  <tr><td class="c">미매칭·검토</td><td class="l">안내 placeholder</td><td class="l">해당 xlsx (자동 미리보기)</td></tr>
-  <tr><td class="c">종합보고</td><td class="l">본 보고서</td><td class="l">검토·집계 xlsx</td></tr>
+  <tr><td class="c">진명·토지·환평·지구·인허가</td><td class="l">HTML 요약</td><td class="l">PDF·JPG·원본 링크</td></tr>
+  <tr><td class="c">공내역서·내역서</td><td class="l">요약·안내</td><td class="l">원본 XLS · 표준단가산출 xlsx</td></tr>
+  <tr><td class="c">집계표</td><td class="l">총괄표 HTML·MD</td><td class="l">총괄표 xlsx</td></tr>
+  <tr><td class="c">종합보고</td><td class="l">본 보고서</td><td class="l">집계·검토 xlsx</td></tr>
 </table>
-<p class="muted">전수조사 결과 좌/우 패널 역할 규칙 위반 0건. 그룹 탭 클릭 시 드롭다운 1번 항목이 자동 선택된다.</p>
 
 <h2>Ⅲ. 공내역서 표준단가 산출 결과</h2>
-<div class="box ok">
-  <b>교정 완료(2026. 6. 20.).</b> 과거 ②의 행 번호 불일치 오패치(Ⅵ)와 저신뢰 자동확정 이상치를 모두 바로잡아,
-  현재 <b>직접공사비 63.83억(6,382,777,607원)</b>으로 확정되었다. 통합내역 = 공종별 합계가 일치하며
-  오패치 0건이다. 아래 ①은 교정 전 baseline, ②는 교정 후 최종값이다.
+<p class="muted">확정단가 반영 후 <code>총괄표.xlsx</code> 기준(2026. 6.).</p>
+
+<h3>직접공사비 총괄</h3>
+<div class="kpis">
+  <div class="kpi"><div class="lab">직접공사비</div><div class="val" style="color:var(--ok)">63.83억</div><div class="sub">6,382,777,607원</div></div>
+  <div class="kpi"><div class="lab">구성비(재·노·경)</div><div class="val">23.0 / 63.1 / 13.9%</div><div class="sub">재료·노무·경비</div></div>
+  <div class="kpi"><div class="lab">매칭 현황</div><div class="val">985 / 113 / 102</div><div class="sub">매칭 / 검토 / 미매칭(조경 제외)</div></div>
 </div>
 
-<h3>① 확정단가 반영 전 — 안정 baseline (총괄표 HTML 기준)</h3>
 <table>
   <tr><th style="width:34px">No</th><th>구분</th><th>재료비</th><th>노무비</th><th>경비</th><th>합계</th><th>억</th></tr>
-  <tr><td class="c">01</td><td class="l">토목</td><td class="r">369,069,519</td><td class="r">1,757,960,020</td><td class="r">258,997,412</td><td class="r">2,386,026,951</td><td class="r">23.86</td></tr>
-  <tr><td class="c">01</td><td class="l">조경</td><td class="r">8,039,640</td><td class="r">106,764,222</td><td class="r">2,136,313</td><td class="r">116,940,175</td><td class="r">1.17</td></tr>
-  <tr><td class="c">02</td><td class="l">전기설비</td><td class="r">496,416,069</td><td class="r">184,025,686</td><td class="r">6,585,391</td><td class="r">687,027,145</td><td class="r">6.87</td></tr>
-  <tr><td class="c">04</td><td class="l">진입도로</td><td class="r">123,409,916</td><td class="r">392,785,780</td><td class="r">43,512,215</td><td class="r">559,707,911</td><td class="r">5.60</td></tr>
-  <tr><td class="c">05</td><td class="l">회전교차로</td><td class="r">214,380,064</td><td class="r">512,094,488</td><td class="r">34,722,077</td><td class="r">761,196,629</td><td class="r">7.61</td></tr>
-  <tr><td class="c">06</td><td class="l">개발행위</td><td class="r">340,564,364</td><td class="r">1,062,102,134</td><td class="r">302,481,087</td><td class="r">1,705,147,585</td><td class="r">17.05</td></tr>
+  <tr><td class="c">01</td><td class="l">토목</td><td class="r">412,779,322</td><td class="r">1,728,966,789</td><td class="r">390,307,758</td><td class="r">2,532,054,951</td><td class="r">25.32</td></tr>
+  <tr><td class="c">01</td><td class="l">조경</td><td class="r">15,226,260</td><td class="r">111,617,894</td><td class="r">74,832,957</td><td class="r">201,677,111</td><td class="r">2.02</td></tr>
+  <tr><td class="c">02</td><td class="l">전기설비</td><td class="r">496,416,068</td><td class="r">184,025,685</td><td class="r">10,385,390</td><td class="r">690,827,145</td><td class="r">6.91</td></tr>
+  <tr><td class="c">04</td><td class="l">진입도로</td><td class="r">84,435,223</td><td class="r">401,743,339</td><td class="r">46,174,874</td><td class="r">532,353,436</td><td class="r">5.32</td></tr>
+  <tr><td class="c">05</td><td class="l">회전교차로</td><td class="r">115,856,514</td><td class="r">519,405,822</td><td class="r">35,734,886</td><td class="r">670,997,222</td><td class="r">6.71</td></tr>
+  <tr><td class="c">06</td><td class="l">개발행위</td><td class="r">341,175,859</td><td class="r">1,079,591,249</td><td class="r">302,642,322</td><td class="r">1,723,409,430</td><td class="r">17.23</td></tr>
   <tr><td class="c">07</td><td class="l">건설폐기물처리</td><td class="r">0</td><td class="r">0</td><td class="r">31,458,312</td><td class="r">31,458,312</td><td class="r">0.31</td></tr>
-  <tr style="font-weight:700;background:#eef2f9"><td class="c">계</td><td class="l">01~07</td><td class="r">1,551,879,572</td><td class="r">4,015,732,330</td><td class="r">679,892,807</td><td class="r">6,247,504,709</td><td class="r">62.48</td></tr>
+  <tr style="font-weight:700;background:#eef2f9"><td class="c">계</td><td class="l">01~07</td><td class="r">1,465,889,246</td><td class="r">4,025,350,778</td><td class="r">891,536,499</td><td class="r">6,382,777,607</td><td class="r">63.83</td></tr>
 </table>
-
-<h3>② 확정단가 반영 후 — <span class="tag t-ok">교정 완료</span> 현재 총괄표.xlsx</h3>
-<div class="kpis">
-  <div class="kpi"><div class="lab">직접공사비(최종)</div><div class="val" style="color:var(--ok)">63.83억</div><div class="sub">6,382,777,607원 · 통합=공종별 일치</div></div>
-  <div class="kpi"><div class="lab">구성비(재·노·경)</div><div class="val">23.0 / 63.1 / 13.9%</div><div class="sub">정상 범위</div></div>
-  <div class="kpi"><div class="lab">교정 효과</div><div class="val" style="color:var(--ok)">≈1.36조 → 63.83억</div><div class="sub">오패치 51건 + 이상치 29건 교정</div></div>
-</div>
-<p class="muted">교정 전 표시값 13,722.20억(1,372,220,129,700원)은 행 불일치 오패치(Ⅵ, 살수→세륜세차 단일 행 ≈1.36조)로 부풀려진 오류값이었으며, 현재는 인용 대상이 아니다.</p>
+<p class="muted">03 전기(지구외)는 02와 동일 내역·#REF!로 합계에서 제외. 상세는 <code>내역서_표준단가산출_총괄표.html</code>·<code>총괄표.xlsx</code> 참조.</p>
 
 <h2>Ⅳ. 매칭·검토·미매칭 현황</h2>
 <table>
@@ -113,63 +99,18 @@
   <tr><td class="c">07</td><td class="l">건설폐기물처리</td><td class="r">2</td><td class="r">0</td><td class="r">0</td><td class="r">2</td><td class="r">100.0%</td></tr>
   <tr style="font-weight:700;background:#eef2f9"><td class="c">계</td><td class="l">01~07</td><td class="r">985</td><td class="r">113</td><td class="r">102</td><td class="r">1,220</td><td class="r">80.7%</td></tr>
 </table>
-<p class="muted">미매칭 합계는 01 조경 20건 제외 기준(전체 미매칭 125건). 검토·공종별 일위대가 산출 130건은 별도 진행.</p>
+<p class="muted">미매칭 합계는 01 조경 20건 제외(전체 미매칭 122건). 미매칭·미산출 건은 금액 0으로 집계.</p>
 
-<h2>Ⅴ. 전수조사 — 확인 사항</h2>
-<table>
-  <tr><th style="width:150px">점검 항목</th><th style="width:70px">결과</th><th>내용</th></tr>
-  <tr><td class="l">참조 파일 존재</td><td class="c"><span class="tag t-warn">1종 누락</span></td><td class="l">43개 참조 중 <code>03 전기(지구외).xlsx</code>만 부재(의도적 제외 대상이나 링크 잔존)</td></tr>
-  <tr><td class="l">좌/우 패널 매핑</td><td class="c"><span class="tag t-ok">정상</span></td><td class="l">규칙 위반 0건 · iframe/placeholder 전환·스크롤 정리 완료</td></tr>
-  <tr><td class="l">합계 일관성</td><td class="c"><span class="tag t-ok">일치</span></td><td class="l">통합내역 = 공종별 합계 = <b>6,382,777,607원</b>(재생성·동기화 완료)</td></tr>
-  <tr><td class="l">확정단가 반영</td><td class="c"><span class="tag t-ok">교정완료</span></td><td class="l">행 매칭 → <b>내용 기반 매칭(공종+품명+규격+단위)</b>으로 교체, 오패치 0건. 저신뢰 자동확정 이상치 29건 보수적 재산출</td></tr>
-</table>
-
-<h2>Ⅵ. 핵심 결함 — 행 번호 불일치 오패치</h2>
-<div class="box bad">
-  <b>원인.</b> <code>apply_confirmed_prices.py</code>는 확정단가를 <b>「행」 번호만으로</b> 통합내역에 반영한다.
-  그런데 두 자료의 행 체계가 다르다.
-  <ul>
-    <li><code>검토_전체.xlsx</code> = <b>01 토목·조경 합본</b> 행 번호(2026-06-19 분리 <b>이전</b>, 행 36~880)</li>
-    <li><code>통합내역</code> = <b>토목 단독</b> 행 번호(분리 <b>이후</b>, 행 20~801)</li>
-  </ul>
-  체계가 어긋나 확정단가가 다른 품목 행에 덮어써졌다.
-</div>
-
-<h3>대표 오패치 사례</h3>
-<table>
-  <tr><th style="width:54px">행</th><th>검토측 품명(확정단가)</th><th>실제 반영된 통합내역 품명 · 수량</th><th>잘못 반영액</th></tr>
-  <tr><td class="c">666</td><td class="l">세륜세차시설 운영 (21,241,607/개소)</td><td class="l">살수(물탱크 16000ℓ) · 64,150</td><td class="r" style="color:var(--bad);font-weight:700">≈1,362,649,089,050</td></tr>
-  <tr><td class="c">563</td><td class="l">레미콘 (65,967)</td><td class="l">도로경계석(화강석) · 1,336</td><td class="r">88,131,912</td></tr>
-  <tr><td class="c">635</td><td class="l">보강토옹벽-기본블럭 (68,556)</td><td class="l">가설방음판넬 · 1,242</td><td class="r">85,146,552</td></tr>
-  <tr><td class="c">334</td><td class="l">레미콘 (65,967)</td><td class="l">되메우기 및 다짐(토사) · 1,828</td><td class="r">120,587,676</td></tr>
-  <tr><td class="c">630</td><td class="l">레미콘 (65,967)</td><td class="l">되메우기(토사) · 1,040</td><td class="r">68,605,680</td></tr>
-  <tr><td class="c">178</td><td class="l">암거 맨홀 (1,006,735)</td><td class="l">콘크리트타설 · 11</td><td class="r">11,074,085</td></tr>
-</table>
-<p class="muted">전체 51건 중 6건 발췌. 단일 행 666(살수↔세륜세차) 하나가 약 1.36조로, 총괄표 전체를 폭증시킨 직접 원인이다. 검사 도구: <code>tools/_audit_rowpatch.py</code>.</p>
-
-<h2>Ⅶ. 복구 조치 — <span class="tag t-ok">완료</span></h2>
+<h2>Ⅴ. 결론</h2>
 <div class="box ok">
   <ol>
-    <li><b>매칭 키 교체 ✓</b> — <code>apply_confirmed_prices.py</code>를 「행」 대신 <b>(파일+품명+규격+단위)</b> 내용 기반 매칭으로 교체(이름 가드 행 폴백). 오패치 51건 제거</li>
-    <li><b>통합내역 리셋·재반영 ✓</b> — 원본 표준단가 산출값으로 리셋 후 정확히 재패치</li>
-    <li><b>총괄표 재생성·동기화 ✓</b> — <code>총괄표.md·xlsx·공종별</code> 재생성, 통합=공종별 일치(63.83억)</li>
-    <li><b>이상치 교정 ✓</b> — 저신뢰 자동확정 29건(가로지지대·경고테이프·우수받이·흄관하차비·점자블록) 보수적 재산출, ≈28.3억 과대 제거</li>
-    <li><b>빌더 구조 수정 ✓</b> — <code>build_ilwidae_worksheet.py</code>에 토큰 일치 가드 추가(H 근접매칭에서 내역품명↔DB품명 공유 토큰 0이면 자동확정 보류) — 재생성 시 오매칭 부활 방지</li>
-    <li><b>품목검증 보고 ✓</b> — 자동확정 105건 4분류(<code>검토_품목검증.xlsx</code>): A일치24·B시세/품셈25·C교정완료29·D검토요27(16.5M·0.26%)</li>
+    <li>포털·공내역서·집계표 자료가 연계되어 있으며, 표준단가 산출 <b>매칭률 80.7%</b>를 기록하였다.</li>
+    <li>확정단가 반영 후 <b>직접공사비 63.83억(6,382,777,607원)</b>으로 정리되었다.</li>
+    <li>잔여 미매칭 102건(조경 제외) 및 검토 113건은 일위대가·시세 보완 시 직접공사비가 추가 반영될 수 있다.</li>
   </ol>
 </div>
 
-<h2>Ⅷ. 결론</h2>
-<div class="box ok">
-  <ol>
-    <li>포털 자료 구성·좌우 패널·링크는 <b>정상</b>이며, 표준단가 산출(매칭률 80.7%) 기반은 견고하다.</li>
-    <li>Ⅶ 복구를 완료하여 현 시점 <b>신뢰 가능한 직접공사비는 63.83억(6,382,777,607원)</b>이다(통합=공종별 일치·오패치 0건).</li>
-    <li>과거 <b>13,722억은 행 불일치 오패치로 인한 오류값</b>으로, 이미 교정되어 더 이상 표시·인용되지 않는다.</li>
-    <li>잔여 검토 대상은 자동확정 D분류 27건(16.5M·전체의 0.26%)으로, 과소평가 의심 품목(정화조·변실 등) 수동단가 확인만 남았다.</li>
-  </ol>
-</div>
-
-<footer>화성 청원지구 종합보고서 · 2026. 6. 20. · 조사도구: tools/_audit_portal_full.py · _audit_rowpatch.py · _check_row_align.py · 끝.</footer>
+<footer>화성 청원지구 종합보고서 · 2026. 6. 20. · 끝.</footer>
 </div>
 </body>
 </html>
