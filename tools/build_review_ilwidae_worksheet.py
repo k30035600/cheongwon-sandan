@@ -3,7 +3,7 @@
 
 각 _표준단가산출.xlsx 「검토필요」 시트에서 후보 단가·점수를 읽어
 ① 표준단가 확정 ② 단위환산 ③ 품셈·재매칭 ④ 수동검증 경로를 제시한다.
-출력: 05_내역서/검토_일위대가산출.xlsx
+출력: 05_내역서/내역서작업/_공통/검토_일위대가산출.xlsx
 """
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ import apply_standard_prices as asp  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
-OUT = BASE / "검토_일위대가산출.xlsx"
+OUT = BASE / "내역서작업" / "_공통" / "검토_일위대가산출.xlsx"
 
 SRC = [
     ("01 토목", "01_화성 청원지구 토목_표준단가산출.xlsx"),

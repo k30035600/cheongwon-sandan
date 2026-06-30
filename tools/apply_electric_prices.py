@@ -24,8 +24,8 @@ PRICE_CSV = ROOT / "tools" / "_poomsem_cache" / "표준시장단가.csv"
 
 SRC = SRC_DIR / "02_화성 청원지구 전기설비.xlsx"
 REF = None
-OUT = WORK_DIR / "02_화성 청원지구 전기설비_표준단가산출.xlsx"
-OUT_MD = WORK_DIR / "02_화성 청원지구 전기설비_표준단가산출_요약.md"
+OUT = WORK_DIR / "전기" / "02_화성 청원지구 전기설비_표준단가산출.xlsx"
+OUT_MD = WORK_DIR / "전기" / "02_화성 청원지구 전기설비_표준단가산출_요약.md"
 DOC_TITLE = "전기설비"
 REF_LABEL = "동일파일 지구외"
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """미매칭 품목 × 조달청 가격정보(15129415) 시뮬레이션 — 기존 산출 미수정.
 
-단가원: 05_내역서/일위대가DB/조달청_가격정보_2026/*.csv
-출력: 05_내역서/조달청_미매칭점검.xlsx
+단가원: 05_내역서/일위대가DB/_공통/조달청_가격정보_2026/*.csv
+출력: 05_내역서/내역서작업/_공통/조달청_미매칭점검.xlsx
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ ROOT = TOOLS.parent
 BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
 G2B_DIR = BASE / "일위대가DB" / "조달청_가격정보_2026"
-OUT = BASE / "조달청_미매칭점검.xlsx"
+OUT = BASE / "내역서작업" / "조달청_미매칭점검.xlsx"
 
 sys.path.insert(0, str(TOOLS))
 import apply_standard_prices as asp  # noqa: E402

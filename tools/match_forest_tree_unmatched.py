@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """01 조경 미매칭(주 단위) × forestinfo 조경수 관측시세 시뮬레이션 — 산출 미수정.
 
-출력: 05_내역서/조경수_미매칭점검.xlsx
+출력: 05_내역서/내역서작업/조경/조경수_미매칭점검.xlsx
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ ROOT = TOOLS.parent
 BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
 CSV_PATH = BASE / "일위대가DB" / "조경수_관측시세.csv"
-OUT = BASE / "조경수_미매칭점검.xlsx"
+OUT = BASE / "내역서작업" / "조경수_미매칭점검.xlsx"
 
 sys.path.insert(0, str(TOOLS))
 import apply_standard_prices as asp  # noqa: E402

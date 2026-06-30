@@ -5,6 +5,7 @@ from __future__ import annotations
 import sys
 from collections import Counter
 from pathlib import Path
+import json
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Alignment, Font, PatternFill
@@ -17,13 +18,14 @@ from calc_overhead import (  # noqa: E402
     compute_cost_statement_electric,
 )
 from compare_cost_rates import write_rate_compare_sheet  # noqa: E402
+from naeyeok_gongjong import is_sanan_indirect_excluded  # noqa: E402
 
 sys.stdout.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"  # 폴더 재편(2026-06-18): 내역서작업이 05_내역서 하위로 이동
 WORK_DIR = BASE / "내역서작업"
-OUT_DIR = BASE
+OUT_DIR = BASE / "내역서작업" / "_공통"
 OUT_MD = OUT_DIR / "총괄표.md"
 OUT_XLSX = OUT_DIR / "총괄표.xlsx"
 OUT_GROUPED_XLSX = OUT_DIR / "총괄표_공종별.xlsx"
@@ -74,11 +76,9 @@ PCT_FMT = "0.00%"
 
 def load_money_totals(xlsx_name: str) -> dict[str, int]:
     """합계요약 시트 ★ 매칭합계(토목 등) 또는 ★ 합계(전기) 행에서 재·노·경·합계 읽기."""
-    cands = [d / xlsx_name for d in (BASE, WORK_DIR)]
-    cands = [p for p in cands if p.exists()]
-    if not cands:
+    path = resolve_xlsx_path(xlsx_name)
+    if not path:
         return {"mat": 0, "lab": 0, "exp": 0, "sum": 0}
-    path = max(cands, key=lambda p: p.stat().st_mtime)
     wb = load_workbook(path, read_only=True, data_only=True)
     if "합계요약" not in wb.sheetnames:
         wb.close()
@@ -169,25 +169,25 @@ ROWS = [
 def load_status_counts(xlsx_name: str) -> dict[str, int]:
     """통합내역 시트 상태별 건수 — 매칭(매칭+원본) / 검토 / 미매칭(미매칭+미산출).
 
-    산출물은 05_내역서(BASE)와 내역서작업(OUT_DIR) 양쪽에 존재할 수 있어,
-    두 위치의 동일 파일 중 **가장 최근 수정본**을 읽는다(폴더 재편 이후 stale 방지).
+    공종별 하위 폴더 포함, **가장 최근 수정본**을 읽는다.
     """
-    cands = [d / xlsx_name for d in (BASE, WORK_DIR)]
-    cands = [p for p in cands if p.exists()]
-    if not cands:
-        for d in (BASE, WORK_DIR):
-            cands += list(d.glob(f"*{xlsx_name[:6]}*표준단가산출.xlsx"))
-    if not cands:
+    path = resolve_xlsx_path(xlsx_name)
+    if not path:
         return {"matched": 0, "review": 0, "unmatched": 0, "total": 0}
-    path = max(cands, key=lambda p: p.stat().st_mtime)
     wb = load_workbook(path, read_only=True, data_only=True)
     sheet = "통합내역" if "통합내역" in wb.sheetnames else wb.sheetnames[0]
     ws = wb[sheet]
     hdr = next(ws.iter_rows(min_row=1, max_row=1, values_only=True))
     status_idx = next((i for i, h in enumerate(hdr) if h and "상태" in str(h)), 7)
+    sec_idx = next((i for i, h in enumerate(hdr) if h and str(h) == "공종"), 1)
+    name_idx = next((i for i, h in enumerate(hdr) if h and "공종명" in str(h)), 2)
     c: Counter[str] = Counter()
     for row in ws.iter_rows(min_row=2, values_only=True):
         if not row or not any(row):
+            continue
+        sec = row[sec_idx] if len(row) > sec_idx else None
+        nm = row[name_idx] if len(row) > name_idx else None
+        if is_sanan_indirect_excluded(sec, nm):
             continue
         st = str(row[status_idx] or "").strip()
         if st:
@@ -201,12 +201,16 @@ def load_status_counts(xlsx_name: str) -> dict[str, int]:
 
 
 def resolve_xlsx_path(xlsx_name: str) -> Path | None:
-    """내역서작업·루트 중 최신 *_표준단가산출.xlsx 경로."""
-    cands = [d / xlsx_name for d in (BASE, WORK_DIR)]
-    cands = [p for p in cands if p.exists()]
+    """내역서작업 공종 하위·루트 중 최신 *_표준단가산출.xlsx 경로."""
+    cands: list[Path] = []
+    for d in (BASE, WORK_DIR):
+        cands += list(d.rglob(xlsx_name))
+        p = d / xlsx_name
+        if p.exists():
+            cands.append(p)
     if not cands:
         for d in (BASE, WORK_DIR):
-            cands += list(d.glob(f"*{xlsx_name[:6]}*표준단가산출.xlsx"))
+            cands += list(d.rglob(f"*{xlsx_name[:6]}*표준단가산출.xlsx"))
     if not cands:
         return None
     return max(cands, key=lambda p: p.stat().st_mtime)
@@ -299,10 +303,6 @@ def pct(part: float, whole: float) -> str:
 
 
 def write_md(rows: list[dict], t: dict) -> None:
-    mat_oku = t["mat"] / 100_000_000
-    lab_oku = t["lab"] / 100_000_000
-    exp_oku = t["exp"] / 100_000_000
-    sum_oku = t["sum"] / 100_000_000
     priced = t["matched"] + t["review"]
     lines = [
         "# 화성 청원지구 공내역서 — 표준단가 산출 총괄표",
@@ -320,8 +320,8 @@ def write_md(rows: list[dict], t: dict) -> None:
         "| **미매칭** | 단가 미연결(**미매칭**·**미산출**) — **합계 행은 01 조경 제외** |",
         "| **전체** | 수량 내역 전 건수 (매칭 + 검토 + 미매칭) |",
         "",
-        f"> ① **직접공사비 합계** — **약 {sum_oku:.1f}억** ({fmt_money(t['sum'])}원)",
-        f"> ② **재료비** {mat_oku:.1f}억 · **노무비** {lab_oku:.1f}억 · **경비** {exp_oku:.1f}억",
+        f"> ① **직접공사비 합계** — **{fmt_money(t['sum'])}원**",
+        f"> ② **재료비** {fmt_money(t['mat'])}원 · **노무비** {fmt_money(t['lab'])}원 · **경비** {fmt_money(t['exp'])}원",
         f"> ③ **매칭** {t['matched']} / **미매칭** {t['unmatched']} "
         f"(조경 {t['unmatched_excluded']}건 제외·전체 미매칭 {t['unmatched_all']}) / **전체** {t['total']}건 "
         f"(매칭률 **{pct(t['matched'], t['total'])}**)",
@@ -329,19 +329,19 @@ def write_md(rows: list[dict], t: dict) -> None:
         "",
         "## 1. 내역서별 직접공사비",
         "",
-        "| No | 구분 | 매칭 | 검토 | 미매칭 | 전체 | 재료비 | 노무비 | 경비 | 합계 | 합계(억) |",
-        "|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| No | 구분 | 매칭 | 검토 | 미매칭 | 전체 | 재료비 | 노무비 | 경비 | 합계 |",
+        "|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for r in rows:
         lines.append(
             f"| {r['no']} | {r['name']} | {r['matched']} | {r['review']} | {r['unmatched']} | {r['total']} | "
             f"{fmt_money(r['mat'])} | {fmt_money(r['lab'])} | {fmt_money(r['exp'])} | "
-            f"{fmt_money(r['sum'])} | {fmt_oku(r['sum'])} |"
+            f"{fmt_money(r['sum'])} |"
         )
     lines.extend([
         f"| **합계** | **01~07** | **{t['matched']}** | **{t['review']}** | **{t['unmatched']}** ※ | **{t['total']}** | "
         f"**{fmt_money(t['mat'])}** | **{fmt_money(t['lab'])}** | **{fmt_money(t['exp'])}** | "
-        f"**{fmt_money(t['sum'])}** | **{fmt_oku(t['sum'])}** |",
+        f"**{fmt_money(t['sum'])}** |",
         "",
         f"※ 합계 **미매칭** — 01 조경 제외({t['unmatched_excluded']}건). 전체 미매칭 {t['unmatched_all']}건.",
         "",
@@ -388,9 +388,9 @@ def write_md(rows: list[dict], t: dict) -> None:
         "4. **03 전기(지구외) 제외** — 03은 02와 품목 209개가 100% 동일한 복사본이고 값 셀이 전부 #REF!(깨진 수식)이므로 이중계상 방지를 위해 합계에서 제외(사용자 지시, 2026-06-18). 02 파일이 지구내+지구외 전체를 포함.",
         "5. **금액 합계**는 **매칭 + 검토 + 원본** 건만 반영. **미매칭·미산출** 건은 금액 0.",
         "6. **조경수 보완 점검** — forestinfo 조경수 관측시세(산림조합중앙회·임산물유통정보시스템, 참고가·고시 아님)로 01·주 미매칭 31건을 별도 시뮬레이션한 결과 **매칭 30·검토 1·미매칭 0**. 결과는 루트 `조경수_미매칭점검.xlsx`에 두며, 표준단가산출 금액에는 자동 합산하지 않는다.",
-        "7. **민간 플랫폼 참고** — 그린나우·트리디비·트리4989는 실거래·직거래 단가 확인용 보조 단가원으로 정리(`일위대가DB/_외부원본/조경수_민간단가플랫폼.md`). 로그인·유료·공개 API 부재로 자동 수집 대상이 아니다.",
+        "7. **민간 플랫폼 참고** — 그린나우·트리디비·트리4989는 실거래·직거래 단가 확인용 보조 단가원으로 정리(`일위대가DB/_공통/_외부원본/조경수_민간단가플랫폼.md`). 로그인·유료·공개 API 부재로 자동 수집 대상이 아니다.",
         "8. 세부 내역은 각 `내역서작업/*_표준단가산출.xlsx` 통합내역 시트 참조.",
-        "9. **폴더 역할** — `내역서작업\\`에는 최종 `*_표준단가산출.xlsx`·`*_요약.md`만 두고, 루트 `05_내역서\\`에는 총괄표·검토·매칭·미매칭 파일을 둔다.",
+        "9. **폴더 역할** — `공내역서\\` 원본 · `내역서작업\\` 산출·총괄·검토·미매칭 · `일위대가DB\\` 단가DB · `표준품셈\\` 품셈 원본.",
         "",
         "끝.",
     ])
@@ -398,14 +398,17 @@ def write_md(rows: list[dict], t: dict) -> None:
     OUT_MD.write_text("\n".join(lines), encoding="utf-8")
 
 
-def _style_cost_row(ws, row: int, ncol: int, *, bold: bool = False, fill=None, money_cols=(3, 4)):
+def _style_cost_row(ws, row: int, ncol: int, *, bold: bool = False, fill=None, money_cols=(3,)):
     for c in range(1, ncol + 1):
         cell = ws.cell(row, c)
         if bold:
             cell.font = Font(bold=True)
         if fill:
             cell.fill = fill
-        if c in money_cols and isinstance(cell.value, (int, float)):
+        if c in money_cols and (
+            isinstance(cell.value, (int, float))
+            or (isinstance(cell.value, str) and str(cell.value).startswith("="))
+        ):
             cell.number_format = MONEY_FMT
         if c == 5 and isinstance(cell.value, float):
             cell.number_format = PCT_FMT
@@ -414,11 +417,14 @@ def _style_cost_row(ws, row: int, ncol: int, *, bold: bool = False, fill=None, m
 
 def _compute_cost(t: dict, engine: str) -> dict:
     if engine == "tomok":
-        return compute_cost_statement_civil(t["mat"], t["lab"], t["exp"], CIVIL_TOMOK_RATES)
+        return compute_cost_statement_civil(
+            t["mat"], t["lab"], t["exp"], CIVIL_TOMOK_RATES, include_pf=True,
+        )
     if engine == "jogyeong":
         return compute_cost_statement_civil(
             t["mat"], t["lab"], t["exp"], CIVIL_JOGYEONG_RATES,
             rate_source="토목공사 간접공사비 기준(2026.4.13)·조경",
+            include_pf=True,
         )
     return compute_cost_statement_electric(t["mat"], t["lab"], t["exp"])
 
@@ -444,12 +450,11 @@ def write_cost_sheet(
     ws.append([title])
     ws.append(["작성일", "2026. 6. 19."])
     ws.append(["기준", basis_note])
-    ws.append(["직접공사비", cs["direct"], cs["direct"] / 100_000_000, "재료+노무+경비"])
-    ws.append(["도급액(총공사비)", cs["contract"], cs["contract"] / 100_000_000, f"직접비의 {cs['multiplier']:.3f}배"])
+    ws.append(["직접공사비", cs["direct"], "재료+노무+경비"])
+    ws.append(["도급액(총공사비)", cs["contract"], f"직접비의 {cs['multiplier']:.3f}배"])
     ws["A1"].font = Font(bold=True, size=14)
     for r in (4, 5):
         ws.cell(r, 2).number_format = MONEY_FMT
-        ws.cell(r, 3).number_format = "0.00"
 
     ws.append([])
     ws.append(["【적용 요율】"])
@@ -465,18 +470,18 @@ def write_cost_sheet(
 
     ws.append([])
     ws.append(["【산출 내역】"])
-    ws.append(["단계", "항목", "금액(원)", "금액(억)", "산식"])
+    ws.append(["단계", "항목", "금액(원)", "산식"])
     calc_hdr = ws.max_row
-    for c in range(1, 6):
+    for c in range(1, 5):
         ws.cell(calc_hdr, c).font = Font(bold=True)
         ws.cell(calc_hdr, c).fill = HEADER_FILL
 
     for item in cs["rows"]:
         name = ("  " * item["indent"]) + item["name"]
-        ws.append([item["step"], name, item["amount"], item["amount"] / 100_000_000, item["formula"]])
+        ws.append([item["step"], name, item["amount"], item["formula"]])
         rr = ws.max_row
         fill = TOTAL_FILL if item.get("total") else (SUBTOTAL_FILL if item.get("bold") else None)
-        _style_cost_row(ws, rr, 5, bold=item.get("bold"), fill=fill)
+        _style_cost_row(ws, rr, 4, bold=item.get("bold"), fill=fill)
 
     ws.append([])
     note_row = ws.max_row + 1
@@ -531,7 +536,7 @@ def write_xlsx(rows: list[dict], t: dict) -> Path:
     headers = [
         "No", "구분", "원본 파일", "단가 출처",
         "매칭", "검토", "미매칭", "전체", "매칭률",
-        "재료비", "노무비", "경비", "합계", "합계(억)", "비고",
+        "재료비", "노무비", "경비", "합계", "비고",
     ]
     ws.append(headers)
     hdr_row = ws.max_row
@@ -544,7 +549,7 @@ def write_xlsx(rows: list[dict], t: dict) -> Path:
             r["no"], r["name"], r["src"], r["price_src"],
             r["matched"], r["review"], r["unmatched"], r["total"],
             r["matched"] / r["total"] if r["total"] else 0,
-            r["mat"], r["lab"], r["exp"], r["sum"], r["sum"] / 100_000_000,
+            r["mat"], r["lab"], r["exp"], r["sum"],
             r["note"],
         ])
     ws.append([])
@@ -553,7 +558,7 @@ def write_xlsx(rows: list[dict], t: dict) -> Path:
         "", "합계(01~07)", "", "",
         t["matched"], t["review"], t["unmatched"], t["total"],
         t["matched"] / t["total"] if t["total"] else 0,
-        t["mat"], t["lab"], t["exp"], t["sum"], t["sum"] / 100_000_000,
+        t["mat"], t["lab"], t["exp"], t["sum"],
         f"미매칭 합계에서 01 조경 {t['unmatched_excluded']}건 제외",
     ])
     for c in range(1, len(headers) + 1):
@@ -579,8 +584,8 @@ def write_xlsx(rows: list[dict], t: dict) -> Path:
             for cell in row:
                 if isinstance(cell.value, (int, float)) and cell.column in (10, 11, 12, 13):
                     cell.number_format = MONEY_FMT
-                if isinstance(cell.value, float) and cell.column in (9, 14):
-                    cell.number_format = "0.0%" if cell.column == 9 else "0.00"
+                if isinstance(cell.value, float) and cell.column == 9:
+                    cell.number_format = "0.0%"
         for col in sheet.columns:
             w = min(52, max(len(str(c.value or "")) for c in col) + 2)
             sheet.column_dimensions[col[0].column_letter].width = w
@@ -631,7 +636,7 @@ def write_group_summary_sheet(
     headers = [
         "No", "구분", "원본 파일", "단가 출처",
         "매칭", "검토", "미매칭", "전체", "매칭률",
-        "재료비", "노무비", "경비", "합계", "합계(억)", "비고",
+        "재료비", "노무비", "경비", "합계", "비고",
     ]
     ws.append(headers)
     hdr_row = ws.max_row
@@ -644,7 +649,7 @@ def write_group_summary_sheet(
             r["no"], r["name"], r["src"], r["price_src"],
             r["matched"], r["review"], r["unmatched"], r["total"],
             r["matched"] / r["total"] if r["total"] else 0,
-            r["mat"], r["lab"], r["exp"], r["sum"], r["sum"] / 100_000_000,
+            r["mat"], r["lab"], r["exp"], r["sum"],
             r["note"],
         ])
     ws.append([])
@@ -656,7 +661,7 @@ def write_group_summary_sheet(
         "", f"합계({group['prefix']})", "", "",
         gt["matched"], gt["review"], gt["unmatched"], gt["total"],
         gt["matched"] / gt["total"] if gt["total"] else 0,
-        gt["mat"], gt["lab"], gt["exp"], gt["sum"], gt["sum"] / 100_000_000,
+        gt["mat"], gt["lab"], gt["exp"], gt["sum"],
         note,
     ])
     for c in range(1, len(headers) + 1):
@@ -711,7 +716,7 @@ def write_total_cost_summary(
     ])
     ws.append([])
 
-    headers = ["공종", "재료비", "직접노무비", "직접경비", "직접공사비", "도급액", "도급액(억)", "배율", "적용요율"]
+    headers = ["공종", "재료비", "직접노무비", "직접경비", "직접공사비", "도급액", "배율", "적용요율"]
     ws.append(headers)
     hdr_row = ws.max_row
     for c in range(1, len(headers) + 1):
@@ -726,7 +731,7 @@ def write_total_cost_summary(
         ws.append([
             label_map.get(prefix, prefix),
             cs["mat"], cs["lab"], cs["exp"], cs["direct"],
-            cs["contract"], cs["contract"] / 100_000_000,
+            cs["contract"],
             cs["multiplier"], src_map.get(prefix, ""),
         ])
         tot_direct += cs["direct"]
@@ -735,7 +740,7 @@ def write_total_cost_summary(
     total_row = ws.max_row + 1
     ws.append([
         "합계(전체)", "", "", "", tot_direct,
-        tot_contract, tot_contract / 100_000_000,
+        tot_contract,
         tot_contract / tot_direct if tot_direct else 0, "공종별 합산",
     ])
     for c in range(1, len(headers) + 1):
@@ -806,21 +811,57 @@ def write_grouped_workbook(rows: list[dict], t: dict) -> Path:
         return alt
 
 
+def write_portal_stats(t: dict) -> Path:
+    """포털·README용 집계 수치 JS (청원지구_포털.html에서 로드)."""
+    cs = compute_cost_statement_electric(t["mat"], t["lab"], t["exp"])
+    rate = t["matched"] / t["total"] if t["total"] else 0
+    sum_desc = (
+        f"직접공사비 {fmt_money(t['sum'])}원 · "
+        f"매칭 {t['matched']} / 검토 {t['review']} / 미매칭 {t['unmatched']} "
+        f"({rate * 100:.1f}%)"
+    )
+    payload = {
+        "sumDesc": sum_desc,
+        "directWon": int(round(t["sum"])),
+        "directOku": f"{t['sum'] / 100_000_000:.2f}",
+        "matched": t["matched"],
+        "review": t["review"],
+        "unmatched": t["unmatched"],
+        "total": t["total"],
+        "matchRate": f"{rate * 100:.1f}",
+        "contractOku": f"{cs['contract'] / 100_000_000:.2f}",
+        "contractMult": round(cs["multiplier"], 3),
+        "contractWon": int(round(cs["contract"])),
+        "matOku": f"{t['mat'] / 100_000_000:.2f}",
+        "labOku": f"{t['lab'] / 100_000_000:.2f}",
+        "expOku": f"{t['exp'] / 100_000_000:.2f}",
+    }
+    out = OUT_DIR / "portal_stats.js"
+    out.write_text(
+        "// auto-generated by tools/build_consolidated_summary.py — do not edit\n"
+        f"window.PORTAL_STATS = {json.dumps(payload, ensure_ascii=False, indent=2)};\n",
+        encoding="utf-8",
+    )
+    return out
+
+
 def main() -> None:
     rows = enrich_rows()
     t = aggregate(rows)
     write_md(rows, t)
     saved = write_xlsx(rows, t)
     grouped = write_grouped_workbook(rows, t)
+    stats_js = write_portal_stats(t)
     print(f"총괄표 저장: {OUT_MD}")
     print(f"총괄표 저장: {saved}")
     print(f"공종별 총괄표 저장: {grouped}")
+    print(f"포털 통계: {stats_js}")
     print(
         f"매칭 {t['matched']} / 미매칭 {t['unmatched']} "
         f"(조경 {t['unmatched_excluded']}건 제외·전체 {t['unmatched_all']}) / 전체 {t['total']} "
         f"(검토 {t['review']})"
     )
-    print(f"직접공사비 합계(01~07): {fmt_money(t['sum'])} ({fmt_oku(t['sum'])})")
+    print(f"직접공사비 합계(01~07): {fmt_money(t['sum'])}원")
     gsum = sum(group_totals([r for r in rows if r["name"] in g["row_names"]])["sum"] for g in GROUPS)
     print(f"공종별 합계 검증: {fmt_money(gsum)} (통합 {fmt_money(t['sum'])})")
 

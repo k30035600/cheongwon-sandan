@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 청원지구 — 토공 물량 비교·검증표</title>
+<style>
+ body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;line-height:1.65;
+   color:#1c2430;max-width:980px;margin:0 auto;padding:28px 20px 60px;font-size:15px;background:#f7f9fc;}
+ h1{font-size:22px;color:#1f3a5f;border-bottom:3px solid #1f3a5f;padding-bottom:10px;}
+ h2{font-size:18px;color:#1f3a5f;margin-top:30px;border-left:5px solid #2c5aa0;padding-left:10px;}
+ h3{font-size:15px;color:#2c5aa0;margin-top:20px;}
+ table{width:100%;border-collapse:collapse;background:#fff;margin:12px 0;font-size:14px;
+   border:1px solid #d9e1ec;border-radius:8px;overflow:hidden;}
+ th,td{padding:8px 11px;border-bottom:1px solid #e3e9f2;text-align:left;vertical-align:top;}
+ th{background:#eaf0f8;color:#1f3a5f;text-align:center;font-weight:700;}
+ th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+ table.qty td:nth-child(2),table.qty th:nth-child(2){text-align:right;}
+ blockquote{background:#fff7ed;border:1px solid #f0c98a;border-radius:8px;
+   padding:10px 16px;margin:14px 0;color:#5a4a2a;}
+ pre{background:#1e293b;color:#e2e8f0;padding:14px 16px;border-radius:8px;overflow:auto;font-size:13px;}
+ ul{padding-left:22px;} strong{color:#1f3a5f;}
+ .muted{color:#6b7787;font-size:13px;}
+</style></head><body>
+<h1>화성 청원지구 — 토공 물량 비교·검증표</h1>
+<ul><li><strong>대상 도면</strong>: <code>04_인허가도면/00. 토공 합본_260616_102331.pdf</code> (45쪽, 시우이엔씨 2026. 5.)</li><li><strong>대상 내역</strong>: <code>05_내역서 … 01_화성 청원지구 토목.XLS</code> 「1. 토공」</li><li><strong>작성일</strong>: 2026. 6. 28.</li></ul>
+<blockquote>ⓘ 토공 합본 PDF는 <strong>이미지형(텍스트 레이어 없음)</strong>이고 EasyOCR 시험 OCR도 표 숫자 판독에 실패하여 횡단면도 측점별 단면적의 자동 추출은 불가합니다. 공내역서 「1. 토공」이 본 도면(동일 설계사)의 <strong>물량 산출 결과</strong>이므로, 내역 물량을 정밀 집계하고 <strong>도면으로 교차검증 가능한 항목</strong>(토량수지·벌개제근 면적·계획고)을 추가 산출해 대조했습니다.</blockquote>
+<h2>1. 토공 합본 PDF 구성 (45쪽)</h2>
+<table><thead><tr><th>쪽</th><th>도면</th><th>물량 데이터</th></tr></thead><tbody>
+<tr><td>1</td><td>공사계획평면도</td><td>획지 계획고(FH)</td></tr>
+<tr><td>2</td><td>정지계획평면도</td><td>획지 FH·법면·옹벽</td></tr>
+<tr><td>3~4</td><td>도로종평면도(1~2/2)</td><td>종단 FH/GH</td></tr>
+<tr><td>5~26</td><td>도로횡단면도</td><td><strong>측점별 절·성토 단면적(㎡)</strong></td></tr>
+<tr><td>27~37</td><td>블럭(획지)횡단면도</td><td><strong>측점별 절·성토 단면적(㎡)</strong></td></tr>
+<tr><td>38~39</td><td>토공이동계획도</td><td>유용·사토 유동(무대·불도저·덤프)</td></tr>
+<tr><td>40</td><td>임시(가시설) 계획평면도</td><td>—</td></tr>
+<tr><td>41</td><td>토공 일반 상세도</td><td>비탈면 구배·발파 Type·규준틀</td></tr>
+<tr><td>42</td><td>벌개제근도</td><td>벌개제근 면적</td></tr>
+<tr><td>43~44</td><td>수목이식·식재 상세</td><td>이식 수목</td></tr>
+<tr><td>45</td><td>지장물 철거 계획평면도</td><td>철거 물량</td></tr>
+</tbody></table>
+<p><strong>※ 독립된 「토공 수량집계표(토적표)」 페이지는 없음</strong> — 물량은 횡단면도 표·유동계획도에 분산.</p>
+<h2>2. 공내역서 「1. 토공」 물량 집계 (카테고리별)</h2>
+<table class="qty"><thead><tr><th>카테고리</th><th>항목수</th><th>주요 수량</th></tr></thead><tbody>
+<tr><td>벌목·벌개제근</td><td>2</td><td>45,782 ㎡</td></tr>
+<tr><td>임목폐기물</td><td>4</td><td>3,834 ㎥ · 1,082 ㎡</td></tr>
+<tr><td>법면보호공</td><td>2</td><td>2,418 ㎡</td></tr>
+<tr><td>흙깎기(절토)</td><td>6</td><td>89,229 ㎥</td></tr>
+<tr><td>터파기</td><td>3</td><td>1,459 ㎥</td></tr>
+<tr><td>흙쌓기(성토)</td><td>5</td><td>26,538 ㎥</td></tr>
+<tr><td>흙운반</td><td>11</td><td>94,423 ㎥</td></tr>
+<tr><td>규준틀</td><td>2</td><td>36 개</td></tr>
+<tr><td>수목이식·관리</td><td>7</td><td>772 주 · 386 개소 · 64 100㎡ · 27 회</td></tr>
+<tr><td>지장물철거</td><td>3</td><td>562 ㎥</td></tr>
+</tbody></table>
+<h2>3. 토량 수지(土工 균형) — 추가 산출 ★</h2>
+<p>도면이 제시하지 않는 <strong>절토·성토·운반의 정합성</strong>을 공내역 물량으로 역산·검증한다.</p>
+<h3>3-1. 절토(흙깎기) 토질별</h3>
+<table class="qty"><thead><tr><th>토질</th><th>공내역물량(㎥)</th><th>비고</th></tr></thead><tbody>
+<tr><td>토사</td><td>82,972</td><td></td></tr>
+<tr><td>리핑암(풍화암)</td><td>5,167</td><td></td></tr>
+<tr><td>연암</td><td>921</td><td></td></tr>
+<tr><td>보통암</td><td>27</td><td></td></tr>
+<tr><td>발파암소할</td><td>142</td><td></td></tr>
+<tr><td><strong>절토 계</strong></td><td><strong>89,229</strong></td><td>발파암소할 제외 시 89,087</td></tr>
+</tbody></table>
+<h3>3-2. 흙운반 용도별</h3>
+<table class="qty"><thead><tr><th>용도</th><th>공내역물량(㎥)</th></tr></thead><tbody>
+<tr><td>외부반출</td><td>61,393</td></tr>
+<tr><td>지구내 유용</td><td>11,327</td></tr>
+<tr><td>도저 운반(무대)</td><td>10,553</td></tr>
+<tr><td>구조물 잔토</td><td>5,787</td></tr>
+<tr><td>무대(1·2차)</td><td>5,363</td></tr>
+<tr><td><strong>운반 계</strong></td><td><strong>94,423</strong></td></tr>
+</tbody></table>
+<h3>3-3. 토량 수지 검토</h3>
+<table class="qty"><thead><tr><th>구분</th><th>산출(㎥)</th><th>산식·근거</th></tr></thead><tbody>
+<tr><td>① 절토 계(소할 제외)</td><td>89,087</td><td>토사+리핑+연암+보통암</td></tr>
+<tr><td>② 성토 계</td><td>26,538</td><td>흙쌓기(비다짐·노상·노체·되메우기)</td></tr>
+<tr><td>③ 절토−성토</td><td>62,549</td><td>잉여(사토 대상)</td></tr>
+<tr><td>④ 외부반출 운반</td><td>61,393</td><td>진입도로·야적장</td></tr>
+<tr><td>⑤ 외부반출/절토</td><td>68.9%</td><td>반출 비율</td></tr>
+</tbody></table>
+<blockquote><strong>검증 포인트</strong> — ③ 절토 잉여(자연상태)와 ④ 외부반출량(흐트러진상태)의 차이는 <strong>토량환산계수 L(≈1.2~1.3)</strong>·다짐 C·구조물 유용분으로 설명된다. 토공이동계획도(38~39쪽)의 유용·사토 방향과 부호가 일치하는지 확인 대상.</blockquote>
+<h2>4. 면적·계획고 교차검증 (도면 ↔ 내역)</h2>
+<h3>4-1. 벌목·벌개제근 면적</h3>
+<table class="qty"><thead><tr><th>구분</th><th>값</th><th>비고</th></tr></thead><tbody>
+<tr><td>공내역 합계(벌목+벌개제근)</td><td>45,782 ㎡</td><td>각 22,891㎡ × 2공정</td></tr>
+<tr><td>실제 정지 footprint</td><td>22,891 ㎡</td><td>동일 면적(중복 제외)·42쪽 벌개제근도</td></tr>
+<tr><td>지구 전체 면적</td><td>80,617 ㎡</td><td>고시 제2026-76호</td></tr>
+<tr><td>정지 footprint/지구</td><td>28.4%</td><td>절·성 구역 비율</td></tr>
+</tbody></table>
+<h3>4-2. 획지별 계획고(FH) — 정지계획평면도(2쪽) 판독</h3>
+<table><thead><tr><th>획지</th><th>계획고 FH(EL.m)</th></tr></thead><tbody>
+<tr><td>A1·A2</td><td>33.00</td></tr>
+<tr><td>A3·B1</td><td>28.00</td></tr>
+<tr><td>A4·B2</td><td>23.00</td></tr>
+<tr><td>A5</td><td>18.00</td></tr>
+<tr><td>주차장·저지대</td><td>19.00</td></tr>
+</tbody></table>
+<blockquote>획지별 <strong>절·성토량(㎥)</strong>은 기존 지반고(GH)가 있어야 산출 가능하나, PDF 등고선에서 정밀 GH 추출이 불가하여 <strong>미산출</strong>(아래 5항 참조).</blockquote>
+<h2>5. 추가 산출 — 가능 / 한계</h2>
+<table><thead><tr><th>항목</th><th>산출 여부</th><th>방법</th></tr></thead><tbody>
+<tr><td>토량 수지(절·성·운반 균형)</td><td>✅ 완료</td><td>공내역 물량 역산(3항)</td></tr>
+<tr><td>토질별 절토·운반 용도 집계</td><td>✅ 완료</td><td>공내역 분류 집계</td></tr>
+<tr><td>벌개제근 면적·지구비</td><td>✅ 완료</td><td>공내역 ↔ 고시면적</td></tr>
+<tr><td>획지 계획고(FH) 표</td><td>✅ 완료</td><td>정지계획평면도 판독</td></tr>
+<tr><td>측점별 절·성 단면적→체적(평균단면적법)</td><td>❌ 불가(현 자료)</td><td>횡단면도 OCR 실패 — 아래</td></tr>
+<tr><td>획지별 절·성토 체적(FH−GH)</td><td>⚠ 보류</td><td>DWG 또는 지형 GH 데이터 필요</td></tr>
+</tbody></table>
+<h3>측점별 체적 산출(평균단면적법) — OCR 시도 결과</h3>
+<pre><code>
+V = Σ (A_i + A_{i+1}) / 2 × L  (구간거리)
+  A : 측점별 절토·성토 단면적(㎡, 횡단면도 표)
+  L : 측점 간 거리(도로종평면도 STA)
+</code></pre>
+<ul><li>EasyOCR(ko+en, 300DPI) 시험 OCR로 횡단면도 5쪽을 판독한 결과, 표의 단면적 숫자가 대부분 <code>00·OC·0.00</code> 노이즈로 판독되어 <strong>측점별 단면적 추출 불가</strong>로 확인됐다. 표 글자가 8~10px로 너무 작고 조밀하기 때문이다.</li><li>독립 검산을 하려면 다음 중 하나가 필요하다.</li></ul>
+<p>  ① <strong>CAD 원본(.dwg)</strong> 확보 → 단면적·STA 직접 추출(가장 정확)</p>
+<p>  ② 횡단면도 표 영역을 <strong>고배율 크롭 + 수기 입력</strong>으로 디지털화</p>
+<p>  ③ 설계사(시우이엔씨) <strong>토적표(수량산출서) 원본</strong> 별도 요청</p>
+<ul><li>현 단계의 검증은 <strong>3항 토량수지(절·성·운반 균형)</strong>로 갈음한다(공내역 물량 자체가 본 도면의 산출 결과).</li></ul>
+<p>끝.</p>
+</body></html>

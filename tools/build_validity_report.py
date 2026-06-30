@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """자동확정 품목검증 보고서 — 내역품명↔DB매칭품명 일치 여부 4분류.
-출력: 05_내역서/검토_품목검증.xlsx"""
+출력: 05_내역서/내역서작업/_공통/검토_품목검증.xlsx"""
 from __future__ import annotations
 import re
 import sys
@@ -12,8 +12,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
-SRC = BASE / "미매칭_일위대가산출.xlsx"
-OUT = BASE / "검토_품목검증.xlsx"
+SRC = BASE / "내역서작업" / "_공통" / "미매칭_일위대가산출.xlsx"
+OUT = BASE / "내역서작업" / "_공통" / "검토_품목검증.xlsx"
 
 # 라벨 불일치이나 단가가 타당해 유지 가능한 품목(품명 키워드)
 KEEP_OK = ("PVC이중벽관", "닥타일", "집수정", "투수블럭", "물사용량")

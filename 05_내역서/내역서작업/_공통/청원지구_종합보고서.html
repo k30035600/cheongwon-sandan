@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 청원지구 — 종합보고서</title>
+<style>
+  :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;--ok:#1a7f37;}
+  *{box-sizing:border-box;}
+  body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;margin:0;
+       background:var(--bg);color:#1c2430;line-height:1.7;font-size:15px;}
+  .wrap{max-width:980px;margin:0 auto;padding:30px 22px 60px;}
+  header.doc{border-bottom:3px solid var(--navy);padding-bottom:16px;margin-bottom:10px;}
+  header.doc h1{font-size:23px;color:var(--navy);margin:0 0 6px;letter-spacing:-.4px;}
+  .meta{color:#5a6675;font-size:13px;}
+  h2{font-size:18px;color:var(--navy);margin:30px 0 10px;padding-left:10px;border-left:5px solid var(--blue);}
+  h3{font-size:15.5px;color:#2a3a4d;margin:18px 0 6px;}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+        border-radius:8px;overflow:hidden;font-size:13px;margin:8px 0;}
+  th,td{padding:8px 10px;border:1px solid var(--line);vertical-align:middle;}
+  th{background:#eaf0f8;color:var(--navy);text-align:center;font-weight:700;}
+  td.l{text-align:left;} td.r{text-align:right;white-space:nowrap;} td.c{text-align:center;white-space:nowrap;}
+  .kpis{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;}
+  .kpi{flex:1 1 150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+  .kpi .lab{font-size:12px;color:#6b7785;} .kpi .val{font-size:20px;font-weight:800;color:var(--navy);margin-top:2px;}
+  .kpi .sub{font-size:11.5px;color:#8a94a3;margin-top:2px;}
+  .box{border-radius:8px;padding:13px 18px;margin:14px 0;border:1px solid var(--line);background:#fff;}
+  .box.ok{border-left:5px solid var(--ok);background:#f2fbf4;}
+  .box.hl{border-left:5px solid var(--blue);background:#eef4fb;}
+  .box ol{margin:6px 0;padding-left:20px;} .box li{margin:4px 0;}
+  code{background:#eef2f7;padding:1px 6px;border-radius:4px;font-size:12.5px;}
+  .muted{color:#6b7785;font-size:12.5px;}
+  a{color:var(--blue);}
+  footer{margin-top:34px;font-size:12px;color:#8a94a3;border-top:1px solid var(--line);padding-top:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="doc">
+  <h1>화성 청원지구 — 종합보고서</h1>
+  <div class="meta">산업유통형 지구단위계획 · 마도면 청원리 산175-2번지 일원 80,617㎡ · 작성 2026. 6. 29.</div>
+</header>
+
+<div class="box hl">
+  본 종합보고의 <b>최종 SSOT</b>는
+  <code>08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx</code>이다.
+  금액·도급·미확정 건수는 해당 통합본 「총공사비」·구분 시트 ★합계·「◆ 내역 일괄」 상태 기준이며,
+  02 전기설비는 제출 범위에서 제외한다.
+  공정·물량은 <code>08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx</code>·
+  <code>08_제출내역서/청원지구_공사공정표.html</code>·표준단가산출 「통합내역」을 교차 참조한다.
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="lab">제출 최종 · 직접공사비</div><div class="val" style="color:var(--ok)">6,446,083,485원</div><div class="sub">재·노·경 합계</div></div>
+  <div class="kpi"><div class="lab">제출 최종 · 도급액</div><div class="val">11,414,018,367원</div><div class="sub">직접의 1.771배</div></div>
+  <div class="kpi"><div class="lab">4대 계약 도급</div><div class="val">11,370,481,303원</div><div class="sub">회전·진입·토목·조경·지구</div></div>
+  <div class="kpi"><div class="lab">미확정 (_ka)</div><div class="val">0 / 20</div><div class="sub">검토 / 미매칭 · 20건 (가영현·품질관리·조경확인 3건 제외)</div></div>
+</div>
+
+<h2>Ⅰ. 사업 개요</h2>
+<table>
+  <tr><th style="width:130px">항목</th><th>내용</th></tr>
+  <tr><td class="c">사업명</td><td class="l">화성 청원지구 산업유통형 지구단위계획</td></tr>
+  <tr><td class="c">위치·면적</td><td class="l">화성시 마도면 청원리 산175-2번지 일원 · 80,617㎡</td></tr>
+  <tr><td class="c">시행자</td><td class="l">진명개발(주) (법인등록 134811-0724593 · 설립 2023. 1. 10.)</td></tr>
+  <tr><td class="c">도급·시공</td><td class="l">
+    <b>희상건설(주)</b> — 도급사 · <b>책임준공</b> → 준공 후 <b>보증 면탈(해지)</b> ·
+    하도급 <b>토공·포장(신규면허)</b> · <b>근일건설</b>(상·하수·철콘·보링·해체) ·
+    시공참여 조건은 <a href="../../../09_공사지명원/관계도_안내.html">관계도</a> 참조
+  </td></tr>
+  <tr><td class="c">인허가</td><td class="l">화성시 고시 제2026-76호 · 전략환경영향평가 HG20250176(한강유역환경청 본협의 완료)</td></tr>
+  <tr><td class="c">공내역서</td><td class="l">01 토목·조경 / 02 전기 / 04 진입도로 / 05 회전교차로 / 06 개발행위 / 07 폐기물 (03 전기 지구외는 02 중복·제외)</td></tr>
+  <tr><td class="c">제출 SSOT</td><td class="l"><code>08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx</code> · 02 전기 제외 · 본 보고서 최종 집계 기준</td></tr>
+</table>
+
+<h2>Ⅱ. 제출 최종 집계 (_ka SSOT)</h2>
+<p class="muted"><code>08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx</code> · 02 전기 제외 · 간접비·도급액은 「총공사비」 시트 내역서별 산출.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="lab">4대 계약 직접공사비</div><div class="val" style="color:var(--ok)">6,414,625,173원</div><div class="sub">01·04~06</div></div>
+  <div class="kpi"><div class="lab">4대 계약 도급액</div><div class="val">11,370,481,303원</div><div class="sub">회전·진입·토목·조경·지구</div></div>
+  <div class="kpi"><div class="lab">전체(07 포함) 직접</div><div class="val">6,446,083,485원</div><div class="sub">07 폐기물 포함</div></div>
+  <div class="kpi"><div class="lab">전체 도급액</div><div class="val">11,414,018,367원</div><div class="sub">직접의 1.771배</div></div>
+</div>
+
+<h3>1. 계약차수별 요약</h3>
+<table>
+  <tr>
+    <th>계약차수</th><th>No</th><th>재료비</th><th>노무비</th><th>경비</th>
+    <th>직접공사비</th><th>도급액</th><th>매칭/전체</th><th>매칭률</th>
+  </tr>
+  <tr><td class="l"><b>회전교차로</b></td><td class="c">05</td><td class="r">115,856,514</td><td class="r">519,405,822</td><td class="r">35,734,886</td><td class="r">670,997,223</td><td class="r">1,246,694,835</td><td class="r">129/147</td><td class="r">87.8%</td></tr>
+  <tr><td class="l"><b>진입도로</b></td><td class="c">04</td><td class="r">84,435,224</td><td class="r">401,743,339</td><td class="r">46,174,874</td><td class="r">532,353,437</td><td class="r">983,584,208</td><td class="r">135/152</td><td class="r">88.8%</td></tr>
+  <tr><td class="l"><b>토목</b></td><td class="c">01</td><td class="r">381,224,824</td><td class="r">1,741,229,079</td><td class="r">347,578,180</td><td class="r">2,470,032,084</td><td class="r">4,474,332,366</td><td class="r">404/493</td><td class="r">81.9%</td></tr>
+  <tr><td class="l"><b>조경</b></td><td class="c">01</td><td class="r">600,710,000</td><td class="r">386,951,000</td><td class="r">30,172,000</td><td class="r">1,017,833,000</td><td class="r">1,628,137,714</td><td class="r">80/80</td><td class="r">100.0%</td></tr>
+  <tr><td class="l"><b>지구단위</b></td><td class="c">06</td><td class="r">341,175,859</td><td class="r">1,079,591,249</td><td class="r">302,642,322</td><td class="r">1,723,409,430</td><td class="r">3,037,732,180</td><td class="r">130/137</td><td class="r">94.9%</td></tr>
+  <tr><td class="l"><b>건설폐기물</b></td><td class="c">07</td><td class="r">0</td><td class="r">0</td><td class="r">31,458,312</td><td class="r">31,458,312</td><td class="r">43,537,064</td><td class="r">0/0</td><td class="r">0.0%</td></tr>
+  <tr style="font-weight:700;background:#fff2cc">
+    <td class="l">★ 합계 (01·04~07)</td><td class="c">—</td>
+    <td class="r">1,523,402,421</td><td class="r">4,128,920,490</td><td class="r">793,760,574</td>
+    <td class="r">6,446,083,485</td>
+    <td class="r">11,414,018,367</td>
+    <td class="r">878/1009</td><td class="r">87.0%</td>
+  </tr>
+</table>
+<p class="muted">01 토목·01 조경은 동일 시트(토목(조경)) 내 ★소계·「총공사비」 01 토목/01 조경 열 기준 분리.
+  전체 직접공사비 구성(재·노·경): 23.6% / 64.1% / 12.3%.</p>
+
+<h3>2. 공종(차수)별 직접공사비</h3>
+<h3>회전교차로 — 공종(차수)별 직접공사비</h3><table><tr><th>공종</th><th>매칭/전체</th><th>재료비</th><th>노무비</th><th>경비</th><th>직접합계</th></tr>    <tr><td class="l">1. 토     공</td><td class="c">21/21</td><td class="r">10,163,806</td><td class="r">30,847,384</td><td class="r">12,145,548</td><td class="r">53,156,738</td></tr>
+    <tr><td class="l">2. 우 수 공</td><td class="c">38/42</td><td class="r">10,110,092</td><td class="r">57,050,724</td><td class="r">5,814,386</td><td class="r">72,975,202</td></tr>
+    <tr><td class="l">3. 포 장 공</td><td class="c">46/53</td><td class="r">25,531,309</td><td class="r">181,022,224</td><td class="r">14,034,229</td><td class="r">220,587,762</td></tr>
+    <tr><td class="l">4. 구조물공</td><td class="c">21/23</td><td class="r">70,040,561</td><td class="r">249,705,350</td><td class="r">3,732,883</td><td class="r">323,478,794</td></tr>
+    <tr><td class="l">5. 부 대 공</td><td class="c">3/3</td><td class="r">10,747</td><td class="r">780,140</td><td class="r">7,840</td><td class="r">798,727</td></tr>
+    <tr><td class="l">... 가). 중기운반비</td><td class="c">0/3</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr><tr style="font-weight:700;background:#eef2f9"><td class="l">★ 회전교차로 소계</td><td class="c">129/147</td><td class="r">115,856,514</td><td class="r">519,405,822</td><td class="r">35,734,886</td><td class="r">670,997,223</td></tr></table>
+<h3>진입도로 — 공종(차수)별 직접공사비</h3><table><tr><th>공종</th><th>매칭/전체</th><th>재료비</th><th>노무비</th><th>경비</th><th>직접합계</th></tr>    <tr><td class="l">1. 토     공</td><td class="c">19/19</td><td class="r">20,465,208</td><td class="r">65,102,573</td><td class="r">25,173,284</td><td class="r">110,741,065</td></tr>
+    <tr><td class="l">2. 우 수 공</td><td class="c">26/28</td><td class="r">11,851,285</td><td class="r">79,191,767</td><td class="r">8,862,011</td><td class="r">99,905,063</td></tr>
+    <tr><td class="l">3. 상 수 공</td><td class="c">17/19</td><td class="r">885,328</td><td class="r">20,516,305</td><td class="r">467,412</td><td class="r">21,869,045</td></tr>
+    <tr><td class="l">4. 포 장 공</td><td class="c">50/56</td><td class="r">16,880,940</td><td class="r">108,358,542</td><td class="r">9,375,195</td><td class="r">134,614,677</td></tr>
+    <tr><td class="l">5. 구조물공</td><td class="c">20/22</td><td class="r">34,341,716</td><td class="r">127,794,012</td><td class="r">2,289,132</td><td class="r">164,424,860</td></tr>
+    <tr><td class="l">6. 부 대 공</td><td class="c">3/3</td><td class="r">10,747</td><td class="r">780,140</td><td class="r">7,840</td><td class="r">798,727</td></tr>
+    <tr><td class="l">... 가). 중기운반비</td><td class="c">0/3</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr><tr style="font-weight:700;background:#eef2f9"><td class="l">★ 진입도로 소계</td><td class="c">135/152</td><td class="r">84,435,224</td><td class="r">401,743,339</td><td class="r">46,174,874</td><td class="r">532,353,437</td></tr></table>
+<h3>토목 — 공종(차수)별 직접공사비</h3><table><tr><th>공종</th><th>매칭/전체</th><th>재료비</th><th>노무비</th><th>경비</th><th>직접합계</th></tr>    <tr><td class="l">1. 토     공</td><td class="c">41/45</td><td class="r">193,864,804</td><td class="r">375,830,829</td><td class="r">248,626,066</td><td class="r">818,321,699</td></tr>
+    <tr><td class="l">2. 우 수 공</td><td class="c">81/99</td><td class="r">45,773,360</td><td class="r">412,651,288</td><td class="r">30,187,164</td><td class="r">488,611,812</td></tr>
+    <tr><td class="l">3. 오 수 공</td><td class="c">36/44</td><td class="r">8,139,274</td><td class="r">91,589,702</td><td class="r">6,281,483</td><td class="r">106,010,459</td></tr>
+    <tr><td class="l">4. 상 수 공</td><td class="c">62/86</td><td class="r">11,736,539</td><td class="r">84,912,162</td><td class="r">4,722,073</td><td class="r">101,370,774</td></tr>
+    <tr><td class="l">5. 포 장 공</td><td class="c">68/76</td><td class="r">55,159,585</td><td class="r">294,369,653</td><td class="r">23,035,558</td><td class="r">372,564,796</td></tr>
+    <tr><td class="l">6. 구조물공</td><td class="c">39/43</td><td class="r">27,584,724</td><td class="r">215,414,584</td><td class="r">17,151,782</td><td class="r">260,151,091</td></tr>
+    <tr><td class="l">7. 부 대 공</td><td class="c">27/36</td><td class="r">15,032,685</td><td class="r">173,478,672</td><td class="r">7,842,946</td><td class="r">196,354,303</td></tr>
+    <tr><td class="l">8. 하수처리장</td><td class="c">43/53</td><td class="r">14,684,153</td><td class="r">65,843,674</td><td class="r">1,789,336</td><td class="r">82,317,163</td></tr>
+    <tr><td class="l">9. 지하저류조</td><td class="c">7/9</td><td class="r">9,249,700</td><td class="r">27,138,515</td><td class="r">7,941,772</td><td class="r">44,329,987</td></tr>
+    <tr><td class="l">▣ 품질관리비</td><td class="c">0/2</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr><tr style="font-weight:700;background:#eef2f9"><td class="l">★ 토목 소계</td><td class="c">404/493</td><td class="r">381,224,824</td><td class="r">1,741,229,079</td><td class="r">347,578,180</td><td class="r">2,470,032,084</td></tr></table>
+<h3>조경 — 공종(차수)별 직접공사비</h3><table><tr><th>공종</th><th>매칭/전체</th><th>재료비</th><th>노무비</th><th>경비</th><th>직접합계</th></tr>    <tr><td class="l">10. 조 경 공</td><td class="c">80/80</td><td class="r">600,710,000</td><td class="r">386,951,000</td><td class="r">30,172,000</td><td class="r">1,017,833,000</td></tr><tr style="font-weight:700;background:#eef2f9"><td class="l">★ 조경 소계</td><td class="c">80/80</td><td class="r">600,710,000</td><td class="r">386,951,000</td><td class="r">30,172,000</td><td class="r">1,017,833,000</td></tr></table>
+<h3>지구단위 — 공종(차수)별 직접공사비</h3><table><tr><th>공종</th><th>매칭/전체</th><th>재료비</th><th>노무비</th><th>경비</th><th>직접합계</th></tr>    <tr><td class="l">1. 토     공</td><td class="c">9/9</td><td class="r">329,303,137</td><td class="r">633,526,312</td><td class="r">288,990,853</td><td class="r">1,251,820,302</td></tr>
+    <tr><td class="l">2. A1</td><td class="c">14/14</td><td class="r">1,322,809</td><td class="r">36,399,255</td><td class="r">1,512,006</td><td class="r">39,234,070</td></tr>
+    <tr><td class="l">3. A2</td><td class="c">17/17</td><td class="r">2,352,580</td><td class="r">88,315,220</td><td class="r">2,468,726</td><td class="r">93,136,526</td></tr>
+    <tr><td class="l">4. A3</td><td class="c">16/17</td><td class="r">1,709,156</td><td class="r">77,274,394</td><td class="r">2,194,560</td><td class="r">81,178,110</td></tr>
+    <tr><td class="l">5. A4</td><td class="c">14/15</td><td class="r">1,677,855</td><td class="r">59,383,425</td><td class="r">2,123,566</td><td class="r">63,184,846</td></tr>
+    <tr><td class="l">6. A5</td><td class="c">14/15</td><td class="r">1,149,785</td><td class="r">45,609,407</td><td class="r">1,591,411</td><td class="r">48,350,603</td></tr>
+    <tr><td class="l">7. B1</td><td class="c">13/14</td><td class="r">1,161,816</td><td class="r">62,903,235</td><td class="r">1,273,047</td><td class="r">65,338,098</td></tr>
+    <tr><td class="l">8. B2</td><td class="c">13/14</td><td class="r">1,365,630</td><td class="r">58,315,326</td><td class="r">1,427,499</td><td class="r">61,108,455</td></tr>
+    <tr><td class="l">9. 지원시설</td><td class="c">11/12</td><td class="r">656,770</td><td class="r">13,039,376</td><td class="r">460,290</td><td class="r">14,156,436</td></tr>
+    <tr><td class="l">10. 주차장</td><td class="c">9/10</td><td class="r">476,321</td><td class="r">4,825,299</td><td class="r">600,364</td><td class="r">5,901,984</td></tr><tr style="font-weight:700;background:#eef2f9"><td class="l">★ 지구단위 소계</td><td class="c">130/137</td><td class="r">341,175,859</td><td class="r">1,079,591,249</td><td class="r">302,642,322</td><td class="r">1,723,409,430</td></tr></table>
+
+<h2>Ⅲ. 공정별 집계 (02 전기 제외)</h2>
+<p class="muted">출처: 각 내역서 <code>*_표준단가산출.xlsx</code> 「통합내역」 수량 합계.
+  착공 <b>2026. 10. 1.</b> · 준공 <b>2027. 11. 30.</b> · 총공기 <b>14개월</b>.
+  상세 Gantt·월별 일정: <a href="../../08_제출내역서/청원지구_공사공정표.html">청원지구_공사공정표.html</a>.</p>
+
+<div class="kpis">
+  <div class="kpi"><div class="lab">착공예정</div><div class="val">2026. 10. 1.</div><div class="sub">M1</div></div>
+  <div class="kpi"><div class="lab">준공목표</div><div class="val">2027. 11. 30.</div><div class="sub">M14</div></div>
+  <div class="kpi"><div class="lab">토공 작업량</div><div class="val">415,002㎥</div><div class="sub">절+성 합계</div></div>
+  <div class="kpi"><div class="lab">흙운반</div><div class="val">203,735㎥</div><div class="sub">건설폐기물 연동</div></div>
+</div>
+
+<h3>1. 토공 물량·기간 (구분별)</h3>
+<table>
+  <tr>
+    <th>구분</th><th>코드</th><th>절토(㎥)</th><th>성토(㎥)</th><th>작업량(㎥)</th><th>비율</th><th>운반(㎥)</th><th>토공 기간</th><th>산정</th>
+  </tr>
+  <tr><td class="c"><b>회전교차로</b></td><td class="c">05</td><td class="r">5,430</td><td class="r">4,409</td><td class="r"><b>9,839</b></td><td class="c">2.4%</td><td class="r">342</td><td class="c">M2~M3</td><td class="l">단지외 1순위 · 2개월</td></tr>
+  <tr><td class="c"><b>진입도로</b></td><td class="c">04</td><td class="r">2,133</td><td class="r">27,476</td><td class="r"><b>29,609</b></td><td class="c">7.1%</td><td class="r">321</td><td class="c">M3~M5</td><td class="l">회전교차로 중(M3~) 병행 · 3개월</td></tr>
+  <tr><td class="c"><b>토목</b></td><td class="c">01</td><td class="r">95,984</td><td class="r">26,605</td><td class="r"><b>122,589</b></td><td class="c">29.5%</td><td class="r">90,977</td><td class="c">M6~M9</td><td class="l">진입로 통행 개시(M6) 후 · 4개월</td></tr>
+  <tr><td class="c"><b>지구단위</b></td><td class="c">06</td><td class="r">180,802</td><td class="r">72,163</td><td class="r"><b>252,965</b></td><td class="c">61.0%</td><td class="r">112,095</td><td class="c">M6~M11</td><td class="l">최대 물량 · 6개월(토목과 M6~ 병행)</td></tr>
+  <tr style="font-weight:700;background:#fff7ed">
+    <td class="c" colspan="2">합계</td>
+    <td class="r">284,349</td><td class="r">130,653</td>
+    <td class="r">415,002</td><td class="c">100%</td>
+    <td class="r">203,735</td><td class="c">—</td>
+    <td class="l">14개월 총공기 내 배치</td>
+  </tr>
+</table>
+
+<h3>2. 공종별 물량 — 구분별 교차표</h3>
+<table>
+  <tr>
+    <th>공종</th><th>대표 단위</th><th>회전교차로</th><th>진입도로</th><th>토목</th><th>지구단위</th><th>합계</th><th>공정</th>
+  </tr>
+  <tr><td class="l"><b>1. 토공</b></td><td class="c">작업량(절+성)</td><td class="r">9,839</td><td class="r">29,609</td><td class="r">122,589</td><td class="r">252,965</td><td class="r"><b>415,002</b></td><td class="c">M2~M11</td></tr>
+  <tr><td class="l"><b>2. 우수공</b></td><td class="c">관로 연장</td><td class="r">897</td><td class="r">1,111</td><td class="r">5,704</td><td class="r">—</td><td class="r"><b>7,712</b></td><td class="c">M3~M10</td></tr>
+  <tr><td class="l"><b>3. 오수공</b></td><td class="c">관로 연장</td><td class="r">—</td><td class="r">—</td><td class="r">1,601.4</td><td class="r">—</td><td class="r"><b>1,601.4</b></td><td class="c">M8~M10</td></tr>
+  <tr><td class="l"><b>4. 상수공</b></td><td class="c">관로 연장</td><td class="r">—</td><td class="r">623</td><td class="r">3,388</td><td class="r">—</td><td class="r"><b>4,011</b></td><td class="c">M5~M11</td></tr>
+  <tr><td class="l"><b>5. 포장공</b></td><td class="c">포장 면적</td><td class="r">28,846</td><td class="r">18,946</td><td class="r">41,890</td><td class="r">—</td><td class="r"><b>89,682</b></td><td class="c">M4~M13</td></tr>
+  <tr><td class="l"><b>6. 구조물공</b></td><td class="c">콘크리트·체적</td><td class="r">1,474</td><td class="r">712</td><td class="r">2,735</td><td class="r">—</td><td class="r"><b>4,921</b></td><td class="c">M3~M11</td></tr>
+  <tr><td class="l"><b>7. 부대공</b></td><td class="c">항목 수</td><td class="r">7</td><td class="r">7</td><td class="r">36</td><td class="r">—</td><td class="r"><b>50</b></td><td class="c">M5~M13</td></tr>
+</table>
+<p class="muted">「합계」는 동일 단위만 합산. 1. 토공 대표값은 절토+성토 작업량(㎥). 집계: <code>tools/report_gongjong_qty.py</code>.</p>
+
+<h3>3. 구분별 공종·공정 기간</h3>
+<table>
+  <tr><th style="width:96px">구분</th><th style="width:48px">코드</th><th>공종 (합계요약)</th><th style="width:120px">공정 기간</th></tr>
+  <tr><td class="c"><b>회전교차로</b></td><td class="c">05</td><td class="l">1. 토공 · 2. 우수공 · 3. 포장공 · 4. 구조물공 · 5. 부대공</td><td class="c">M2~M5</td></tr>
+  <tr><td class="c"><b>진입도로</b></td><td class="c">04</td><td class="l">1. 토공 · 2. 우수공 · 3. 상수공 · 4. 포장공 · 5. 구조물공 · 6. 부대공</td><td class="c">M3~M9<br><span class="muted">① 중 M3~ · 토공 M3~M5</span></td></tr>
+  <tr><td class="c"><b>토목</b></td><td class="c">01</td><td class="l">1. 토공 · 2. 우수공 · 3. 오수공 · 4. 상수공 · 5. 포장공 · 6. 구조물공 · 7. 부대공 · 8. 하수처리장 · 9. 지하저류조</td><td class="c">M6~M13<br><span class="muted">토공 M6~M9</span></td></tr>
+  <tr><td class="c"><b>지구단위</b></td><td class="c">06</td><td class="l">1. 토공 · 2. A1 · 3. A2 · 4. A3 · 5. A4 · 6. A5 · 7. B1 · 8. B2 · 9. 지원시설 · 10. 주차장</td><td class="c">M6~M12<br><span class="muted">토공 M6~M11</span></td></tr>
+  <tr><td class="c"><b>조경</b></td><td class="c">01</td><td class="l">10. 조경공</td><td class="c">M10~M13</td></tr>
+  <tr><td class="c"><b>공통</b></td><td class="c">07</td><td class="l">건설폐기물 · 가설·준공</td><td class="c">M1~M14</td></tr>
+</table>
+
+<div class="box ok">
+  <b>물량 → 공정 연계.</b>
+  단지외(회전·진입) 토공 <b>39,448㎥</b>를 M2~M5에 선행 ·
+  M6 진입로 1차 포장 통행 후 단지내 <b>375,554㎥</b> 집중 ·
+  운반 <b>203,735㎥</b>는 건설폐기물과 전 기간 연동 ·
+  최대 부하 M6~M9(토목·지구단위 병행).
+</div>
+
+
+<h2>Ⅳ. 검토·미매칭·가영현 (_ka 기준 · 매칭 제외)</h2>
+<p class="muted"><code>08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx</code> 「◆ 내역 일괄」 — <b>매칭 확정은 상태 빈칸</b>(집계 제외).
+  검토·미매칭 중 <b>합계단가·합계금액(또는 단가·금액)이 있는 행</b>은 「가영현」.
+  산업안전보건관리비·안전관리비는 간접비 별도 적용으로 제외.</p>
+<table>
+  <tr><th style="width:34px">No</th><th>구분</th><th>검토</th><th>미매칭</th><th>가영현</th><th>소계</th></tr>
+  <tr><td class="c">05</td><td class="l"><b>회전교차로</b></td><td class="r">0</td><td class="r">0</td><td class="r">25</td><td class="r">25</td></tr>
+  <tr><td class="c">04</td><td class="l"><b>진입도로</b></td><td class="r">0</td><td class="r">0</td><td class="r">23</td><td class="r">23</td></tr>
+  <tr><td class="c">01</td><td class="l"><b>토목</b></td><td class="r">0</td><td class="r">20</td><td class="r">168</td><td class="r">188</td></tr>
+  <tr><td class="c">01</td><td class="l"><b>조경</b></td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr>
+  <tr><td class="c">06</td><td class="l"><b>지구단위</b></td><td class="r">0</td><td class="r">0</td><td class="r">39</td><td class="r">39</td></tr>
+  <tr><td class="c">07</td><td class="l"><b>건설폐기물</b></td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td></tr>
+  <tr style="font-weight:700;background:#eef2f9"><td class="c">—</td><td class="l">★ 합계 (01·04~07)</td>
+    <td class="r">0</td><td class="r">20</td><td class="r">255</td>
+    <td class="r">275</td></tr>
+</table>
+<p class="muted">미매칭 20건 · 검토 0건 · 가영현 255건(합계 입력·1차 검토).
+  포털 「미확정 (_ka)」는 검토·미매칭 20건만 표시(가영현·품질관리비·조경 확인 3건 제외).</p>
+
+<h2>Ⅴ. 결론</h2>
+<div class="box ok">
+  <ol>
+    <li>제출 최종 통합본(<code>_ka</code>) 기준 <b>직접공사비 6,446,083,485원</b> ·
+        <b>도급액 11,414,018,367원</b>(직접의 1.771배)으로 정리하였다.</li>
+    <li>4대 계약차수 도급 — 회전교차로 1,246,694,835원 · 진입도로 983,584,208원 ·
+        토목 4,474,332,366원 · 조경 1,628,137,714원 · 지구단위 3,037,732,180원
+        (합 11,370,481,303원).</li>
+    <li>건설폐기물(07) 포함 전체 도급 <b>11,414,018,367원</b> ·
+        _ka 미확정 20건(검토 0 · 미매칭 20; 가영현 255건 별도).</li>
+    <li>공정별 집계(02 전기 제외) 토공 작업량 <b>415,002㎥</b> ·
+        총공기 <b>14개월</b>(2026. 10. 1.~2027. 11. 30.).</li>
+  </ol>
+</div>
+
+<h2>부록 A. 토공 물량 검증 (인허가도면 ↔ 공내역)</h2>
+<p>인허가도면 <code>04_인허가도면/00. 토공 합본</code>(45쪽)은 이미지형 PDF로 독립 「토공 수량집계표」가 없다.
+공내역서 「1. 토공」 집계로 <b>토량 수지</b>를 역산·검증하였다. 상세: <code>토목/토공_물량비교표.html</code>.</p>
+<table>
+  <tr><th style="width:240px">구분</th><th>산출(㎥)</th><th>근거</th></tr>
+  <tr><td class="l">① 절토 계(소할 제외)</td><td class="r">89,087</td><td class="l">토사+리핑+연암+보통암</td></tr>
+  <tr><td class="l">② 성토 계</td><td class="r">26,538</td><td class="l">흙쌓기 전체</td></tr>
+  <tr><td class="l">③ 절토 − 성토</td><td class="r">62,549</td><td class="l">사토 대상</td></tr>
+  <tr><td class="l">④ 외부반출 / 절토</td><td class="r">68.9%</td><td class="l">반출 비율</td></tr>
+</table>
+
+<footer>화성 청원지구 종합보고서 · 2026. 6. 29. · SSOT: 08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx · 끝.</footer>
+</div>
+</body>
+</html>

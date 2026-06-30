@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """검토_전체 — 1. 토공 항목 품셈·일위대가 산출.
 
-입력: 05_내역서/검토_전체.xlsx
-출력: 05_내역서/검토_토공_일위대가산출.xlsx
-      05_내역서/내역서작업/검토_토공_품셈산출.xlsx (유형별 산출근거)
+입력: 05_내역서/내역서작업/_공통/검토_전체.xlsx
+출력: 05_내역서/내역서작업/토목/검토_토공_일위대가산출.xlsx
+      05_내역서/내역서작업/토목/검토_토공_품셈산출.xlsx (유형별 산출근거)
 """
 from __future__ import annotations
 
@@ -22,10 +22,10 @@ sys.stderr.reconfigure(encoding="utf-8")
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
-REVIEW_ALL = BASE / "검토_전체.xlsx"
-OUT = BASE / "검토_토공_일위대가산출.xlsx"
-POOMSEM_OUT = WORK / "검토_토공_품셈산출.xlsx"
-MARKET_CSV = BASE / "일위대가DB" / "표준일위대가_2026" / "표준시장단가_2026.csv"
+REVIEW_ALL = BASE / "내역서작업" / "_공통" / "검토_전체.xlsx"
+OUT = BASE / "내역서작업" / "토목" / "검토_토공_일위대가산출.xlsx"
+POOMSEM_OUT = WORK / "토목" / "검토_토공_품셈산출.xlsx"
+MARKET_CSV = BASE / "일위대가DB" / "_공통" / "표준일위대가_2026" / "표준시장단가_2026.csv"
 MASTER_CSV = BASE / "일위대가DB" / "_master_일위대가.csv"
 
 IMOK_M3 = 20_000 * 0.40  # apply_standard_prices 임목운반 위탁
@@ -381,7 +381,7 @@ def write_ilwidae_workbook(items: list[dict], priced: list[dict]) -> None:
         [],
         ["색상", "연두=① 확정 / 노랑=④ 검증 / 주황=③ 재산출"],
         ["반영", "python -X utf8 tools/apply_confirmed_prices.py"],
-        ["품셈 상세", "내역서작업/검토_토공_품셈산출.xlsx"],
+        ["품셈 상세", "내역서작업/토목/검토_토공_품셈산출.xlsx"],
         ["주의", "수목이식·임목운반·폐기물상차는 현장 견적·발주처 확인 권장"],
     ]:
         info.append(line)

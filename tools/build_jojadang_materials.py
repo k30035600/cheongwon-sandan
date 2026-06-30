@@ -4,7 +4,7 @@
 한국표준품셈정보원에서 받은 「시설공통자재 가격정보」(조달청 자재단가, 재료비)를
 단일 마스터 CSV로 통합한다. 표준단가산출 매칭의 재료비 단가원으로 사용.
 
-출력: 05_내역서/일위대가DB/조달청시설자재_2026.csv
+출력: 05_내역서/일위대가DB/_공통/조달청시설자재_2026.csv
 컬럼: 분야,자재구분,물품분류번호,물품식별번호,품명,규격,단위,가격,게시일자
 """
 from __future__ import annotations
@@ -20,7 +20,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
 SRC_DIR = BASE / "한국표준품셈정보원"
-OUT_CSV = BASE / "일위대가DB" / "조달청시설자재_2026.csv"
+OUT_CSV = BASE / "일위대가DB" / "_공통" / "조달청시설자재_2026.csv"
 
 FILES = {
     "토목": "시설공통자재(토목).xlsx",

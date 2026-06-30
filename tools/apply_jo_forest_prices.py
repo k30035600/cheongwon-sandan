@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""01 조경 — forestinfo(재료) + 조경일위2024(식재 노무·경비) 미매칭(주) 반영.
+"""01 조경 — forestinfo(재료) + 조경일위2024(식재 노무·경비) + 푸른조경(시설 미매칭).
 
 입력: 05_내역서/공내역서/01_화성 청원지구 조경.XLS
-출력: 05_내역서/내역서작업/01_화성 청원지구 조경_표준단가산출.xlsx (갱신)
+       05_내역서/공내역서/조경시설물/01_260620화성시마도면청원리청원지구 조경.XLS (푸른조경 단가)
+출력: 05_내역서/내역서작업/조경/01_화성 청원지구 조경_표준단가산출.xlsx (갱신)
 """
 from __future__ import annotations
 
@@ -23,10 +24,10 @@ import match_forest_tree_unmatched as mft  # noqa: E402
 
 BASE = ROOT / "05_내역서"
 SRC = BASE / "공내역서" / "01_화성 청원지구 조경.XLS"
-OUT = BASE / "내역서작업" / "01_화성 청원지구 조경_표준단가산출.xlsx"
+PUREUN_SRC = BASE / "공내역서" / "조경시설물" / "01_260620화성시마도면청원리청원지구 조경.XLS"
+OUT = BASE / "내역서작업" / "조경" / "01_화성 청원지구 조경_표준단가산출.xlsx"
 OUT_MD = OUT.with_name(OUT.stem + "_요약.md")
-LANDSCAPE_CSV = BASE / "일위대가DB" / "조경표준일위대가_2024.csv"
-
+LANDSCAPE_CSV = BASE / "일위대가DB" / "조경" / "조경표준일위대가_2024.csv"
 R_BAND_RE = re.compile(r"R(\d+)\s*~\s*R?(\d+)|R(\d+)", re.I)
 H_BAND_RE = re.compile(r"H([\d.]+)\s*~\s*([\d.]+)|H([\d.]+)\s*미만|H([\d.]+)\s*이하", re.I)
 
@@ -141,6 +142,60 @@ def pick_planting(spec: str, tree_name: str) -> dict | None:
     return rows[0] if rows else None
 
 
+def norm_item_key(name: str, spec: str, unit: str) -> tuple[str, str, str]:
+    n = re.sub(r"\s+", "", name.strip())
+    s = re.sub(r"\s+", "", spec.strip())
+    u = asp.norm_unit(unit.strip())
+    return n, s, u
+
+
+def load_pureun_prices(src: Path = PUREUN_SRC) -> dict[tuple[str, str, str], dict]:
+    """푸른조경 조경 XLS — 품명·규격·단위별 단가(재·노·경·합)."""
+    if not src.exists():
+        return {}
+    import xlrd
+
+    wb = xlrd.open_workbook(str(src))
+    sh = wb.sheet_by_name("내역서")
+    index: dict[tuple[str, str, str], dict] = {}
+    for r in range(3, sh.nrows):
+        name = str(sh.cell_value(r, 0)).strip()
+        spec = str(sh.cell_value(r, 1)).strip()
+        qty = sh.cell_value(r, 2) if sh.cell_type(r, 2) == xlrd.XL_CELL_NUMBER else None
+        unit = str(sh.cell_value(r, 3)).strip()
+        if not (qty and unit and unit != "식" and float(qty) > 0):
+            continue
+        try:
+            total_u = float(sh.cell_value(r, 4) or 0)
+            mat_u = float(sh.cell_value(r, 6) or 0)
+            lab_u = float(sh.cell_value(r, 8) or 0)
+            exp_u = float(sh.cell_value(r, 10) or 0)
+        except (TypeError, ValueError):
+            continue
+        if total_u <= 0 and mat_u + lab_u + exp_u <= 0:
+            continue
+        if total_u <= 0:
+            total_u = mat_u + lab_u + exp_u
+        key = norm_item_key(name, spec, unit)
+        index[key] = {
+            "code": "푸른조경",
+            "name": re.sub(r"^\s+", "", name),
+            "spec": spec,
+            "unit": unit,
+            "mat": mat_u,
+            "lab": lab_u,
+            "exp": exp_u,
+            "total": total_u,
+            "date": "푸른조경 2026.6.20",
+        }
+    return index
+
+
+def match_pureun(item: dict, pureun: dict[tuple[str, str, str], dict]) -> dict | None:
+    key = norm_item_key(item["name"], item["spec"], item["unit"])
+    return pureun.get(key)
+
+
 def combine_forest_planting(forest: dict, plant: dict | None, item: dict) -> dict:
     mat = float(forest["mat"])
     lab = float(plant["lab"]) if plant else 0.0
@@ -161,13 +216,21 @@ def combine_forest_planting(forest: dict, plant: dict | None, item: dict) -> dic
     }
 
 
-def build_jo_results(items: list[dict], prices: list[dict], forest_prices: list[dict], src_name: str):
+def build_jo_results(
+    items: list[dict],
+    prices: list[dict],
+    forest_prices: list[dict],
+    src_name: str,
+    pureun: dict[tuple[str, str, str], dict] | None = None,
+):
     matched_rows = []
     unmatched_rows = []
     by_row: dict[int, dict] = {}
     totals = {"mat": 0.0, "lab": 0.0, "exp": 0.0, "sum": 0.0}
     section_totals: dict[str, dict] = {}
     forest_applied = 0
+    pureun_applied = 0
+    pureun = pureun or {}
 
     for item in items:
         sec = item["section"]
@@ -183,6 +246,7 @@ def build_jo_results(items: list[dict], prices: list[dict], forest_prices: list[
             price, score, term, terms = asp.find_best_match(item, prices)
 
         forest_used = False
+        pureun_used = False
         if (not price or score < asp.THRESHOLD) and item["unit"] == "주":
             fp, fs, fn = mft.match_tree(
                 {"name": mft.clean_tree_name(item["name"]), "spec": item["spec"], "unit": "주"},
@@ -197,6 +261,16 @@ def build_jo_results(items: list[dict], prices: list[dict], forest_prices: list[
                 forest_used = True
                 forest_applied += 1
 
+        if not price or score < asp.THRESHOLD:
+            pp = match_pureun(item, pureun)
+            if pp:
+                price = pp
+                score = 1.0
+                term = "푸른조경"
+                terms = ["푸른조경"]
+                pureun_used = True
+                pureun_applied += 1
+
         base = {
             **item,
             "status": "미매칭",
@@ -210,13 +284,15 @@ def build_jo_results(items: list[dict], prices: list[dict], forest_prices: list[
             continue
 
         amts = asp.calc_amounts(item, price)
-        confidence = "높음" if score >= asp.REVIEW_THRESHOLD else "검토"
         if manual:
             confidence, status = "수동", "매칭"
+        elif pureun_used:
+            confidence, status = "푸른조경", "매칭"
         elif forest_used:
             status = "매칭" if score >= asp.REVIEW_THRESHOLD else "검토"
             confidence = "forestinfo" if status == "매칭" else "forestinfo·검토"
         else:
+            confidence = "높음" if score >= asp.REVIEW_THRESHOLD else "검토"
             status = "매칭" if score >= asp.REVIEW_THRESHOLD else "검토"
 
         row = {
@@ -247,43 +323,134 @@ def build_jo_results(items: list[dict], prices: list[dict], forest_prices: list[
 
     review_rows = [r for r in matched_rows if r["status"] == "검토"]
     integrated = [by_row.get(it["row"], {**it, "status": "미매칭"}) for it in items]
-    return matched_rows, unmatched_rows, review_rows, integrated, totals, section_totals, forest_applied
+    return (
+        matched_rows, unmatched_rows, review_rows, integrated,
+        totals, section_totals, forest_applied, pureun_applied,
+    )
+
+
+def build_pureun_basis_results(src: Path = PUREUN_SRC):
+    """푸른조경 XLS 내역 금액(재·노·경)을 그대로 직접공사비로 사용."""
+    import xlrd
+
+    if not src.exists():
+        raise FileNotFoundError(src)
+    items, _ = asp.load_estimate(src)
+    sh = xlrd.open_workbook(str(src)).sheet_by_name("내역서")
+    matched_rows: list[dict] = []
+    totals = {"mat": 0.0, "lab": 0.0, "exp": 0.0, "sum": 0.0}
+    section_totals: dict[str, dict] = {}
+
+    for item in items:
+        r = item["row"] - 1
+        mat_a = float(sh.cell_value(r, 7) or 0)
+        lab_a = float(sh.cell_value(r, 9) or 0)
+        exp_a = float(sh.cell_value(r, 11) or 0)
+        sum_a = float(sh.cell_value(r, 5) or 0) or mat_a + lab_a + exp_a
+        qty = float(item["qty"] or 1) or 1.0
+        mat_u = float(sh.cell_value(r, 6) or 0)
+        lab_u = float(sh.cell_value(r, 8) or 0)
+        exp_u = float(sh.cell_value(r, 10) or 0)
+        tot_u = float(sh.cell_value(r, 4) or 0) or mat_u + lab_u + exp_u
+
+        sec = item["section"]
+        section_totals.setdefault(
+            sec, {"mat": 0.0, "lab": 0.0, "exp": 0.0, "sum": 0.0, "matched": 0, "items": 0}
+        )
+        section_totals[sec]["items"] += 1
+        section_totals[sec]["matched"] += 1
+
+        row = {
+            **item,
+            "mat_amt": mat_a,
+            "lab_amt": lab_a,
+            "exp_amt": exp_a,
+            "sum_amt": sum_a,
+            "status": "매칭",
+            "match_score": 1.0,
+            "match_term": "푸른조경",
+            "price_code": "푸른조경",
+            "price_name": item["name"],
+            "price_spec": item["spec"],
+            "price_unit": item["unit"],
+            "mat_unit": mat_u if mat_u else mat_a / qty,
+            "lab_unit": lab_u if lab_u else lab_a / qty,
+            "exp_unit": exp_u if exp_u else exp_a / qty,
+            "total_unit": tot_u if tot_u else sum_a / qty,
+            "confidence": "푸른조경",
+        }
+        matched_rows.append(row)
+        for key, val in zip(["mat", "lab", "exp", "sum"], [mat_a, lab_a, exp_a, sum_a]):
+            totals[key] += val
+            section_totals[sec][key] += val
+
+    integrated = matched_rows
+    return matched_rows, [], [], integrated, totals, section_totals
 
 
 def main():
-    if not SRC.exists():
-        print(f"[중단] 원본 없음: {SRC}")
-        sys.exit(1)
-    if not mft.CSV_PATH.exists():
-        print("[중단] 조경수_관측시세.csv 없음 — fetch_forest_tree_prices.py 실행")
-        sys.exit(1)
+    import argparse
 
-    market = asp.load_market_csv(asp.MARKET_2026, "표준시장단가2026") or asp.load_prices()
-    sijang = asp.load_market_csv(asp.SIJANG_2026, "시장시공가격2026")
-    ildae = asp.load_ildae_prices()
-    landscape = asp.load_landscape_ildae()
-    mulga = asp.load_mulga()
-    jojadang = asp.load_jojadang()
-    forest = mft.load_prices()
-    prices = asp.precompute(market + sijang + ildae + mulga + jojadang + landscape)
-
-    items, _ = asp.load_estimate(SRC)
-    src_name = SRC.name
-    matched, unmatched, review, integrated, totals, section_totals, n_forest = build_jo_results(
-        items, prices, forest, src_name
+    ap = argparse.ArgumentParser(description="01 조경 표준단가산출")
+    ap.add_argument(
+        "--basis",
+        choices=("pureun", "hybrid"),
+        default="pureun",
+        help="pureun=푸른조경(260620) 내역 금액 그대로 / hybrid=표준+forestinfo+푸른조경 폴백",
     )
+    args = ap.parse_args()
 
-    price_date = (
-        f"표준시장단가2026 + forestinfo 조경수(주 {n_forest}건) + 조경일위2024 식재노무"
-    )
+    src_name = PUREUN_SRC.name if args.basis == "pureun" else SRC.name
+    estimate_src = PUREUN_SRC if args.basis == "pureun" else SRC
+
+    if args.basis == "pureun":
+        if not PUREUN_SRC.exists():
+            print(f"[중단] 푸른조경 원본 없음: {PUREUN_SRC}")
+            sys.exit(1)
+        matched, unmatched, review, integrated, totals, section_totals = build_pureun_basis_results(PUREUN_SRC)
+        price_date = f"푸른조경(2026.6.20) 내역 금액 — {PUREUN_SRC.name}"
+        n_forest = n_pureun = len(matched)
+    else:
+        if not SRC.exists():
+            print(f"[중단] 원본 없음: {SRC}")
+            sys.exit(1)
+        if not mft.CSV_PATH.exists():
+            print("[중단] 조경수_관측시세.csv 없음 — fetch_forest_tree_prices.py 실행")
+            sys.exit(1)
+
+        market = asp.load_market_csv(asp.MARKET_2026, "표준시장단가2026") or asp.load_prices()
+        sijang = asp.load_market_csv(asp.SIJANG_2026, "시장시공가격2026")
+        ildae = asp.load_ildae_prices()
+        landscape = asp.load_landscape_ildae()
+        mulga = asp.load_mulga()
+        jojadang = asp.load_jojadang()
+        forest = mft.load_prices()
+        prices = asp.precompute(market + sijang + ildae + mulga + jojadang + landscape)
+
+        if not PUREUN_SRC.exists():
+            print(f"[경고] 푸른조경 원본 없음: {PUREUN_SRC.name}")
+        pureun = load_pureun_prices()
+
+        items, _ = asp.load_estimate(SRC)
+        matched, unmatched, review, integrated, totals, section_totals, n_forest, n_pureun = build_jo_results(
+            items, prices, forest, SRC.name, pureun
+        )
+        price_date = (
+            f"표준시장단가2026 + forestinfo 조경수(주 {n_forest}건) + 조경일위2024 식재노무"
+            f" + 푸른조경 시설({n_pureun}건)"
+        )
+
     saved = asp.write_xlsx(
         matched, unmatched, review, integrated, totals, section_totals, price_date, OUT, src_name
     )
     asp.write_md(matched, unmatched, review, totals, section_totals, price_date, src_name, OUT_MD)
 
     matched_ok = len([r for r in matched if r["status"] == "매칭"])
-    print(f"forestinfo+조경일위 반영: {n_forest}건(주)")
-    print(f"항목 {len(items)} / 매칭 {matched_ok} / 검토 {len(review)} / 미매칭 {len(unmatched)}")
+    if args.basis == "pureun":
+        print(f"푸른조경 기준 — 항목 {len(matched)}건 / 직접공사비(순공사비) 합계")
+    else:
+        print(f"forestinfo+조경일위 반영: {n_forest}건(주) / 푸른조경: {n_pureun}건")
+        print(f"항목 {len(integrated)} / 매칭 {matched_ok} / 검토 {len(review)} / 미매칭 {len(unmatched)}")
     print(f"재료비 {totals['mat']:,.0f}  노무비 {totals['lab']:,.0f}  경비 {totals['exp']:,.0f}  합계 {totals['sum']:,.0f}")
     print(f"저장: {saved}")
 

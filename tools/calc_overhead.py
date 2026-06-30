@@ -332,6 +332,18 @@ CIVIL_RATE_TABLE: list[tuple[str, str, str]] = [
     ("부가가치세", "부가가치세", "× 공급가액"),
 ]
 
+# --- PF·책임준공 협의 항목 (민간 도급, 토목·조경 engine) ---
+# 법정 간접비 아님 — include_pf=True 시 공급가액에 가산(발주·금융 협의 시 조정).
+PF_RATES: dict[str, float] = {
+    "이행준공보증보험료": 0.003,   # 0.3% × 공급가액(이윤까지)
+    "PF리스크프리미엄": 0.06,      # 6.0% × (직접공사비+간접노무비)
+}
+
+CIVIL_PF_RATE_TABLE: list[tuple[str, str, str]] = [
+    ("이행(준공)보증보험료", "이행준공보증보험료", "× 공급가액(이윤까지)"),
+    ("PF·신용 리스크 프리미엄", "PF리스크프리미엄", "× (직접공사비+간접노무비)(책임준공·미확정)"),
+]
+
 
 def _sanan_civil(base_amt: float) -> tuple[float, int]:
     """토목 산업안전보건관리비 — 대상액(재+직노) 구간별 (율, 기초액원)."""
@@ -364,12 +376,16 @@ def compute_cost_statement_civil(
     *,
     est_price: float | None = None,
     rate_source: str = "토목공사 간접공사비 기준(2026.4.13)",
+    include_pf: bool = True,
+    pf_rates: dict[str, float] | None = None,
 ) -> dict[str, Any]:
     """직접공사비 + 토목공사 간접공사비 적용기준(2026.4.13) → 원가계산서 산출.
 
     est_price(추정가격)로 일반관리비·이윤 구간을 자동 선택한다(미지정 시 직접공사비×1.7 추정).
+    include_pf — PF·책임준공 협의 항목(보증보험료·리스크 프리미엄) 공급가액 가산.
     """
     R = rates or CIVIL_TOMOK_RATES
+    PF = pf_rates or PF_RATES
     M, L, E = float(mat), float(lab), float(exp)
     D = M + L + E
 
@@ -393,7 +409,12 @@ def compute_cost_statement_civil(
     ilban_rate, iyun_rate = _ilban_iyun_civil(est_price if est_price is not None else D * 1.7)
     ilban = sun * ilban_rate
     iyun = (N + gyeongbi_gye + ilban) * iyun_rate
-    gonggeup = sun + ilban + iyun
+    gonggeup_base = sun + ilban + iyun
+    pf_insurance = gonggeup_base * PF["이행준공보증보험료"] if include_pf else 0.0
+    pf_risk_base = D + iln
+    pf_risk = pf_risk_base * PF["PF리스크프리미엄"] if include_pf else 0.0
+    pf_total = pf_insurance + pf_risk
+    gonggeup = gonggeup_base + pf_total
     vat = gonggeup * R["부가가치세"]
     dogeup = gonggeup + vat
 
@@ -423,7 +444,31 @@ def compute_cost_statement_civil(
         _row("⑥", "순공사원가", sun, "재료비+노무비계+경비계", bold=True, total=True),
         _row("⑦", "일반관리비", ilban, f"순공사원가 × {ilban_rate * 100:g}% (추정가격 구간)"),
         _row("⑧", "이윤", iyun, f"(노무비계+경비계+일반관리비) × {iyun_rate * 100:g}% (추정가격 구간)"),
-        _row("", "공급가액", gonggeup, "순공사원가+일반관리비+이윤", bold=True),
+    ]
+    if include_pf:
+        rows.extend([
+            _row(
+                "⑨",
+                "이행(준공)보증보험료",
+                pf_insurance,
+                f"공급가액(이윤까지) × {PF['이행준공보증보험료'] * 100:g}% (PF·책임준공)",
+            ),
+            _row(
+                "⑨",
+                "PF·신용 리스크 프리미엄",
+                pf_risk,
+                f"(직접공사비+간접노무비) × {PF['PF리스크프리미엄'] * 100:g}% (책임준공·미확정)",
+            ),
+        ])
+    rows.extend([
+        _row(
+            "",
+            "공급가액",
+            gonggeup,
+            "순공사원가+일반관리비+이윤"
+            + ("+PF협의항목" if include_pf else ""),
+            bold=True,
+        ),
         _row("", "부가가치세", vat, f"공급가액 × {pct('부가가치세')}"),
         _row(
             "★",
@@ -433,7 +478,7 @@ def compute_cost_statement_civil(
             bold=True,
             total=True,
         ),
-    ]
+    ])
 
     rate_rows = []
     for label, key, basis in CIVIL_RATE_TABLE:
@@ -445,6 +490,10 @@ def compute_cost_statement_civil(
             rate_rows.append((label, iyun_rate, basis))
         else:
             rate_rows.append((label, R[key], basis))
+    if include_pf:
+        rate_rows.extend(
+            (label, PF[key], basis) for label, key, basis in CIVIL_PF_RATE_TABLE
+        )
 
     return {
         "mat": round(M),
@@ -457,6 +506,9 @@ def compute_cost_statement_civil(
         "net_cost": round(sun),
         "general_admin": round(ilban),
         "profit": round(iyun),
+        "pf_insurance": round(pf_insurance),
+        "pf_risk": round(pf_risk),
+        "pf_total": round(pf_total),
         "supply": round(gonggeup),
         "vat": round(vat),
         "contract": round(dogeup),
@@ -464,7 +516,8 @@ def compute_cost_statement_civil(
         "rows": rows,
         "rate_rows": rate_rows,
         "rates": dict(R),
-        "rate_source": rate_source,
+        "rate_source": rate_source + (" · PF협의항목" if include_pf else ""),
+        "include_pf": include_pf,
     }
 
 

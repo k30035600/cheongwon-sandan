@@ -6,7 +6,7 @@
 URL: https://www.forestinfo.or.kr/public/tree_prinfo/selectTreePrinfoFoppList.do
 
 성격: 한국농촌경제원 조경수 임업관측 참고가(고시 아님). 단위 원/주·상차도.
-출력: 05_내역서/일위대가DB/조경수_관측시세.csv
+출력: 05_내역서/일위대가DB/조경/조경수_관측시세.csv
 """
 from __future__ import annotations
 

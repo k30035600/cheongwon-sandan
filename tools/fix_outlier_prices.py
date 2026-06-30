@@ -20,8 +20,8 @@ sys.stderr.reconfigure(encoding="utf-8")
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
-UNMATCHED_IL = BASE / "미매칭_일위대가산출.xlsx"
-POOMSEM_OUT = WORK / "검토_오매칭교정_품셈산출.xlsx"
+UNMATCHED_IL = BASE / "내역서작업" / "_공통" / "미매칭_일위대가산출.xlsx"
+POOMSEM_OUT = WORK / "_공통" / "검토_오매칭교정_품셈산출.xlsx"
 
 # 흄관 하차(크레인 상하차) 직경별 보수적 추정(경비 기준, 검증 권장)
 HUMGWAN_BY_DIA = {250: 2000, 450: 3000, 600: 5000, 700: 6000,

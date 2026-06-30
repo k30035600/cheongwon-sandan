@@ -43,6 +43,10 @@ __pycache__/
 *.pyc
 *.pyo
 
+# OCR·캐시 임시 (일회성)
+tools/_land_ocr/
+tools/_poomsem_cache/
+
 # OS·편집기
 Thumbs.db
 desktop.ini

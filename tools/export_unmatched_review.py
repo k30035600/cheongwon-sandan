@@ -10,8 +10,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
-# 검토_전체·미매칭_전체 출력 위치 — 빌더(build_review_*)가 읽는 05_내역서 루트로 통일
-OUT_DIR = BASE
+# 검토_전체·미매칭_전체 출력 위치 — 빌더(build_review_*)가 읽는 05_내역서/내역서작업로 통일
+OUT_DIR = BASE / "내역서작업" / "_공통"
 
 LABELS = {
     "01": "01 토목", "01j": "01 조경", "02": "02 전기(지구내·통합)", "03": "03 전기(지구외·중복)",

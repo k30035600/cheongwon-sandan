@@ -182,7 +182,7 @@ def write_rate_compare_sheet(wb: Workbook, electric_path: Path | None = None) ->
 
     ws.append(["원가계산서 요율 검증 — 총괄표(03 전기 요율 적용) vs 03 원본"])
     ws.append(["작성일", "2026. 6. 19."])
-    ws.append(["총괄표", "05_내역서/총괄표.xlsx · 원가계산서 · ELECTRIC_RATES 적용"])
+    ws.append(["총괄표", "05_내역서/내역서작업/_공통/총괄표.xlsx · 원가계산서 · ELECTRIC_RATES 적용"])
     ws.append(["03 전기", f"05_내역서/공내역서/{meta.get('path', ELECTRIC_XLSX.name)} · 원가 시트"])
     ws.append(["03 공사명", meta.get("project", ""), meta.get("period", "")])
     ws["A1"].font = Font(bold=True, size=14)

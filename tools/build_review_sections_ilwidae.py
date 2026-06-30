@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """검토_전체 — 우수·오수·상수·포장·구조물·부대·하수처리장·지하저류조·지원·주차 품셈·일위대가.
 
-입력: 05_내역서/검토_전체.xlsx
-출력: 05_내역서/검토_공종별_일위대가산출.xlsx
-      05_내역서/내역서작업/검토_공종별_품셈산출.xlsx
+입력: 05_내역서/내역서작업/_공통/검토_전체.xlsx
+출력: 05_내역서/내역서작업/_공통/검토_공종별_일위대가산출.xlsx
+      05_내역서/내역서작업/_공통/검토_공종별_품셈산출.xlsx
 """
 from __future__ import annotations
 
@@ -25,9 +25,9 @@ import apply_standard_prices as asp  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
-REVIEW_ALL = BASE / "검토_전체.xlsx"
-OUT = BASE / "검토_공종별_일위대가산출.xlsx"
-POOMSEM_OUT = WORK / "검토_공종별_품셈산출.xlsx"
+REVIEW_ALL = BASE / "내역서작업" / "_공통" / "검토_전체.xlsx"
+OUT = BASE / "내역서작업" / "_공통" / "검토_공종별_일위대가산출.xlsx"
+POOMSEM_OUT = WORK / "_공통" / "검토_공종별_품셈산출.xlsx"
 
 FILE_MAP = {
     "01 토목": "01 토목",
@@ -330,7 +330,7 @@ def price_item(item: dict, prices: list[dict]) -> dict:
 
 
 def load_review_items() -> list[dict]:
-    path = REVIEW_ALL if REVIEW_ALL.exists() else WORK / "검토_전체.xlsx"
+    path = REVIEW_ALL if REVIEW_ALL.exists() else WORK / "_공통" / "검토_전체.xlsx"
     wb = load_workbook(path, read_only=True, data_only=True)
     ws = wb["통합"]
     rows: list[dict] = []
@@ -436,7 +436,7 @@ def write_ilwidae_workbook(items: list[dict], priced: list[dict]) -> None:
         ["검토 — 우수·오수·상수·포장·구조물·부대·하수처리장·지하저류조·지원·주차"],
         [],
         ["반영", "python -X utf8 tools/apply_confirmed_prices.py"],
-        ["품셈", "내역서작업/검토_공종별_품셈산출.xlsx"],
+        ["품셈", "내역서작업/_공통/검토_공종별_품셈산출.xlsx"],
         ["주의", "개소·본·ea 환산·PVC 규격·맨홀 호칭은 현장 도면 확인"],
     ]:
         info.append(line)
@@ -507,7 +507,7 @@ def write_poomsem_workbook(items: list[dict], priced: list[dict]) -> None:
 
 
 def main() -> None:
-    if not REVIEW_ALL.exists() and not (WORK / "검토_전체.xlsx").exists():
+    if not REVIEW_ALL.exists() and not (WORK / "_공통" / "검토_전체.xlsx").exists():
         print("검토_전체.xlsx 없음")
         sys.exit(1)
 

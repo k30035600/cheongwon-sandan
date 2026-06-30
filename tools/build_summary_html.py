@@ -9,9 +9,9 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "05_내역서"
-SRC = BASE / "총괄표.xlsx"
-OUT = BASE / "내역서_표준단가산출_총괄표.html"
-GEN_DATE = "2026. 6. 20."
+SRC = BASE / "내역서작업" / "_공통" / "총괄표.xlsx"
+OUT = BASE / "내역서작업" / "_공통" / "내역서_표준단가산출_총괄표.html"
+GEN_DATE = "2026. 6. 19."
 
 # 공종별 「주요 미매칭 원인」 정성 설명(정적)
 CAUSE = {
@@ -90,8 +90,7 @@ def render() -> str:
     rows1 = "\n".join(
         f'    <tr><td class="c">{s["no"]}</td><td class="l">{s["name"]}</td>'
         f'<td class="r">{won(s["mat"])}</td><td class="r">{won(s["lab"])}</td>'
-        f'<td class="r">{won(s["exp"])}</td><td class="r">{won(s["tot"])}</td>'
-        f'<td class="r">{eok(s["tot"])}</td></tr>'
+        f'<td class="r">{won(s["exp"])}</td><td class="r">{won(s["tot"])}</td></tr>'
         for s in secs)
 
     rows3 = "\n".join(
@@ -125,6 +124,12 @@ def render() -> str:
 
     indirect = float(cost["supply"]) - float(cost["direct"])
     mult = float(cost["dogup"]) / float(cost["direct"])
+
+    jo_um = int(next((s["um"] for s in secs if s["name"] == "조경"), 0) or 0)
+    um_foot = (
+        f'미매칭은 01 조경 {jo_um}건 제외. '
+        f'전체 미매칭 {int(tot["um"]) + jo_um}건'
+    )
 
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -190,17 +195,17 @@ def render() -> str:
 </div>
 
 <div class="kpis">
-  <div class="kpi"><div class="lab">직접공사비 합계</div><div class="val">약 {eok(tot["tot"])}억</div><div class="sub">{won(tot["tot"])}원</div></div>
-  <div class="kpi"><div class="lab">재료비</div><div class="val">{eok(mat_amt)}억</div><div class="sub">{won(mat_amt)}원 · {mat_pct * 100:.1f}%</div></div>
-  <div class="kpi"><div class="lab">노무비</div><div class="val">{eok(lab_amt)}억</div><div class="sub">{won(lab_amt)}원 · {lab_pct * 100:.1f}%</div></div>
-  <div class="kpi"><div class="lab">경비</div><div class="val">{eok(exp_amt)}억</div><div class="sub">{won(exp_amt)}원 · {exp_pct * 100:.1f}%</div></div>
+  <div class="kpi"><div class="lab">직접공사비 합계</div><div class="val">{won(tot["tot"])}원</div><div class="sub">01~07 직접비</div></div>
+  <div class="kpi"><div class="lab">재료비</div><div class="val">{won(mat_amt)}원</div><div class="sub">{mat_pct * 100:.1f}%</div></div>
+  <div class="kpi"><div class="lab">노무비</div><div class="val">{won(lab_amt)}원</div><div class="sub">{lab_pct * 100:.1f}%</div></div>
+  <div class="kpi"><div class="lab">경비</div><div class="val">{won(exp_amt)}원</div><div class="sub">{exp_pct * 100:.1f}%</div></div>
   <div class="kpi"><div class="lab">매칭률</div><div class="val">{float(tot["rate"]) * 100:.1f}%</div><div class="sub">매칭 {tot["m"]} / 전체 {tot["all"]:,}건</div></div>
 </div>
 
 <div class="summary">
   <ol>
-    <li><b>직접공사비 합계</b> — <b>약 {eok(tot["tot"])}억원</b>({won(tot["tot"])}원). <span class="meta">※ 확정단가 반영 후 최종값. 03 전기(지구외)는 02와 동일 내역서(중복·#REF!)로 합계에서 제외.</span></li>
-    <li><b>재료비</b> {eok(mat_amt)}억 · <b>노무비</b> {eok(lab_amt)}억 · <b>경비</b> {eok(exp_amt)}억.</li>
+    <li><b>직접공사비 합계</b> — <b>{won(tot["tot"])}원</b>. <span class="meta">※ 확정단가 반영 후 최종값. 03 전기(지구외)는 02와 동일 내역서(중복·#REF!)로 합계에서 제외.</span></li>
+    <li><b>재료비</b> {won(mat_amt)}원 · <b>노무비</b> {won(lab_amt)}원 · <b>경비</b> {won(exp_amt)}원.</li>
     <li><b>매칭</b> {tot["m"]} / <b>검토</b> {tot["rv"]} / <b>미매칭</b> {tot["um"]}(01 조경 제외) / <b>전체</b> {tot["all"]:,}건(매칭률 <b>{float(tot["rate"]) * 100:.1f}%</b>).</li>
     <li>금액은 <b>매칭+검토+확정</b> 건 반영. 미매칭·미산출은 0(누락분이므로 실제 총액은 더 커질 수 있음).</li>
   </ol>
@@ -211,12 +216,12 @@ def render() -> str:
   <thead><tr>
     <th style="width:34px">No</th><th style="width:170px">구분</th>
     <th style="width:110px">재료비</th><th style="width:110px">노무비</th><th style="width:100px">경비</th>
-    <th style="width:120px">합계</th><th style="width:62px">합계(억)</th>
+    <th style="width:120px">합계</th>
   </tr></thead>
   <tbody>
 {rows1}
   </tbody>
-  <tfoot><tr class="total"><td class="c">계</td><td class="l">01·02·04~07</td><td class="r">{won(tot["mat"])}</td><td class="r">{won(tot["lab"])}</td><td class="r">{won(tot["exp"])}</td><td class="r">{won(tot["tot"])}</td><td class="r">{eok(tot["tot"])}</td></tr></tfoot>
+  <tfoot><tr class="total"><td class="c">계</td><td class="l">01·02·04~07</td><td class="r">{won(tot["mat"])}</td><td class="r">{won(tot["lab"])}</td><td class="r">{won(tot["exp"])}</td><td class="r">{won(tot["tot"])}</td></tr></tfoot>
 </table>
 <p class="meta" style="margin-top:4px">※ <b>03 전기(지구외) 제외</b> — 02와 품목 209개가 100% 동일한 복사본이고 값 셀이 전부 <code>#REF!</code>(깨진 수식). 02 파일이 지구내+지구외 전체를 포함하므로 03을 더하면 이중계상됨.</p>
 
@@ -241,7 +246,7 @@ def render() -> str:
   <tbody>
 {rows3}
   </tbody>
-  <tfoot><tr class="total"><td class="c">계</td><td class="l">01·02·04~07</td><td class="r">{tot["m"]}</td><td class="r">{tot["rv"]}</td><td class="r">{tot["um"]}</td><td class="r">{tot["all"]:,}</td><td class="c">{float(tot["rate"]) * 100:.1f}%</td><td class="l">미매칭은 01 조경 20건 제외 기준(전체 미매칭 122건)</td></tr></tfoot>
+  <tfoot><tr class="total"><td class="c">계</td><td class="l">01·02·04~07</td><td class="r">{tot["m"]}</td><td class="r">{tot["rv"]}</td><td class="r">{tot["um"]}</td><td class="r">{tot["all"]:,}</td><td class="c">{float(tot["rate"]) * 100:.1f}%</td><td class="l">{um_foot}</td></tr></tfoot>
 </table>
 <p class="meta" style="margin-top:4px">※ <b>매칭</b>=단가 매칭 확정 · <b>검토</b>=확정·환산·재산출 경로 · <b>미매칭</b>=잔여 미산출. 금액은 매칭+검토+확정 건만 반영.</p>
 
@@ -250,11 +255,11 @@ def render() -> str:
   <b>적용 요율 = 03 전기설비 「원가」 시트 제비율.</b> 발주처 지정 요율이 확정되면 <code>tools/calc_overhead.py</code>의 <code>ELECTRIC_RATES</code>만 교체하면 결과가 갱신됩니다. 직접공사비 합계(03 제외)에 일괄 적용한 <b>개략 추정</b>이며, 한전수탁비 등 전기 전용 고정액은 미포함입니다.
 </div>
 <div class="kpis">
-  <div class="kpi"><div class="lab">직접공사비</div><div class="val">{eok(cost["direct"])}억</div><div class="sub">{won(cost["direct"])}원</div></div>
-  <div class="kpi"><div class="lab">간접비·일반관리비·이윤</div><div class="val">+{eok(indirect)}억</div><div class="sub">공급가액 − 직접공사비</div></div>
-  <div class="kpi"><div class="lab">공급가액</div><div class="val">{eok(cost["supply"])}억</div><div class="sub">{won(cost["supply"])}원</div></div>
-  <div class="kpi"><div class="lab">부가가치세</div><div class="val">{eok(cost["vat"])}억</div><div class="sub">{won(cost["vat"])}원</div></div>
-  <div class="kpi"><div class="lab">도급액(총공사비)</div><div class="val">약 {eok(cost["dogup"])}억</div><div class="sub">{won(cost["dogup"])}원 · 직접비의 {mult:.3f}배</div></div>
+  <div class="kpi"><div class="lab">직접공사비</div><div class="val">{won(cost["direct"])}원</div><div class="sub">03 전기 요율 기준</div></div>
+  <div class="kpi"><div class="lab">간접비·일반관리비·이윤</div><div class="val">+{won(indirect)}원</div><div class="sub">공급가액 − 직접공사비</div></div>
+  <div class="kpi"><div class="lab">공급가액</div><div class="val">{won(cost["supply"])}원</div><div class="sub">간접비 포함</div></div>
+  <div class="kpi"><div class="lab">부가가치세</div><div class="val">{won(cost["vat"])}원</div><div class="sub">10%</div></div>
+  <div class="kpi"><div class="lab">도급액(총공사비)</div><div class="val">{won(cost["dogup"])}원</div><div class="sub">직접비의 {mult:.3f}배</div></div>
 </div>
 
 <h3 style="margin:14px 0 6px;font-size:14.5px;color:#243b58">산출 내역</h3>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """한국물가협회 2018 PDF(스캔본) OCR → 현재 미매칭 품목 해소 가능성 점검(수정 없음).
 
-출력: 05_내역서/한국물가협회_미매칭점검.xlsx
+출력: 05_내역서/내역서작업/_공통/한국물가협회_미매칭점검.xlsx
 캐시: tools/_kpa_ocr_cache.jsonl (재실행 시 OCR 생략)
 """
 from __future__ import annotations
@@ -23,7 +23,7 @@ BASE = ROOT / "05_내역서"
 WORK = BASE / "내역서작업"
 KPA_DIR = BASE / "일위대가DB" / "한국물가협회"
 CACHE = TOOLS / "_kpa_ocr_cache.jsonl"
-OUT = BASE / "한국물가협회_미매칭점검.xlsx"
+OUT = BASE / "내역서작업" / "한국물가협회_미매칭점검.xlsx"
 
 sys.path.insert(0, str(TOOLS))
 import apply_standard_prices as asp  # noqa: E402

@@ -2,8 +2,8 @@
 """일위대가 산출표 확정단가 → 각 _표준단가산출.xlsx · 총괄표 반영 (인-place 패치).
 
 입력:
-  - 05_내역서/미매칭_일위대가산출.xlsx (확정단가 또는 H·B·E·J 경로 제시단가)
-  - 05_내역서/검토_일위대가산출.xlsx (확정단가(입력)만)
+  - 05_내역서/내역서작업/_공통/미매칭_일위대가산출.xlsx (확정단가 또는 H·B·E·J 경로 제시단가)
+  - 05_내역서/내역서작업/_공통/검토_일위대가산출.xlsx (확정단가(입력)만)
 """
 from __future__ import annotations
 
@@ -23,10 +23,10 @@ WORK = BASE / "내역서작업"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import apply_standard_prices as asp  # noqa: E402
 
-UNMATCHED_IL = BASE / "미매칭_일위대가산출.xlsx"
-REVIEW_IL = BASE / "검토_일위대가산출.xlsx"
-REVIEW_TOGONG_IL = BASE / "검토_토공_일위대가산출.xlsx"
-REVIEW_SECTIONS_IL = BASE / "검토_공종별_일위대가산출.xlsx"
+UNMATCHED_IL = BASE / "내역서작업" / "_공통" / "미매칭_일위대가산출.xlsx"
+REVIEW_IL = BASE / "내역서작업" / "_공통" / "검토_일위대가산출.xlsx"
+REVIEW_TOGONG_IL = BASE / "내역서작업" / "토목" / "검토_토공_일위대가산출.xlsx"
+REVIEW_SECTIONS_IL = BASE / "내역서작업" / "_공통" / "검토_공종별_일위대가산출.xlsx"
 
 FILE_MAP = {
     "01 토목": "01_화성 청원지구 토목_표준단가산출.xlsx",
@@ -316,7 +316,9 @@ def rewrite_unmatched_sheet(wb, unmatched: list[dict]) -> None:
 
 
 def apply_file(xlsx_name: str, overrides: list[dict]) -> int:
-    path = WORK / xlsx_name
+    from naeyeok_gongjong import resolve_work
+
+    path = resolve_work(xlsx_name)
     if not path.exists():
         print(f"  skip: {xlsx_name}", flush=True)
         return 0

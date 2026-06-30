@@ -16,7 +16,7 @@ BASE = ROOT / "05_내역서"  # 폴더 재편(2026-06-18): 공내역서·산출�
 WORK_DIR = BASE / "내역서작업"
 SRC_DIR = BASE / "공내역서"
 SRC = SRC_DIR / "07_화성 청원지구 건설폐기물처리.XLS"
-OUT = WORK_DIR / "07_화성 청원지구 건설폐기물처리_표준단가산출.xlsx"
+OUT = WORK_DIR / "폐기물" / "07_화성 청원지구 건설폐기물처리_표준단가산출.xlsx"
 OUT_MD = OUT.with_name(OUT.stem + "_요약.md")
 
 HEADER_FILL = PatternFill("solid", fgColor="D9E1F2")

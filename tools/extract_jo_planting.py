@@ -11,7 +11,7 @@ import xlrd
 sys.stdout.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SRC = ROOT / "05_내역서" / "01_260620화성시마도면총원리청원지구 조경.XLS"
+DEFAULT_SRC = ROOT / "05_내역서" / "공내역서" / "공내역서" / "조경시설물" / "01_260620화성시마도면청원리청원지구 조경.XLS"
 DEFAULT_OUT = ROOT / "05_내역서" / "내역서작업" / "01_260620_푸른조경_식재내역.md"
 
 ITEM_RE = re.compile(r"^[가-힣]\)\.\s")
