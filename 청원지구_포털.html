@@ -231,6 +231,18 @@
     width:100%; min-height:200px;
     border:1px solid var(--line); border-radius:6px; margin-top:8px;
   }
+  /* 모바일: PDF iframe 대신 탭 열기 (자동 다운로드 방지) */
+  .pdf-tap-open{
+    margin-top:8px; padding:12px 14px; border:1px dashed var(--line);
+    border-radius:8px; background:#f4f7fb; text-align:center;
+  }
+  .pdf-tap-open p{margin:0 0 10px;font-size:12.5px;color:#5a6675;line-height:1.45;}
+  .pdf-tap-btn{
+    display:inline-block; padding:10px 16px; border-radius:8px;
+    background:var(--navy); color:#fff!important; text-decoration:none!important;
+    font-weight:700; font-size:13px;
+  }
+  .pdf-tap-open .desc{display:block;margin-top:8px;font-size:11.5px;color:#6b7785;}
   .drop-nav{display:contents;}
   .viewer-note h2{font-size:18px;color:var(--navy);margin:0 0 10px;}
   .viewer-note p{margin:0 0 8px;line-height:1.65;font-size:15px;}
@@ -333,6 +345,7 @@
     .tab-drop-menu{min-width:132px;max-width:min(92vw,280px);}
     .tab-drop-item{padding:9px 12px;font-size:12.5px;}
     .pane-switch{display:flex;}
+    .pane-switch-btn[data-pane="md-edit"]{display:none!important;}
     .workspace{
       flex:0 0 auto; display:flex; flex-direction:column;
       min-height:0; overflow:visible; height:auto;
@@ -865,7 +878,7 @@
       label: "진명개발(주)",
       refTag: "등기·공개정보",
       dropGroup: "jinmyeong",
-      main: JIN_BASE + "/진명개발_팩트체크.md",
+      main: JIN_BASE + "/진명개발_팩트체크.html",
       refs: `
         <div class="ref-card">
           <h3>Ⅰ. 팩트체크 보고서</h3>
@@ -1704,9 +1717,48 @@
       .catch(() => window.open(absUrl, "_blank", "noopener"));
   }
 
+  /** 폰·태블릿: PDF를 iframe에 넣으면 브라우저가 다운로드 창을 띄움 */
+  function shouldAvoidPdfEmbed() {
+    try {
+      if (window.matchMedia(
+        "(max-width:900px), (hover:none) and (pointer:coarse)"
+      ).matches) return true;
+    } catch (_) { /* ignore */ }
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+  }
+
+  function pdfTapOpenHtml(encPath, label) {
+    const name = (label || "PDF").replace(/[<>&"]/g, "");
+    return (
+      '<div class="pdf-tap-open">' +
+      "<p>휴대폰에서는 PDF를 화면에 바로 넣으면 다운로드 안내가 뜹니다. 필요할 때만 열어 주세요.</p>" +
+      '<a class="pdf-tap-btn" href="' + encPath + '" target="_blank" rel="noopener">PDF 새 탭에서 열기</a>' +
+      '<span class="desc">' + name + "</span></div>"
+    );
+  }
+
+  function disableAutoPdfEmbeds(root) {
+    if (!root || !shouldAvoidPdfEmbed()) return;
+    root.querySelectorAll("iframe.embed-pdf").forEach(iframe => {
+      const src = (iframe.getAttribute("src") || "").replace(/#.*$/, "");
+      if (!src) { iframe.remove(); return; }
+      const label = iframe.getAttribute("title") || "PDF";
+      const wrap = document.createElement("div");
+      wrap.innerHTML = pdfTapOpenHtml(src, label);
+      iframe.replaceWith(wrap.firstElementChild || wrap.firstChild);
+    });
+  }
+
   function mountPdfViewer(container, encPath, label) {
     container.hidden = false;
     if (container === refPreview && rightPane) rightPane.classList.add("ref-preview-open");
+    if (shouldAvoidPdfEmbed()) {
+      container.innerHTML =
+        '<div class="ref-card" style="height:100%;margin:0;border:none;box-shadow:none">' +
+        '<h3>' + (label || "PDF") + "</h3>" +
+        '<div class="body">' + pdfTapOpenHtml(encPath, label) + "</div></div>";
+      return;
+    }
     container.innerHTML =
       '<div class="ref-card" style="height:100%;display:flex;flex-direction:column;margin:0;border:none;box-shadow:none">' +
       '<h3 style="flex:0 0 auto">' + label + '</h3>' +
@@ -2028,7 +2080,7 @@
     if (switchRefLabel) switchRefLabel.textContent = refTag.textContent || "근거자료";
     if (switchMdEditLabel) {
       const p = _mdEdit.relPath || decPath(mdEditTargetEnc()).split("/").pop() || "—";
-      switchMdEditLabel.textContent = p;
+      switchMdEditLabel.textContent = String(p).replace(/\.(md|html|pdf|xlsx?)$/i, "");
     }
   }
 
@@ -2240,6 +2292,7 @@
     if (_tabMainMdEnc) trackMdPath(_tabMainMdEnc);
     syncPaneSwitchLabels();
     refsList.innerHTML = cfg.refs;
+    disableAutoPdfEmbeds(refsList);
     clearRefPreview();
     const xlsxLinks = refsList.querySelectorAll("a.ref-open-xlsx");
     const pdfLinks = refsList.querySelectorAll("a.ref-open-pdf");
@@ -2249,7 +2302,7 @@
     } else if (xlsxLinks.length === 1) {
       const a = xlsxLinks[0];
       openRefPreview(a.getAttribute("href"), (a.textContent || "").trim(), "xlsx");
-    } else if (pdfLinks.length === 1 && activePane !== "md-edit") {
+    } else if (pdfLinks.length === 1 && activePane !== "md-edit" && !shouldAvoidPdfEmbed()) {
       const a = pdfLinks[0];
       setActivePane("right");
       refPreview.hidden = false;
