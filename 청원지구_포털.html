@@ -240,7 +240,7 @@
     flex:0 0 auto; font-size:11px; color:#8a94a3; padding:6px 16px;
     border-top:1px solid var(--line); background:#fff;
   }
-  /* 본문·근거 전환 (좁은 화면) */
+  /* 본문·근거 바로가기 (좁은 화면 — 세로 스크롤 점프) */
   .pane-switch{
     display:none; flex:0 0 auto; gap:6px; padding:8px 12px;
     background:#fff; border-bottom:1px solid var(--line);
@@ -302,35 +302,24 @@
     .md-body{padding:0;font-size:14px;}
     .embed-pdf{min-height:160px;}
   }
-  @media (max-width:900px){
-    body{overflow:hidden;height:100dvh;min-height:100dvh;}
-    .workspace{
-      flex-direction:column; min-height:0;
-      flex:1 1 0;
-    }
-    .pane.left{
-      border-right:none; border-bottom:2px solid var(--line);
-      flex:1 1 0; min-height:0;
-    }
-    .pane.right{flex:1 1 0; min-height:0;}
-    .xlsx-head strong{font-size:13px;}
-    .xlsx-body table{font-size:11px;}
-    .pane.right .embed-pdf{min-height:180px;}
-  }
 
-  /* ── 반응형: 모바일 — 한 패널씩 전환 ── */
-  @media (max-width:768px){
-    html{height:100%;}
+  /*
+   * 비PC(좁은 화면·터치): 좌·우 나란히 대신
+   * 위=본문(좌) → 아래=근거(우) 세로 순서로 출력·스크롤
+   */
+  @media (max-width:900px), (hover:none) and (pointer:coarse) and (max-width:1280px){
+    html{height:auto; min-height:100%;}
     body{
-      overflow:hidden; height:100%; min-height:100dvh;
+      overflow:auto; height:auto; min-height:100dvh;
       padding-bottom:env(safe-area-inset-bottom,0);
     }
     .top{
+      position:sticky; top:0; z-index:60;
       padding:10px 12px 0;
       padding-top:max(10px, env(safe-area-inset-top));
     }
-    .top h1{margin-bottom:6px;font-size:16px;}
-    .top .sub{margin-bottom:8px;font-size:10.5px;}
+    .top h1{margin-bottom:6px;font-size:17px;}
+    .top .sub{margin-bottom:8px;font-size:11px;line-height:1.45;}
     .tabs{
       flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden;
       -webkit-overflow-scrolling:touch; scrollbar-width:none;
@@ -338,23 +327,36 @@
     }
     .tabs::-webkit-scrollbar{display:none;}
     .tab{
-      flex:0 0 auto; padding:8px 11px; font-size:12px;
+      flex:0 0 auto; padding:8px 12px; font-size:12.5px;
       border-radius:6px 6px 0 0; white-space:nowrap;
     }
     .tab-drop-menu{min-width:132px;max-width:min(92vw,280px);}
     .tab-drop-item{padding:9px 12px;font-size:12.5px;}
     .pane-switch{display:flex;}
     .workspace{
-      flex:1 1 auto; min-height:0; overflow:hidden;
-      flex-direction:column;
+      flex:0 0 auto; display:flex; flex-direction:column;
+      min-height:0; overflow:visible; height:auto;
     }
-    body[data-view-pane="left"] .pane.right{display:none!important;}
-    body[data-view-pane="right"] .pane.left{display:none!important;}
-    body[data-view-pane="md-edit"] .pane.left{display:none!important;}
-    .pane.left,.pane.right{
-      flex:1 1 0; min-height:0!important; border-bottom:none;
+    /* 한 패널 숨김(구 모바일 전환) 해제 — 항상 좌→우 순 출력 */
+    body[data-view-pane="left"] .pane.right,
+    body[data-view-pane="right"] .pane.left,
+    body[data-view-pane="md-edit"] .pane.left{
+      display:flex!important;
     }
-    .pane-body{min-height:0;}
+    .pane.left{
+      border-right:none; border-bottom:2px solid var(--line);
+      flex:0 0 auto; width:100%;
+      min-height:min(78dvh, 920px);
+      height:min(78dvh, 920px);
+    }
+    .pane.right{
+      flex:0 0 auto; width:100%;
+      min-height:min(78dvh, 920px);
+      height:min(78dvh, 920px);
+    }
+    .pane-body{min-height:0; height:100%;}
+    .xlsx-head strong{font-size:13px;}
+    .xlsx-body table{font-size:11px;}
     .main-placeholder{padding:0;}
     .md-body{padding:0;font-size:14px;}
     .md-body h1{font-size:19px;}
@@ -364,7 +366,7 @@
     .ref-card h3{font-size:12px;padding:8px 10px;}
     .ref-card .body{padding:8px 10px;font-size:12.5px;}
     .ref-img{max-height:160px;}
-    .pane.right .embed-pdf{min-height:160px;}
+    .pane.right .embed-pdf{min-height:180px;}
     footer.bar{
       font-size:10px; padding:5px 12px;
       padding-bottom:max(5px, env(safe-area-inset-bottom));
@@ -377,6 +379,10 @@
     .pane-head .tag{max-width:46vw; overflow:hidden; text-overflow:ellipsis;}
     .xlsx-head{padding:8px 10px;gap:8px;}
     .xlsx-dl{margin-left:0;width:100%;text-align:center;}
+    .pane.left,.pane.right{
+      min-height:min(85dvh, 900px);
+      height:min(85dvh, 900px);
+    }
   }
   .xlsx-wrap{display:flex;flex-direction:column;height:100%;background:#fff;}
   .xlsx-head{padding:10px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#f4f6fa;flex:0 0 auto;}
@@ -687,16 +693,16 @@
   </nav>
 </header>
 
-<div class="pane-switch" role="tablist" aria-label="본문·근거자료 전환">
-  <button type="button" class="pane-switch-btn active" data-pane="left" role="tab" aria-selected="true">
+<div class="pane-switch" role="navigation" aria-label="본문·근거자료 바로가기">
+  <button type="button" class="pane-switch-btn active" data-pane="left" role="button" aria-current="true">
     본문
     <span class="sub" id="switch-main-label">진명개발(주)</span>
   </button>
-  <button type="button" class="pane-switch-btn" data-pane="right" role="tab" aria-selected="false">
+  <button type="button" class="pane-switch-btn" data-pane="right" role="button" aria-current="false">
     근거자료
     <span class="sub" id="switch-ref-label">등기·공개정보</span>
   </button>
-  <button type="button" class="pane-switch-btn" data-pane="md-edit" role="tab" aria-selected="false">
+  <button type="button" class="pane-switch-btn" data-pane="md-edit" role="button" aria-current="false">
     MD 수정
     <span class="sub" id="switch-mdedit-label">—</span>
   </button>
@@ -734,7 +740,7 @@
   </section>
 </main>
 
-<footer class="bar">화성 청원지구 포털 · 좌측 본문 · 우측 근거자료 · 작성 삼아건설(주) · 2026. 6. 29.</footer>
+<footer class="bar">화성 청원지구 포털 · PC: 좌·우 병행 · 모바일·태블릿: 본문 다음 근거자료 · 작성 삼아건설(주) · 2026. 6. 29.</footer>
 
 <script src="05_내역서/내역서작업/_공통/portal_stats.js"></script>
 <script src="05_내역서/내역서작업/_공통/portal_ka_stats.js"></script>
@@ -2026,22 +2032,38 @@
     }
   }
 
-  function setMobileViewPane(pane) {
+  function isStackedLayout() {
+    return window.matchMedia(
+      "(max-width:900px), (hover:none) and (pointer:coarse) and (max-width:1280px)"
+    ).matches;
+  }
+
+  function scrollToPane(pane) {
+    if (!isStackedLayout()) return;
+    const el = pane === "left" ? paneLeft : paneRight;
+    if (!el) return;
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  function setMobileViewPane(pane, opts) {
     const p = pane === "right" ? "right" : pane === "md-edit" ? "md-edit" : "left";
     document.body.dataset.viewPane = p;
     paneSwitchBtns.forEach(btn => {
       const on = btn.dataset.pane === p;
       btn.classList.toggle("active", on);
-      btn.setAttribute("aria-selected", on ? "true" : "false");
+      btn.setAttribute("aria-current", on ? "true" : "false");
     });
+    if (opts && opts.scroll) scrollToPane(p === "left" ? "left" : "right");
   }
 
-  function setActivePane(pane) {
+  function setActivePane(pane, opts) {
     activePane = pane === "right" ? "right" : pane === "md-edit" ? "md-edit" : "left";
     if (paneLeft) paneLeft.classList.toggle("pane-focused", activePane === "left");
     if (paneRight) paneRight.classList.toggle("pane-focused", activePane === "right" || activePane === "md-edit");
     if (refTag) refTag.textContent = activePane === "md-edit" ? "MD 수정" : (_refTagLabel || "근거자료");
-    setMobileViewPane(activePane);
+    setMobileViewPane(activePane, opts);
     syncMdEditUi();
     if (activePane === "md-edit") openMdEditPanel();
   }
@@ -2052,7 +2074,7 @@
     el.addEventListener("focusin", () => setActivePane(el === paneRight ? "right" : "left"));
   });
   paneSwitchBtns.forEach(btn => {
-    btn.addEventListener("click", () => setActivePane(btn.dataset.pane));
+    btn.addEventListener("click", () => setActivePane(btn.dataset.pane, { scroll: true }));
   });
   setActivePane("left");
 
