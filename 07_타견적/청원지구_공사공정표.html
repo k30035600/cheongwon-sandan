@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 청원지구 — 공사공정표</title>
+<style>
+  @page{margin:15mm 10mm 15mm 10mm;}
+
+  :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;
+        --ok:#1a7f37;--warn:#b25e00;--bad:#b3261e;
+        --c01:#2c5aa0;--c04:#1a7f37;--c05:#b25e00;--c06:#6b4c9a;
+        --c07:#6b7785;--c00:#1f3a5f;--cjg:#3d8b8b;}
+  *{box-sizing:border-box;}
+  body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;margin:0;
+       background:var(--bg);color:#1c2430;line-height:1.7;font-size:15px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:30px 22px 60px;}
+  header.doc{border-bottom:3px solid var(--navy);padding-bottom:16px;margin-bottom:10px;}
+  header.doc h1{font-size:23px;color:var(--navy);margin:0 0 6px;letter-spacing:-.4px;}
+  .meta{color:#5a6675;font-size:13px;}
+  h2{font-size:18px;color:var(--navy);margin:30px 0 10px;padding-left:10px;border-left:5px solid var(--blue);}
+  h3{font-size:15.5px;color:#2a3a4d;margin:18px 0 6px;}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);
+        border-radius:8px;overflow:hidden;font-size:13px;margin:8px 0;}
+  th,td{padding:7px 9px;border:1px solid var(--line);vertical-align:middle;}
+  th{background:#eaf0f8;color:var(--navy);text-align:center;}
+  td.l{text-align:left;} td.r{text-align:right;white-space:nowrap;} td.c{text-align:center;white-space:nowrap;}
+  .kpis{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;}
+  .kpi{flex:1 1 140px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+  .kpi .lab{font-size:12px;color:#6b7785;} .kpi .val{font-size:19px;font-weight:800;color:var(--navy);margin-top:2px;}
+  .kpi .sub{font-size:11.5px;color:#8a94a3;margin-top:2px;}
+  .box{border-radius:8px;padding:13px 18px;margin:14px 0;border:1px solid var(--line);background:#fff;}
+  .box.ok{border-left:5px solid var(--ok);background:#f2fbf4;}
+  .box.warn{border-left:5px solid var(--warn);background:#fff8ef;}
+  .box ol,.box ul{margin:6px 0;padding-left:20px;} .box li{margin:4px 0;}
+  .muted{color:#6b7785;font-size:12.5px;}
+  footer{margin-top:34px;font-size:12px;color:#8a94a3;border-top:1px solid var(--line);padding-top:12px;}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:10px 0 4px;font-size:12px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{display:inline-block;width:14px;height:10px;border-radius:2px;}
+  .gantt-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff;margin:10px 0;}
+  .gantt{min-width:720px;font-size:11px;}
+  .gantt-head,.gantt-row{display:grid;grid-template-columns:248px 72px 1fr;border-bottom:1px solid var(--line);}
+  .gantt-head{background:#eaf0f8;font-weight:700;color:var(--navy);}
+  .gantt-head div,.gantt-row>div{padding:6px 8px;border-right:1px solid var(--line);}
+  .gantt-head div:last-child,.gantt-row>div:last-child{border-right:none;}
+  .gantt-months{display:grid;grid-template-columns:repeat(14,1fr);height:100%;min-height:28px;}
+  .gantt-months span{
+    border-right:1px solid #edf1f6;text-align:center;font-size:9.5px;padding:2px 0;
+    color:#6b7785;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:-.2px;
+  }
+  .gantt-months span:nth-child(4n+1){background:#f8fafc;color:var(--navy);font-weight:600;}
+  .gantt-track{position:relative;height:22px;background:#f4f6fa;border-radius:4px;margin:4px 0;}
+  .gantt-bar{
+    position:absolute;top:2px;height:18px;border-radius:3px;opacity:.92;
+    font-size:9px;color:#fff;line-height:18px;padding:0 4px;overflow:hidden;white-space:nowrap;
+  }
+  .gantt-row:nth-child(even){background:#fcfdff;}
+  .gantt-sep{background:#eef2f8;font-weight:700;color:var(--navy);font-size:10.5px;}
+  .gantt-sep div{padding:5px 8px;border-bottom:1px solid var(--line);}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;padding:1px 7px;border-radius:8px;}
+  @media print{
+    body{background:#fff;font-size:12px;}
+    .wrap{max-width:none;padding:12px;}
+    .gantt-wrap{overflow:visible;}
+    .gantt-months span{font-size:8px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="doc">
+  <h1>화성 청원지구 — 공사공정표</h1>
+  <div class="meta">산업유통형 지구단위계획 · 마도면 청원리 산175-2번지 일원 80,617㎡ · 삼아건설(주) 작성 2026. 6. 28. (02 전기 제외 · 14개월)</div>
+</header>
+
+<div class="box warn">
+  <b>가정·전제.</b> 착공일 <b>2026. 10. 1.</b>, 총공기 <b>14개월</b>(품질관리·부대공 기준).
+  본 공정표는 제출 통합내역(<code>08_제출내역서</code>)과 동일하게 <b>02 전기설비를 제외</b>하고,
+  <b>단지외</b>(진입도로·회전교차로)와 <b>단지내</b>(토목·조경·개발행위) 두 트랙으로 구분한다.
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="lab">착공예정</div><div class="val">2026. 10. 1.</div><div class="sub">M1</div></div>
+  <div class="kpi"><div class="lab">준공목표</div><div class="val">2027. 11. 30.</div><div class="sub">M14</div></div>
+  <div class="kpi"><div class="lab">총공기</div><div class="val">14개월</div><div class="sub">품질관리·부대공</div></div>
+  <div class="kpi"><div class="lab">제출 범위</div><div class="val">02 제외</div><div class="sub">토목·진입도로·회전교차로·지구단위·폐기물</div></div>
+</div>
+
+<h2>Ⅰ. 공사 트랙</h2>
+<div class="box ok">
+  <b>단지외</b> — 회전교차로(M2~) <b>착수 후 중반(M3~)</b> 진입도로를 <b>병행</b>하고, 진입로 1차 포장 통행(<b>M6</b>) 이후 단지내를 본격 시행한다.<br>
+  <b>토공 기간</b> — 내역서 「1. 토공」 <b>절토+성토 물량(415,002㎥)</b>에 비례해 배분(회전교차로·진입도로 / 토목·지구단위).
+</div>
+<table>
+  <tr>
+    <th style="width:88px">트랙</th>
+    <th style="width:88px">기간</th>
+    <th style="width:130px">공종·내역</th>
+    <th>주요 범위</th>
+  </tr>
+  <tr>
+    <td class="c"><b>단지외</b></td>
+    <td class="c">M2~M9</td>
+    <td class="l"><b>①</b> 회전교차로<br><b>②</b> 진입도로<br><b>③</b> 토목(단지외·M6~)</td>
+    <td class="l">① 회전교차로(M2~) · ② 진입도로는 ① <b>중반(M3~)</b> 병행(완료 대기 아님) · ③ 토목(M6~). <b>M6</b> 진입로 1차 포장 통행 후 단지내 본격.</td>
+  </tr>
+  <tr>
+    <td class="c"><b>단지내</b></td>
+    <td class="c">M6~M13</td>
+    <td class="l">토목(토공·관로·포장)<br>지구단위(개발행위)<br><span class="tag" style="background:var(--cjg)">조경</span></td>
+    <td class="l">진입도로 1차 포장 통행(<b>M6~</b>) 이후 본격. 80,617㎡ 구역 토공·관로·포장, A1~B2, 조경.</td>
+  </tr>
+  <tr>
+    <td class="c"><b>공통</b></td>
+    <td class="c">M1~M14</td>
+    <td class="l">건설폐기물<br>가설·준공</td>
+    <td class="l">건설폐기물은 전 트랙 연동. M13~M14 준공검사·가설 해체.</td>
+  </tr>
+</table>
+
+<h2>Ⅱ. 토공 물량·기간 산정</h2>
+<p class="muted">출처: <code>05_내역서/내역서작업/*_표준단가산출.xlsx</code> 「통합내역」 1. 토공 — 절토·성토(작업량) 및 운반(참고). 공종별 <b>토공 막대 길이</b>는 작업량 비율과 선행조건(단지외→단지내)을 반영했다.</p>
+<table>
+  <tr>
+    <th>구분</th><th>코드</th><th>절토(㎥)</th><th>성토(㎥)</th><th>작업량(㎥)</th><th>비율</th><th>운반(㎥)</th><th>토공 기간</th><th>산정</th>
+  </tr>
+  <tr><td class="c"><b>회전교차로</b></td><td class="c">05</td><td class="r">5,430</td><td class="r">4,409</td><td class="r"><b>9,839</b></td><td class="c">2.4%</td><td class="r">342</td><td class="c">M2~M3</td><td class="l">단지외 1순위 · 2개월</td></tr>
+  <tr><td class="c"><b>진입도로</b></td><td class="c">04</td><td class="r">2,133</td><td class="r">27,476</td><td class="r"><b>29,609</b></td><td class="c">7.1%</td><td class="r">321</td><td class="c">M3~M5</td><td class="l">회전교차로 중(M3~) 병행 · 3개월</td></tr>
+  <tr><td class="c"><b>토목</b></td><td class="c">01</td><td class="r">95,984</td><td class="r">26,605</td><td class="r"><b>122,589</b></td><td class="c">29.5%</td><td class="r">90,977</td><td class="c">M6~M9</td><td class="l">진입로 통행 개시(M6) 후 · 4개월</td></tr>
+  <tr><td class="c"><b>지구단위</b></td><td class="c">06</td><td class="r">180,802</td><td class="r">72,163</td><td class="r"><b>252,965</b></td><td class="c">61.0%</td><td class="r">112,095</td><td class="c">M6~M11</td><td class="l">최대 물량 · 6개월(토목과 M6~ 병행)</td></tr>
+  <tr style="background:#fff7ed;font-weight:700"><td class="c" colspan="2">합계</td><td class="r">284,349</td><td class="r">130,653</td><td class="r">415,002</td><td class="c">100%</td><td class="r">203,735</td><td class="c">—</td><td class="l">14개월 총공기 내 배치</td></tr>
+</table>
+
+<h3>2-1. 산출 근거·범위</h3>
+<div class="box ok">
+  <b>SSOT</b> — 제출 통합내역(<code>08_제출내역서/청원지구_단가통합(전기제외).xlsx</code>) 각 구분 시트 「통합내역」 <b>1. 토공</b> 행 집계.
+  도면 교차검증·토목 5분류는 「토공 물량비교표」와 동일 수치.
+  <b>작업량</b> = 절토(흙깎기·터파기·발파 등) + 성토(흙쌓기·되메우기). <b>운반</b> = 흙운반·임목운반 ㎥(흐트러진 토량) — 작업량과 중복 계상되지 않음(내역 구조상 별도 항목).
+</div>
+
+<h3>2-2. 흙운반(203,735㎥) — 용도·구분별</h3>
+<p class="muted">4개 제출 내역(회전교차로·진입도로·토목·지구단위) 「1. 토공」 흙운반 합계. 장외 = 야적장·진입도로 등 반출, 장내 = 지구내·저류조·구조물 유용.</p>
+<table>
+  <tr>
+    <th>용도</th><th>물량(㎥)</th><th>비율</th><th>회전교차로</th><th>진입도로</th><th>토목</th><th>지구단위</th><th>비고</th>
+  </tr>
+  <tr><td class="l">장외(야적장)</td><td class="r"><b>147,684</b></td><td class="c">72.5%</td><td class="r">—</td><td class="r">—</td><td class="r">35,589</td><td class="r">112,095</td><td class="l">지구단위·토목 야적 반출</td></tr>
+  <tr><td class="l">장외(진입도로)</td><td class="r">25,804</td><td class="c">12.7%</td><td class="r">—</td><td class="r">—</td><td class="r">25,804</td><td class="r">—</td><td class="l">토목 → 진입도로 연계</td></tr>
+  <tr><td class="l">장내(지구내 유용)</td><td class="r">11,599</td><td class="c">5.7%</td><td class="r">136</td><td class="r">136</td><td class="r">11,327</td><td class="r">—</td><td class="l">덤프24톤</td></tr>
+  <tr><td class="l">도저 운반(무대)</td><td class="r">10,944</td><td class="c">5.4%</td><td class="r">206</td><td class="r">185</td><td class="r">10,553</td><td class="r">—</td><td class="l">불도저·단거리</td></tr>
+  <tr><td class="l">장내(지하저류조)</td><td class="r">4,653</td><td class="c">2.3%</td><td class="r">—</td><td class="r">—</td><td class="r">4,653</td><td class="r">—</td><td class="l">토목 전용</td></tr>
+  <tr><td class="l">임목 운반</td><td class="r">1,917</td><td class="c">0.9%</td><td class="r">—</td><td class="r">—</td><td class="r">1,917</td><td class="r">—</td><td class="l">25톤×0.40</td></tr>
+  <tr><td class="l">장내(구조물 유용)</td><td class="r">1,134</td><td class="c">0.6%</td><td class="r">—</td><td class="r">—</td><td class="r">1,134</td><td class="r">—</td><td class="l">토목 전용</td></tr>
+  <tr style="background:#fff7ed;font-weight:700"><td class="l">합계</td><td class="r">203,735</td><td class="c">100%</td><td class="r">342</td><td class="r">321</td><td class="r">90,977</td><td class="r">112,095</td><td class="l">건설폐기물·운반 연동</td></tr>
+</table>
+
+<h3>2-3. 토목 — 토량수지·운반 분류</h3>
+<p class="muted">단지내 토공(작업량 122,589㎥)의 절·성 균형. 운반은 제출 통합본 기준 <b>90,977㎥</b>(공내역서 5분류 94,423㎥과 항목 재분류 차이). 상세: 토공 물량비교표.</p>
+<table>
+  <tr><th colspan="2">토량 수지(토목 · 통합내역)</th><th>물량(㎥)</th><th>산식·근거</th></tr>
+  <tr><td class="c" rowspan="3">절·성</td><td class="l">절토(흙깎기·터파기 등)</td><td class="r">95,984</td><td class="l">통합내역 「1. 토공」 절토 집계</td></tr>
+  <tr><td class="l">성토(흙쌓기·되메우기)</td><td class="r">26,605</td><td class="l">노상·노체·비다짐 등</td></tr>
+  <tr><td class="l"><b>작업량(절+성)</b></td><td class="r"><b>122,589</b></td><td class="l">공정표 M6~M9 배분 기준</td></tr>
+  <tr><td class="c" rowspan="6">운반<br>용도별</td><td class="l">외부반출(야적·진입도로)</td><td class="r">61,393</td><td class="l">35,589 + 25,804</td></tr>
+  <tr><td class="l">지구내 유용</td><td class="r">11,327</td><td class="l">덤프24톤 L≈0.145km</td></tr>
+  <tr><td class="l">도저 운반(무대)</td><td class="r">10,553</td><td class="l">토공이동계획도</td></tr>
+  <tr><td class="l">지하저류조</td><td class="r">4,653</td><td class="l">토목 9. 저류조 연계</td></tr>
+  <tr><td class="l">임목 운반</td><td class="r">1,917</td><td class="l">25톤×0.40</td></tr>
+  <tr><td class="l">구조물 유용</td><td class="r">1,134</td><td class="l">관로·구조물 잔토</td></tr>
+  <tr style="background:#f2fbf4"><td class="c" colspan="2">토목 흙운반 소계</td><td class="r"><b>90,977</b></td><td class="l">절−성 잉여(≈69,379) 대비 반출·유용·무대 분산</td></tr>
+</table>
+<p class="muted">공내역서 5분류(외부 61,393 · 지구내 11,327 · 도저 10,553 · 구조물잔토 5,787 · 무대 5,363 = 94,423㎥)는 동일 도면·설계 기준 검증용.</p>
+
+<h3>2-4. 덤프 적재량·왕복 횟수(참고)</h3>
+<table>
+  <tr><th>구분</th><th>규격·적재</th><th>운반 ㎥</th><th>15㎥/회 추정</th><th>비고</th></tr>
+  <tr><td class="l">일반 토사·암</td><td class="c">덤프<b>24</b>톤</td><td class="r">190,874</td><td class="r">≈12,725회</td><td class="l">14~15㎥/회(품셈 관행)</td></tr>
+  <tr><td class="l">임목폐기물</td><td class="c">덤프<b>25</b>톤×0.40</td><td class="r">1,917</td><td class="r">≈192회</td><td class="l">10㎥/회(단가 시나리오B)</td></tr>
+  <tr><td class="l">도저·무대 등</td><td class="c">—</td><td class="r">10,944</td><td class="r">—</td><td class="l">덤프 미사용·단거리</td></tr>
+  <tr style="background:#fff7ed;font-weight:700"><td class="l" colspan="2">전체 흙운반</td><td class="r">203,735</td><td class="r">≈13,582회</td><td class="l">24톤 기준 15㎥/회 균등 가정</td></tr>
+</table>
+<p class="muted">장외반출(147,684㎥)만 ≈9,846회 · 토목·지구단위 야적·진입도로가 건설폐기물·운반 공정(M1~M14)과 연동.</p>
+
+<h3>2-5. 공정표 연계 — 월별 토공 처리량(균등 배분)</h3>
+<p class="muted">위 「토공 기간」 열 기준, 해당 월수로 작업량을 균등 분할(실시 시 장비·교통·기상에 따라 조정). Gantt Ⅴ·공정 상세 Ⅵ과 동일 기간.</p>
+<table>
+  <tr>
+    <th>구분</th><th>토공 기간</th><th>월수</th><th>작업량(㎥)</th><th>월당(㎥)</th><th>운반(㎥)</th><th>월당 운반(㎥)</th>
+  </tr>
+  <tr><td class="c"><b>회전교차로</b></td><td class="c">M2~M3</td><td class="c">2</td><td class="r">9,839</td><td class="r">4,920</td><td class="r">342</td><td class="r">171</td></tr>
+  <tr><td class="c"><b>진입도로</b></td><td class="c">M3~M5</td><td class="c">3</td><td class="r">29,609</td><td class="r">9,870</td><td class="r">321</td><td class="r">107</td></tr>
+  <tr><td class="c"><b>토목</b></td><td class="c">M6~M9</td><td class="c">4</td><td class="r">122,589</td><td class="r">30,647</td><td class="r">90,977</td><td class="r">22,744</td></tr>
+  <tr><td class="c"><b>지구단위</b></td><td class="c">M6~M11</td><td class="c">6</td><td class="r">252,965</td><td class="r">42,161</td><td class="r">112,095</td><td class="r">18,683</td></tr>
+  <tr style="background:#eaf0f8;font-weight:700"><td class="c" colspan="2">M6~M9 병행(토목+지구단위)</td><td class="c">4</td><td class="r">—</td><td class="r"><b>72,808</b></td><td class="r">—</td><td class="r"><b>41,427</b></td></tr>
+  <tr style="background:#eaf0f8"><td class="c" colspan="2">M10~M11(지구단위만)</td><td class="c">2</td><td class="r">—</td><td class="r">42,161</td><td class="r">—</td><td class="r">18,683</td></tr>
+</table>
+
+<div class="box warn">
+  <b>토공량 → 공정 반영 요약.</b>
+  ① 단지외(39,448㎥, 9.5%)를 M2~M5에 선행 · ② M6 진입로 1차 포장 통행 후 단지내 375,554㎥(90.5%) 집중 · ③ 운반 203,735㎥(장외 85%)는 건설폐기물·야적장과 전 기간 연동 · ④ 최대 부하 M6~M9 월 72,808㎥(토목·지구단위 병행).
+</div>
+
+<h2>Ⅲ. 공종별 집계 (합계요약)</h2>
+<p class="muted">출처: 각 내역서 표준단가산출 「통합내역」 — <b>수량</b> 합계(단위별). <b>1. 토공</b> 대표값은 Ⅱ절과 동일하게 절토+성토 <b>작업량(㎥)</b>. 그 외 공종은 공정 계획용 <b>대표 물량</b>(관로 m·포장 ㎡ 등).</p>
+
+<h3>3-1. 공종별 물량 — 구분별 교차표</h3>
+<table>
+  <tr>
+    <th>공종</th><th>대표 단위</th><th>회전교차로</th><th>진입도로</th><th>토목</th><th>지구단위</th><th>합계</th><th>공정</th>
+  </tr>
+  <tr><td class="l"><b>1. 토공</b></td><td class="c">작업량 ㎥</td><td class="r">9,839</td><td class="r">29,609</td><td class="r">122,589</td><td class="r">252,965</td><td class="r"><b>415,002</b></td><td class="c">M6~M9</td></tr>
+  <tr><td class="l"><b>2. 우수공</b></td><td class="c">관로 m</td><td class="r">897</td><td class="r">1,111</td><td class="r">5,704</td><td class="c">—</td><td class="r"><b>7,712</b></td><td class="c">M8~M10</td></tr>
+  <tr><td class="l"><b>3. 오수공</b></td><td class="c">관로 m</td><td class="c">—</td><td class="c">—</td><td class="r">1,601</td><td class="c">—</td><td class="r"><b>1,601</b></td><td class="c">M8~M10</td></tr>
+  <tr><td class="l"><b>4. 상수공</b></td><td class="c">관로 m</td><td class="c">—</td><td class="r">623</td><td class="r">3,388</td><td class="c">—</td><td class="r"><b>4,011</b></td><td class="c">M8~M11</td></tr>
+  <tr><td class="l"><b>5. 포장공</b></td><td class="c">포장 ㎡</td><td class="r">28,846</td><td class="r">18,946</td><td class="r">41,890</td><td class="c">—</td><td class="r"><b>89,682</b></td><td class="c">M11~M13</td></tr>
+  <tr><td class="l"><b>6. 구조물공</b></td><td class="c">체적 ㎥</td><td class="r">1,474</td><td class="r">712</td><td class="r">2,735</td><td class="c">—</td><td class="r"><b>4,921</b></td><td class="c">M10~M11</td></tr>
+  <tr><td class="l"><b>7. 부대공</b></td><td class="c">항목 건</td><td class="r">7</td><td class="r">7</td><td class="r">36</td><td class="c">—</td><td class="r"><b>50</b></td><td class="c">M12~M13</td></tr>
+</table>
+<p class="muted">「합계」는 동일 단위만 합산. 지구단위는 A1~B2·지원시설 등 별도 공종(3-4). 토공 ㎥ 이외에도 각 공종 내 ㎥·㎡·ton 등 복수 단위가 공존(3-2·3-3 보조 열).</p>
+
+<h3>3-2. 토목 — 1~9. 공종 물량 상세</h3>
+<table>
+  <tr>
+    <th>공종</th><th>대표 물량</th><th>㎥</th><th>㎡</th><th>m</th><th>ton</th><th>항목</th><th>공정</th>
+  </tr>
+  <tr><td class="l"><b>1. 토공</b></td><td class="r">122,589㎥</td><td class="r">216,045</td><td class="r">49,282</td><td class="c">—</td><td class="c">—</td><td class="c">45</td><td class="c">M6~M9</td></tr>
+  <tr><td class="l"><b>2. 우수공</b></td><td class="r">5,704m</td><td class="r">30,264</td><td class="r">741</td><td class="r">5,704</td><td class="r">28</td><td class="c">99</td><td class="c">M8~M10</td></tr>
+  <tr><td class="l"><b>3. 오수공</b></td><td class="r">1,601m</td><td class="r">7,318</td><td class="r">29</td><td class="r">1,601</td><td class="r">2</td><td class="c">44</td><td class="c">M8~M10</td></tr>
+  <tr><td class="l"><b>4. 상수공</b></td><td class="r">3,388m</td><td class="r">4,237</td><td class="r">24</td><td class="r">3,388</td><td class="r">54</td><td class="c">86</td><td class="c">M8~M11</td></tr>
+  <tr><td class="l"><b>5. 포장공</b></td><td class="r">41,890㎡</td><td class="r">4,376</td><td class="r">41,890</td><td class="r">2,843</td><td class="r">3,752</td><td class="c">76</td><td class="c">M11~M13</td></tr>
+  <tr><td class="l"><b>6. 구조물공</b></td><td class="r">2,735㎥</td><td class="r">2,735</td><td class="r">3,140</td><td class="r">196</td><td class="r">38</td><td class="c">43</td><td class="c">M10~M11</td></tr>
+  <tr><td class="l"><b>7. 부대공</b></td><td class="r">36건</td><td class="r">2,670</td><td class="r">2,717</td><td class="r">1,260</td><td class="r">2</td><td class="c">36</td><td class="c">M12~M13</td></tr>
+  <tr><td class="l">8. 하수처리장</td><td class="r">1,171㎥</td><td class="r">1,171</td><td class="r">2,106</td><td class="r">319</td><td class="r">97</td><td class="c">53</td><td class="c">M9~M11</td></tr>
+  <tr><td class="l">9. 지하저류조</td><td class="r">14,667㎥</td><td class="r">14,667</td><td class="r">1,295</td><td class="c">—</td><td class="r">3,115</td><td class="c">11</td><td class="c">M9~M11</td></tr>
+</table>
+
+<h3>3-3. 회전교차로·진입도로(단지외) — 공종별 물량</h3>
+<table>
+  <tr>
+    <th>구분</th><th>공종</th><th>대표 물량</th><th>㎥</th><th>㎡</th><th>m</th><th>ton</th><th>항목</th><th>공정</th>
+  </tr>
+  <tr><td class="c" rowspan="5"><b>회전교차로</b></td><td class="l">1. 토공</td><td class="r">9,839㎥</td><td class="r">11,797</td><td class="r">3,267</td><td class="r">296</td><td class="c">—</td><td class="c">21</td><td class="c">M2~M3</td></tr>
+  <tr><td class="l">2. 우수공</td><td class="r">897m</td><td class="r">3,622</td><td class="r">436</td><td class="r">897</td><td class="r">4</td><td class="c">42</td><td class="c">M3~M4</td></tr>
+  <tr><td class="l">3. 포장공</td><td class="r">28,846㎡</td><td class="r">2,106</td><td class="r">28,846</td><td class="r">730</td><td class="r">2,247</td><td class="c">53</td><td class="c">M4~M5</td></tr>
+  <tr><td class="l">4. 구조물공</td><td class="r">1,474㎥</td><td class="r">1,474</td><td class="r">13,683</td><td class="r">668</td><td class="r">135</td><td class="c">23</td><td class="c">M3~M4</td></tr>
+  <tr><td class="l">5. 부대공</td><td class="r">38㎥</td><td class="r">38</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td class="c">7</td><td class="c">M5</td></tr>
+  <tr><td class="c" rowspan="6"><b>진입도로</b></td><td class="l">1. 토공</td><td class="r">29,609㎥</td><td class="r">31,132</td><td class="r">3,058</td><td class="r">30</td><td class="c">—</td><td class="c">19</td><td class="c">M3~M5</td></tr>
+  <tr><td class="l">2. 우수공</td><td class="r">1,111m</td><td class="r">5,714</td><td class="r">538</td><td class="r">1,111</td><td class="c">—</td><td class="c">28</td><td class="c">M5~M6</td></tr>
+  <tr><td class="l">3. 상수공</td><td class="r">623m</td><td class="r">657</td><td class="c">—</td><td class="r">623</td><td class="r">7</td><td class="c">19</td><td class="c">M5~M7</td></tr>
+  <tr><td class="l">4. 포장공</td><td class="r">18,946㎡</td><td class="r">1,940</td><td class="r">18,946</td><td class="r">1,045</td><td class="r">1,452</td><td class="c">56</td><td class="c">M6~M9</td></tr>
+  <tr><td class="l">5. 구조물공</td><td class="r">712㎥</td><td class="r">712</td><td class="r">6,762</td><td class="r">345</td><td class="r">69</td><td class="c">22</td><td class="c">M6~M7</td></tr>
+  <tr><td class="l">6. 부대공</td><td class="r">38㎥</td><td class="r">38</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td class="c">7</td><td class="c">M8~M9</td></tr>
+</table>
+
+<h3>3-4. 지구단위 — 공종별 물량</h3>
+<table>
+  <tr><th>공종</th><th>대표·주요 물량</th><th>주</th><th>㎡</th><th>m</th><th>항목</th><th>공정</th></tr>
+  <tr><td class="l"><b>1. 토공</b></td><td class="r">252,965㎥ (작업량)</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td class="c">9</td><td class="c">M6~M11</td></tr>
+  <tr><td class="l">2~8. A1~B2</td><td class="l">식재·포장 블록</td><td class="r">65,844</td><td class="r">23,014</td><td class="r">1,971</td><td class="c">106</td><td class="c">M8~M12</td></tr>
+  <tr><td class="l">9. 지원시설</td><td class="l">부대 조경</td><td class="r">1,647</td><td class="r">519</td><td class="r">60</td><td class="c">12</td><td class="c">M11~M12</td></tr>
+  <tr><td class="l">10. 주차장</td><td class="l">포장·시설</td><td class="c">—</td><td class="r">695</td><td class="r">116</td><td class="c">10</td><td class="c">M11~M12</td></tr>
+</table>
+<p class="muted">지구단위 토공 내역 ㎥ 합(365,060)은 운반·부대 ㎥ 포함 — 공정용 작업량은 252,965㎥(Ⅱ절 SSOT).</p>
+
+<div class="box ok">
+  <b>물량 → 공정 연계.</b> 토공 <b>415,002㎥</b>가 최대 부하 · 포장 <b>89,682㎡</b>는 토목·진입도로·회전교차로 후반(M4~M13) · 관로(우·오·상) 합 <b>13,324m</b>는 토목·진입도로 M8~ 병행. 지구단위 A블록(65,844주)은 토목 토공 30% 후(M8~).
+</div>
+
+<h2>Ⅳ. 주요 마일스톤</h2>
+<table>
+  <tr><th style="width:110px">구분</th><th style="width:120px">목표 시점</th><th>내용</th></tr>
+  <tr><td class="c">착공</td><td class="c">2026. 10. 1.</td><td class="l">가설·측량·세륜세차, 건설폐기물 처리 개시</td></tr>
+  <tr><td class="c">① 회전교차로</td><td class="c">2026. 11.~2027. 2.</td><td class="l">회전교차로 최우선 — 청원로 토공·관로·포장 착수(M2~)</td></tr>
+  <tr><td class="c">② 진입도로</td><td class="c">2026. 12.~2027. 2.</td><td class="l">진입도로 — ① 회전교차로 <b>중반(M3)</b>부터 토공 병행(M3~M5, 29,609㎥)</td></tr>
+  <tr><td class="c">진입로 통행 개시</td><td class="c">2027. 3. (M6)</td><td class="l">진입도로 토공(M5) 종료 후 <b>4. 포장공 착수(M6~)</b> — 회전교차로 경유 진입로에 <b>1차(임시·한정) 포장</b> 구간 개통. 덤프트럭·굴착장비 등 <b>단지(80,617㎡) 진입·반출</b> 가능(완공 포장 M9 전).</td></tr>
+  <tr><td class="c">③ 토목(단지외)</td><td class="c">2027. 3.~2027. 6.</td><td class="l">토목 단지외·접속부 토공·관로 — 진입로 통행 개시(M6~) 이후</td></tr>
+  <tr><td class="c">단지내 본격</td><td class="c">2027. 3.~2027. 10.</td><td class="l">토목·지구단위 — 진입로 통행(M6~) 후 토공(122,589+252,965㎥) · 토목 M6~M9 / 지구단위 M6~M11</td></tr>
+  <tr><td class="c">조경</td><td class="c">2027. 7.~2027. 10.</td><td class="l">조경 — 구역별 식재·잔디(포장·관로 후, M10~M13)</td></tr>
+  <tr><td class="c">준공</td><td class="c">2027. 11. 30.</td><td class="l">양 트랙 준공검사·가설 해체</td></tr>
+</table>
+
+<h2>Ⅴ. 공종별 공정 (Gantt)</h2>
+<p class="muted">가로축 M1~M14 (2026. 10. ~ 2027. 11.). 02 전기 제외 · 막대는 <b>시공 순서</b> 기준이며, 공종명·번호는 각 내역서(표준단가산출) 「합계요약」 공종과 대응한다.</p>
+
+<h3>내역서 공종 대응 (제출 통합본 구분)</h3>
+<table>
+  <tr><th style="width:96px">구분</th><th style="width:48px">코드</th><th>공종 (합계요약)</th><th style="width:88px">공정 기간</th></tr>
+  <tr><td class="c"><b>회전교차로</b></td><td class="c">05</td><td class="l">1. 토공 · 2. 우수공 · 3. 포장공 · 4. 구조물공 · 5. 부대공</td><td class="c">M2~M5</td></tr>
+  <tr><td class="c"><b>진입도로</b></td><td class="c">04</td><td class="l">1. 토공 · 2. 우수공 · 3. 상수공 · 4. 포장공 · 5. 구조물공 · 6. 부대공</td><td class="c">M3~M9<br><span class="muted">① 중 M3~ · 토공 M3~M5</span></td></tr>
+  <tr><td class="c"><b>토목</b></td><td class="c">01</td><td class="l">1. 토공 · 2. 우수공 · 3. 오수공 · 4. 상수공 · 5. 포장공 · 6. 구조물공 · 7. 부대공 · 8. 하수처리장 · 9. 지하저류조</td><td class="c">M6~M13<br><span class="muted">토공 M6~M9</span></td></tr>
+  <tr><td class="c"><b>지구단위</b></td><td class="c">06</td><td class="l">1. 토공 · 2. A1 · 3. A2 · 4. A3 · 5. A4 · 6. A5 · 7. B1 · 8. B2 · 9. 지원시설 · 10. 주차장</td><td class="c">M6~M12<br><span class="muted">토공 M6~M11</span></td></tr>
+  <tr><td class="c"><b>조경</b></td><td class="c">01</td><td class="l">10. 조경공</td><td class="c">M10~M13</td></tr>
+</table>
+
+<div class="legend">
+  <span><i style="background:var(--c00)"></i> 공통</span>
+  <span><i style="background:var(--c01)"></i> 토목</span>
+  <span><i style="background:var(--c04)"></i> 진입도로</span>
+  <span><i style="background:var(--c05)"></i> 회전교차로</span>
+  <span><i style="background:var(--c06)"></i> 지구단위</span>
+  <span><i style="background:var(--cjg)"></i> 조경</span>
+  <span><i style="background:var(--c07)"></i> 건설폐기물</span>
+</div>
+<div class="gantt-wrap">
+<div class="gantt" id="gantt"></div>
+</div>
+
+<h2>Ⅵ. 공정 상세 (내역 공종별)</h2>
+<table>
+  <tr>
+    <th style="width:34px">No</th>
+    <th style="width:80px">구분</th>
+    <th style="width:88px">공종</th>
+    <th style="width:48px">시작</th>
+    <th style="width:48px">종료</th>
+    <th style="width:40px">기간</th>
+    <th>주요 작업·선행조건</th>
+    <th style="width:48px">코드</th>
+  </tr>
+  <tr><td class="c">—</td><td class="c">공통</td><td class="c"><span class="tag" style="background:var(--c00)">가설</span></td><td class="c">M1</td><td class="c">M2</td><td class="c">2</td><td class="l">측량·가설건물·세륜세차·방음판</td><td class="c">—</td></tr>
+  <tr><td class="c">—</td><td class="c">공통</td><td class="c"><span class="tag" style="background:var(--c07)">07</span></td><td class="c">M1</td><td class="c">M14</td><td class="c">14</td><td class="l">건설폐기물 — 토공·굴착 연동</td><td class="c">07</td></tr>
+  <tr><td class="c">1</td><td class="c">회전교차로</td><td class="c"><span class="tag" style="background:var(--c05)">1.토공</span></td><td class="c">M2</td><td class="c">M3</td><td class="c">2</td><td class="l">9,839㎥ — 단지외 1순위 착수</td><td class="c">05</td></tr>
+  <tr><td class="c">2</td><td class="c">회전교차로</td><td class="c"><span class="tag" style="background:var(--c05)">2.우수</span></td><td class="c">M3</td><td class="c">M4</td><td class="c">2</td><td class="l">우수관로·맨홀 — 토공 후</td><td class="c">05</td></tr>
+  <tr><td class="c">3</td><td class="c">회전교차로</td><td class="c"><span class="tag" style="background:var(--c05)">4.구조물</span></td><td class="c">M3</td><td class="c">M4</td><td class="c">2</td><td class="l">교차로 부대 구조물·배수</td><td class="c">05</td></tr>
+  <tr><td class="c">4</td><td class="c">회전교차로</td><td class="c"><span class="tag" style="background:var(--c05)">3.포장</span></td><td class="c">M4</td><td class="c">M5</td><td class="c">2</td><td class="l">아스콘·경계석 — 관로·구조물 후</td><td class="c">05</td></tr>
+  <tr><td class="c">5</td><td class="c">회전교차로</td><td class="c"><span class="tag" style="background:var(--c05)">5.부대</span></td><td class="c">M5</td><td class="c">M5</td><td class="c">1</td><td class="l">표지·안전시설·준공 정리</td><td class="c">05</td></tr>
+  <tr><td class="c">6</td><td class="c">진입도로</td><td class="c"><span class="tag" style="background:var(--c04)">1.토공</span></td><td class="c">M3</td><td class="c">M5</td><td class="c">3</td><td class="l">29,609㎥ — ① <b>중반(M3~)</b> 병행(① 완료 전)</td><td class="c">04</td></tr>
+  <tr><td class="c">7</td><td class="c">진입도로</td><td class="c"><span class="tag" style="background:var(--c04)">2.우수</span></td><td class="c">M5</td><td class="c">M6</td><td class="c">2</td><td class="l">우수관로 — 진입도로 토공 후반·회전교차로 포장과 병행</td><td class="c">04</td></tr>
+  <tr><td class="c">8</td><td class="c">진입도로</td><td class="c"><span class="tag" style="background:var(--c04)">3.상수</span></td><td class="c">M5</td><td class="c">M7</td><td class="c">3</td><td class="l">상수관로</td><td class="c">04</td></tr>
+  <tr><td class="c">9</td><td class="c">진입도로</td><td class="c"><span class="tag" style="background:var(--c04)">5.구조물</span></td><td class="c">M6</td><td class="c">M7</td><td class="c">2</td><td class="l">옹벽·배수구 등</td><td class="c">04</td></tr>
+  <tr><td class="c">10</td><td class="c">진입도로</td><td class="c"><span class="tag" style="background:var(--c04)">4.포장</span></td><td class="c">M6</td><td class="c">M9</td><td class="c">4</td><td class="l"><b>M6</b> 1차(임시·한정) 포장 통행 개시 — 진입도로 토공(M5) 직후 · 덤프·굴착장비 단지 진입 가능(완공 포장 M9 전)</td><td class="c">04</td></tr>
+  <tr><td class="c">11</td><td class="c">진입도로</td><td class="c"><span class="tag" style="background:var(--c04)">6.부대</span></td><td class="c">M8</td><td class="c">M9</td><td class="c">2</td><td class="l">보도·표지·안전시설</td><td class="c">04</td></tr>
+  <tr><td class="c">12</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">1.토공</span></td><td class="c">M6</td><td class="c">M9</td><td class="c">4</td><td class="l">122,589㎥ — 진입로 통행 개시(M6) 후 · 지구단위와 병행</td><td class="c">01</td></tr>
+  <tr><td class="c">13</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">2.우수</span></td><td class="c">M8</td><td class="c">M10</td><td class="c">3</td><td class="l">우수관로·맨홀·우수펌프장</td><td class="c">01</td></tr>
+  <tr><td class="c">14</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">3.오수</span></td><td class="c">M8</td><td class="c">M10</td><td class="c">3</td><td class="l">오수관로·맨홀</td><td class="c">01</td></tr>
+  <tr><td class="c">15</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">4.상수</span></td><td class="c">M8</td><td class="c">M11</td><td class="c">4</td><td class="l">상수관로·급수설비</td><td class="c">01</td></tr>
+  <tr><td class="c">16</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">8.하수처리</span></td><td class="c">M9</td><td class="c">M11</td><td class="c">3</td><td class="l">하수처리장 토공·구조물</td><td class="c">01</td></tr>
+  <tr><td class="c">17</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">9.저류조</span></td><td class="c">M9</td><td class="c">M11</td><td class="c">3</td><td class="l">지하저류조 굴착·구조물</td><td class="c">01</td></tr>
+  <tr><td class="c">18</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">6.구조물</span></td><td class="c">M10</td><td class="c">M11</td><td class="c">2</td><td class="l">배수·옹벽·부대 구조물</td><td class="c">01</td></tr>
+  <tr><td class="c">19</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">5.포장</span></td><td class="c">M11</td><td class="c">M13</td><td class="c">3</td><td class="l">구역별 포장·경계석</td><td class="c">01</td></tr>
+  <tr><td class="c">20</td><td class="c">토목</td><td class="c"><span class="tag" style="background:var(--c01)">7.부대</span></td><td class="c">M12</td><td class="c">M13</td><td class="c">2</td><td class="l">가드레일·표지·시설물</td><td class="c">01</td></tr>
+  <tr><td class="c">21</td><td class="c">지구단위</td><td class="c"><span class="tag" style="background:var(--c06)">1.토공</span></td><td class="c">M6</td><td class="c">M11</td><td class="c">6</td><td class="l">252,965㎥ — 최대 물량 · 토목과 M6~ 병행</td><td class="c">06</td></tr>
+  <tr><td class="c">22</td><td class="c">지구단위</td><td class="c"><span class="tag" style="background:var(--c06)">A1·A2</span></td><td class="c">M8</td><td class="c">M9</td><td class="c">2</td><td class="l">A1·A2 — 토공 30% 진행 후</td><td class="c">06</td></tr>
+  <tr><td class="c">23</td><td class="c">지구단위</td><td class="c"><span class="tag" style="background:var(--c06)">A3·A4</span></td><td class="c">M9</td><td class="c">M10</td><td class="c">2</td><td class="l">A3·A4 블록</td><td class="c">06</td></tr>
+  <tr><td class="c">24</td><td class="c">지구단위</td><td class="c"><span class="tag" style="background:var(--c06)">A5</span></td><td class="c">M10</td><td class="c">M11</td><td class="c">2</td><td class="l">A5 블록</td><td class="c">06</td></tr>
+  <tr><td class="c">25</td><td class="c">지구단위</td><td class="c"><span class="tag" style="background:var(--c06)">B1·B2</span></td><td class="c">M10</td><td class="c">M12</td><td class="c">3</td><td class="l">B1·B2 블록</td><td class="c">06</td></tr>
+  <tr><td class="c">26</td><td class="c">지구단위</td><td class="c"><span class="tag" style="background:var(--c06)">9.지원</span></td><td class="c">M11</td><td class="c">M12</td><td class="c">2</td><td class="l">지원시설</td><td class="c">06</td></tr>
+  <tr><td class="c">27</td><td class="c">지구단위</td><td class="c"><span class="tag" style="background:var(--c06)">10.주차</span></td><td class="c">M11</td><td class="c">M12</td><td class="c">2</td><td class="l">주차장 포장·시설</td><td class="c">06</td></tr>
+  <tr><td class="c">28</td><td class="c">조경</td><td class="c"><span class="tag" style="background:var(--cjg)">10.조경</span></td><td class="c">M10</td><td class="c">M13</td><td class="c">4</td><td class="l">식재·잔디·조경시설 — 구역별, 포장·관로 후</td><td class="c">01</td></tr>
+  <tr><td class="c">—</td><td class="c">공통</td><td class="c"><span class="tag" style="background:var(--c00)">준공</span></td><td class="c">M13</td><td class="c">M14</td><td class="c">2</td><td class="l">준공검사·가설 해체·생육 관리</td><td class="c">—</td></tr>
+</table>
+
+<h2>Ⅶ. 시공 순서·병행 원칙</h2>
+<div class="box">
+  <ol>
+    <li><b>단지외 병행</b> — <b>① 회전교차로(M2~)</b> 착수 후 <b>중반(M3~)</b> <b>② 진입도로</b> 토공 병행(① 완료 전). 진입도로 토공 <b>M3~M5(29,609㎥)</b> · 회전교차로 <b>M2~M3(9,839㎥)</b>.</li>
+    <li><b>토공 물량·기간</b> — 지구단위(252,965㎥, 61%)가 최장 <b>M6~M11(6개월)</b>, 토목(122,589㎥) <b>M6~M9(4개월)</b>. 단지내 토공은 M6~M11에 375,554㎥를 병행 처리.</li>
+    <li><b>진입로 통행 개시(M6)</b> — 진입도로 토공(M5) 종료 후 <b>4. 포장공</b> 착수. 회전교차로 경유 진입로에 <b>1차(임시·한정) 포장</b> 구간을 개통해 덤프트럭·굴착장비 등이 단지(80,617㎡)에 진입·반출 가능(완공 포장 M9 전). M6부터 토목·지구단위 대량 토공 본격.</li>
+    <li><b>단지내</b> — 토공 후 관로·구조물·포장 순. 조경(10. 조경공)은 M10~.</li>
+    <li><b>건설폐기물</b> — 토공·운반(203,735㎥) 연동, 전 기간 분산.</li>
+    <li><b>02 전기</b> — 제출 범위 제외.</li>
+  </ol>
+</div>
+
+<h2>Ⅷ. 월별 일정표 (요약)</h2>
+<table id="month-table">
+  <tr><th style="width:56px">월차</th><th style="width:140px">연월</th><th>주요 공정</th></tr>
+</table>
+
+<footer>
+  화성 청원지구 공사공정표 · 착공 2026. 10. 1. · 14개월 · 토공 415,002㎥ · 운반 203,735㎥ · 회전교차로 중 M3 진입도로 병행 · M6 진입로 1차 포장 통행 · 삼아건설(주) 작성 2026. 6. 28.
+</footer>
+</div>
+
+<script>
+(function(){
+  var TOTAL = 14;
+  var months = [];
+  var y = 2026, m = 10;
+  for (var i = 0; i < TOTAL; i++) {
+    months.push({ idx: i + 1, label: y + "." + String(m).padStart(2, "0") });
+    m++; if (m > 12) { m = 1; y++; }
+  }
+
+  var tasks = [
+    { sep: "공통" },
+    { name: "착공준비·가설", src: "—", color: "#1f3a5f", s: 1, e: 2 },
+    { name: "건설폐기물", src: "07", color: "#6b7785", s: 1, e: 14 },
+
+    { sep: "단지외 — 회전교차로·진입도로 병행 (② M3~ · 토공 9,839+29,609㎥)" },
+    { name: "회전교차로 1. 토공 9,839㎥", src: "05", color: "#b25e00", s: 2, e: 3 },
+    { name: "회전교차로 2. 우수공", src: "05", color: "#c46a10", s: 3, e: 4 },
+    { name: "진입도로 1. 토공 29,609㎥ ★M3", src: "04", color: "#1a7f37", s: 3, e: 5 },
+    { name: "회전교차로 4. 구조물공", src: "05", color: "#a85f00", s: 3, e: 4 },
+    { name: "회전교차로 3. 포장공", src: "05", color: "#d47a20", s: 4, e: 5 },
+    { name: "진입도로 2. 우수공", src: "04", color: "#228b44", s: 5, e: 6 },
+    { name: "회전교차로 5. 부대공", src: "05", color: "#9a5500", s: 5, e: 5 },
+    { name: "진입도로 3. 상수공", src: "04", color: "#2a954d", s: 5, e: 7 },
+    { name: "진입도로 5. 구조물공", src: "04", color: "#156b2d", s: 6, e: 7 },
+    { name: "진입도로 4. 포장공 ★M6 통행", src: "04", color: "#1a7f37", s: 6, e: 9 },
+    { name: "진입도로 6. 부대공", src: "04", color: "#0f5a24", s: 8, e: 9 },
+
+    { sep: "토목 — 토공 122,589㎥ M6~M9 → 관로·구조물·포장 (M8~M13)" },
+    { name: "토목 1. 토공 122,589㎥", src: "01", color: "#2c5aa0", s: 6, e: 9 },
+    { name: "토목 2. 우수공", src: "01", color: "#3570b8", s: 8, e: 10 },
+    { name: "토목 3. 오수공", src: "01", color: "#3a78c4", s: 8, e: 10 },
+    { name: "토목 4. 상수공", src: "01", color: "#4080cc", s: 8, e: 11 },
+    { name: "토목 8. 하수처리장", src: "01", color: "#245088", s: 9, e: 11 },
+    { name: "토목 9. 지하저류조", src: "01", color: "#1e4678", s: 9, e: 11 },
+    { name: "토목 6. 구조물공", src: "01", color: "#2c5aa0", s: 10, e: 11 },
+    { name: "토목 5. 포장공", src: "01", color: "#4a90d0", s: 11, e: 13 },
+    { name: "토목 7. 부대공", src: "01", color: "#1a4080", s: 12, e: 13 },
+
+    { sep: "지구단위 — 토공 252,965㎥ M6~M11 → A·B·지원·주차" },
+    { name: "지구단위 1. 토공 252,965㎥", src: "06", color: "#6b4c9a", s: 6, e: 11 },
+    { name: "지구단위 2. A1", src: "06", color: "#7556a8", s: 8, e: 9 },
+    { name: "지구단위 3. A2", src: "06", color: "#8060b0", s: 8, e: 9 },
+    { name: "지구단위 4. A3", src: "06", color: "#8a6ab8", s: 9, e: 10 },
+    { name: "지구단위 5. A4", src: "06", color: "#9474c0", s: 9, e: 10 },
+    { name: "지구단위 6. A5", src: "06", color: "#9e7ec8", s: 10, e: 11 },
+    { name: "지구단위 7. B1", src: "06", color: "#5840a0", s: 10, e: 11 },
+    { name: "지구단위 8. B2", src: "06", color: "#503890", s: 10, e: 12 },
+    { name: "지구단위 9. 지원시설", src: "06", color: "#6b4c9a", s: 11, e: 12 },
+    { name: "지구단위 10. 주차장", src: "06", color: "#5c4490", s: 11, e: 12 },
+
+    { sep: "조경 — 10. 조경공 (M10~M13 · 포장·관로 후)" },
+    { name: "10. 조경공", src: "01", color: "#3d8b8b", s: 10, e: 13 },
+
+    { sep: "준공" },
+    { name: "준공·가설해체", src: "—", color: "#1f3a5f", s: 13, e: 14 }
+  ];
+
+  function barStyle(s, e) {
+    var left = ((s - 1) / TOTAL) * 100;
+    var width = ((e - s + 1) / TOTAL) * 100;
+    return "left:" + left + "%;width:" + width + "%;";
+  }
+
+  var gantt = document.getElementById("gantt");
+  var head = document.createElement("div");
+  head.className = "gantt-head";
+  head.innerHTML = '<div>공종·작업</div><div>코드</div><div><div class="gantt-months">' +
+    months.map(function(m){ return '<span title="M' + m.idx + '">' + m.label + "</span>"; }).join("") +
+    "</div></div>";
+  gantt.appendChild(head);
+
+  tasks.forEach(function(t){
+    if (t.sep) {
+      var sep = document.createElement("div");
+      sep.className = "gantt-sep";
+      sep.innerHTML = '<div style="grid-column:1/-1">' + t.sep + "</div>";
+      sep.style.display = "grid";
+      sep.style.gridTemplateColumns = "1fr";
+      gantt.appendChild(sep);
+      return;
+    }
+    var row = document.createElement("div");
+    row.className = "gantt-row";
+    row.innerHTML =
+      '<div>' + t.name + "</div>" +
+      '<div class="c">' + t.src + "</div>" +
+      '<div><div class="gantt-track">' +
+      '<div class="gantt-bar" style="' + barStyle(t.s, t.e) + "background:" + t.color + ';">M' + t.s + "~M" + t.e + "</div>" +
+      "</div></div>";
+    gantt.appendChild(row);
+  });
+
+  var monthSummary = [
+    [1,2,"착공·가설·건설폐기물"],
+    [2,3,"회전교차로 토공 9,839㎥ 착수"],
+    [3,5,"★ 회전교차로·진입도로 병행 — 진입도로 토공 29,609㎥(M3~) / 회전교차로 우수·포장"],
+    [5,6,"진입도로 토공 마감 · 관로 · ★ M6 진입로 1차 포장 통행 개시"],
+    [6,9,"토목 토공 122,589㎥ + 지구단위 토공 252,965㎥ 본격(M6~)"],
+    [8,11,"토목·지구단위 관로·구조물 · 지구단위 A블록"],
+    [10,12,"토목·지구단위 포장·B블록 · 지원·주차"],
+    [10,13,"조경"],
+    [13,14,"준공·가설 해체"]
+  ];
+
+  var mt = document.getElementById("month-table");
+  monthSummary.forEach(function(block){
+    var s = block[0], e = block[1], txt = block[2];
+    var tr = document.createElement("tr");
+    tr.innerHTML =
+      '<td class="c">M' + s + (s === e ? "" : "~M" + e) + "</td>" +
+      '<td class="c">' + months[s-1].label + (s === e ? "" : "~" + months[e-1].label) + "</td>" +
+      '<td class="l">' + txt + "</td>";
+    mt.appendChild(tr);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: 90mm 50mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #ffffff; }
+  .card {
+    position: relative;
+    width: 90mm; height: 50mm;
+    background: #ffffff;
+    font-family: "NanumGothic", "나눔고딕", "맑은 고딕", sans-serif;
+    color: #2b2b2b;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 좌측 상단 — ARCEUM (주거 BI) */
+  .arceum {
+    position: absolute;
+    left: 6.4mm; top: 5.6mm;
+    width: 31mm; height: auto;
+  }
+  /* 우측 상단 — 희상건설 CI */
+  .ci {
+    position: absolute;
+    right: 5.2mm; top: 5.0mm;
+    width: 40mm; height: auto;
+  }
+
+  /* 성명 블록 — 좌측 중앙 */
+  .rank {
+    position: absolute;
+    left: 7.2mm; top: 23.5mm;
+    font-size: 6pt; font-weight: 400;
+    letter-spacing: 0.2px;
+    color: #58585a;
+  }
+  .name {
+    position: absolute;
+    left: 6.8mm; top: 27.0mm;
+    font-size: 11pt; font-weight: 800;
+    letter-spacing: 3px;
+    color: #202020;
+  }
+
+  /* 하단 좌측 — 주소/웹 */
+  .addr {
+    position: absolute;
+    left: 7.2mm; top: 36.4mm;
+    font-size: 7.4pt; font-weight: 400;
+    line-height: 1.5;
+    color: #2f2f2f;
+  }
+  .addr b { font-weight: 700; }
+  .addr .web { font-weight: 700; letter-spacing: 0.2px; }
+
+  /* 하단 우측 — 연락처 */
+  .contact {
+    position: absolute;
+    left: 50mm; top: 33.0mm;
+    font-size: 7.8pt; font-weight: 400;
+    line-height: 1.55;
+    color: #2f2f2f;
+    white-space: nowrap;
+  }
+  .contact .lb {
+    display: inline-block;
+    width: 4.2mm;
+    color: #4a4a4a;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="arceum" src="_arceum_logo.png" alt="ARCEUM 아르체움">
+    <img class="ci" src="_heesang_ci.png" alt="희상건설 HEESANG">
+
+    <div class="rank">공무부 / 이사</div>
+    <div class="name">김 찬 식</div>
+
+    <div class="addr">
+      서울시 서초구 방배천로 <b>36</b> 4F<br>
+      <span class="web">www.heesang.net</span><br>
+      Webhard. ID.heesang05 PW.0488
+    </div>
+
+    <div class="contact">
+      <span class="lb">M</span>010. 3003. 5600<br>
+      <span class="lb">T</span>02. 567. 0488<br>
+      <span class="lb">F</span>02. 567. 0458<br>
+      <span class="lb">E</span>kcs30035600@naver.com
+    </div>
+  </div>
+</body>
+</html>

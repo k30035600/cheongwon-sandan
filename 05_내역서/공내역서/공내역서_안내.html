@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>화성 청원지구 — 공내역서 원본</title>
 <style>
+  @page{margin:15mm 10mm 15mm 10mm;}
+
   :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;}
   *{box-sizing:border-box;}
   body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;margin:0;
@@ -34,9 +36,9 @@
 </header>
 
 <div class="note">
-  본 폴더(<code>05_내역서/공내역서</code>)는 <b>표준단가 적용 전 원본</b>을 둡니다.
-  <b>단가반영 제출본</b>은 <code>08_제출내역서/청원지구_단가통합(전기제외).xlsx</code>.
-  상세 산출·매칭 상태는 포털 <b>「내역서」</b> 탭 <code>*_표준단가산출.xlsx</code> 참조.
+  본 폴더는 <b>표준단가 적용 전 원본</b>을 둡니다.
+  <b>단가반영 제출본</b>은 청원지구 단가통합(전기제외).
+  상세 산출·매칭 상태는 포털 <b>「내역서」</b> 탭의 표준단가산출을 참조.
 </div>
 
 <h2>Ⅰ. 공내역서 목록 (01~07)</h2>
@@ -53,17 +55,17 @@
 </table>
 
 <h2>Ⅱ. 제출내역서 (전기 02 제외)</h2>
-<p class="muted">위치 <code>08_제출내역서/</code> · 단가반영 통합본: <b>총공사비·내역집계</b> + 구분 5시트(공종 소계·내역 일괄). 재생성: <code>python tools/build_dan_ga_ban_yeong.py</code></p>
+<p class="muted">위치: 제출내역서 · 단가반영 통합본: <b>총공사비·내역집계</b> + 구분 5시트(공종 소계·내역 일괄).</p>
 <table>
   <tr><th class="c" style="width:36px">No</th><th>파일명</th><th>구분</th><th>비고</th></tr>
-  <tr><td class="c">—</td><td><a href="../08_제출내역서/청원지구_단가통합(전기제외).xlsx">청원지구_단가통합(전기제외).xlsx</a></td><td>회전교차로·진입도로·토목(조경)·지구단위·폐기물</td><td>총공사비·내역집계 + 5구분(소계·내역, 7시트)</td></tr>
-  <tr><td class="c">—</td><td><a href="../08_제출내역서/청원지구_공사공정표.html">청원지구_공사공정표.html</a></td><td>공사공정</td><td>착공 2026. 10. 1. · 14개월 · 02 제외</td></tr>
+  <tr><td class="c">—</td><td><a href="../08_제출내역서/청원지구_단가통합(전기제외).xlsx">청원지구 단가통합(전기제외)</a></td><td>회전교차로·진입도로·토목(조경)·지구단위·폐기물</td><td>총공사비·내역집계 + 5구분(소계·내역, 7시트)</td></tr>
+  <tr><td class="c">—</td><td><a href="../08_제출내역서/청원지구_공사공정표.html">청원지구 공사공정표</a></td><td>공사공정</td><td>착공 2026. 10. 1. · 14개월 · 02 제외</td></tr>
 </table>
 
 <h2>Ⅲ. 처리 흐름</h2>
 <ol>
-  <li>원본 공내역서(본 탭) → 단가 DB 매칭·산출 → <code>내역서작업/*_표준단가산출.xlsx</code></li>
-  <li>단가반영 제출본 → <code>08_제출내역서/청원지구_단가통합(전기제외).xlsx</code></li>
+  <li>원본 공내역서(본 탭) → 단가 DB 매칭·산출 → 공종별 표준단가산출</li>
+  <li>단가반영 제출본 → 청원지구 단가통합(전기제외)</li>
   <li>총괄표 통합 → 포털 「집계표」 탭</li>
 </ol>
 

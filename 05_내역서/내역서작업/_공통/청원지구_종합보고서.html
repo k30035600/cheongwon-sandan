@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>화성 청원지구 — 종합보고서</title>
 <style>
+  @page{margin:15mm 10mm 15mm 10mm;}
+
   :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;--ok:#1a7f37;}
   *{box-sizing:border-box;}
   body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;margin:0;
@@ -38,7 +40,7 @@
 <div class="wrap">
 <header class="doc">
   <h1>화성 청원지구 — 종합보고서</h1>
-  <div class="meta">산업유통형 지구단위계획 · 마도면 청원리 산175-2번지 일원 80,617㎡ · 작성 2026. 6. 29.</div>
+  <div class="meta">산업유통형 지구단위계획 · 마도면 청원리 산175-2번지 일원 80,617㎡ · 삼아건설(주) 작성 2026. 6. 29.</div>
 </header>
 
 <div class="box hl">
@@ -47,7 +49,7 @@
   금액·도급·미확정 건수는 해당 통합본 「총공사비」·구분 시트 ★합계·「◆ 내역 일괄」 상태 기준이며,
   02 전기설비는 제출 범위에서 제외한다.
   공정·물량은 <code>08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx</code>·
-  <code>08_제출내역서/청원지구_공사공정표.html</code>·표준단가산출 「통합내역」을 교차 참조한다.
+  청원지구 공사공정표·표준단가산출 「통합내역」을 교차 참조한다.
 </div>
 
 <div class="kpis">
@@ -145,7 +147,7 @@
 <h2>Ⅲ. 공정별 집계 (02 전기 제외)</h2>
 <p class="muted">출처: 각 내역서 <code>*_표준단가산출.xlsx</code> 「통합내역」 수량 합계.
   착공 <b>2026. 10. 1.</b> · 준공 <b>2027. 11. 30.</b> · 총공기 <b>14개월</b>.
-  상세 Gantt·월별 일정: <a href="../../08_제출내역서/청원지구_공사공정표.html">청원지구_공사공정표.html</a>.</p>
+  상세 Gantt·월별 일정: <a href="../../08_제출내역서/청원지구_공사공정표.html">청원지구 공사공정표</a>.</p>
 
 <div class="kpis">
   <div class="kpi"><div class="lab">착공예정</div><div class="val">2026. 10. 1.</div><div class="sub">M1</div></div>
@@ -185,7 +187,7 @@
   <tr><td class="l"><b>6. 구조물공</b></td><td class="c">콘크리트·체적</td><td class="r">1,474</td><td class="r">712</td><td class="r">2,735</td><td class="r">—</td><td class="r"><b>4,921</b></td><td class="c">M3~M11</td></tr>
   <tr><td class="l"><b>7. 부대공</b></td><td class="c">항목 수</td><td class="r">7</td><td class="r">7</td><td class="r">36</td><td class="r">—</td><td class="r"><b>50</b></td><td class="c">M5~M13</td></tr>
 </table>
-<p class="muted">「합계」는 동일 단위만 합산. 1. 토공 대표값은 절토+성토 작업량(㎥). 집계: <code>tools/report_gongjong_qty.py</code>.</p>
+<p class="muted">「합계」는 동일 단위만 합산. 1. 토공 대표값은 절토+성토 작업량(㎥).</p>
 
 <h3>3. 구분별 공종·공정 기간</h3>
 <table>
@@ -243,7 +245,7 @@
 
 <h2>부록 A. 토공 물량 검증 (인허가도면 ↔ 공내역)</h2>
 <p>인허가도면 <code>04_인허가도면/00. 토공 합본</code>(45쪽)은 이미지형 PDF로 독립 「토공 수량집계표」가 없다.
-공내역서 「1. 토공」 집계로 <b>토량 수지</b>를 역산·검증하였다. 상세: <code>토목/토공_물량비교표.html</code>.</p>
+공내역서 「1. 토공」 집계로 <b>토량 수지</b>를 역산·검증하였다. 상세: 토공 물량비교표.</p>
 <table>
   <tr><th style="width:240px">구분</th><th>산출(㎥)</th><th>근거</th></tr>
   <tr><td class="l">① 절토 계(소할 제외)</td><td class="r">89,087</td><td class="l">토사+리핑+연암+보통암</td></tr>

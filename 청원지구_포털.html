@@ -94,7 +94,7 @@
   #main-placeholder:not([hidden]){
     display:block; overflow-x:auto; overflow-y:auto;
   }
-  .main-placeholder{padding:28px 24px;background:#f4f6fa;}
+  .main-placeholder{padding:0;background:#f4f6fa;}
   /* placeholder 안쪽은 스크롤 없음 — 바깥(#main-placeholder)만 스크롤 */
   #main-placeholder .md-body,
   #main-placeholder .xlsx-wrap,
@@ -159,6 +159,16 @@
   #main-placeholder .html-embed{
     flex:1 1 0; min-height:280px; width:100%; border:none; background:#f7f9fc;
   }
+  #main-placeholder .ref-card:has(.embed-pdf){
+    margin:0; border:none; border-radius:0; min-height:calc(100dvh - 120px);
+    display:flex; flex-direction:column;
+  }
+  #main-placeholder .ref-card:has(.embed-pdf) .body{
+    flex:1 1 0; min-height:0; display:flex; flex-direction:column; padding:0;
+  }
+  #main-placeholder .ref-card:has(.embed-pdf) .embed-pdf{
+    flex:1 1 0; min-height:calc(100dvh - 160px); margin:0; border-radius:0;
+  }
   /* 스크롤바 크기 통일 (Chrome·Edge·Firefox) */
   #main-placeholder,
   #refs-list,
@@ -215,7 +225,7 @@
     padding:1px 7px;border-radius:9px;margin-right:4px;vertical-align:middle;
   }
   .b-pdf{background:#c0392b;} .b-img{background:var(--ok);}
-  .b-txt{background:#6c757d;} .b-html{background:var(--blue);} .b-link{background:var(--warn);}
+  .b-txt{background:#6c757d;} .b-md{background:var(--navy);} .b-html{background:var(--blue);} .b-link{background:var(--warn);}
   .b-xls{background:#217346;}
   .embed-pdf{
     width:100%; min-height:200px;
@@ -248,14 +258,48 @@
     display:block; font-size:11px; font-weight:500; opacity:.85;
     margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
+  .md-edit-panel{
+    display:none; flex-direction:column; flex:1 1 0; min-height:0;
+    height:100%; background:#fff; overflow:hidden;
+  }
+  .pane.right.md-edit-mode #refs-list,
+  .pane.right.md-edit-mode #ref-preview{display:none!important;}
+  .pane.right.md-edit-mode #md-edit-panel{display:flex!important;}
+  .md-edit-toolbar{
+    flex:0 0 auto; padding:8px 12px; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap; background:#eaf0f8;
+  }
+  .md-edit-toolbar .path{
+    font-size:12px; color:#5a6675; flex:1 1 120px; min-width:0;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    font-family:Consolas,"Malgun Gothic",monospace;
+  }
+  .md-edit-toolbar button{
+    appearance:none; border:1px solid var(--line); background:#fff;
+    padding:6px 12px; border-radius:6px; cursor:pointer;
+    font:inherit; font-size:12.5px; font-weight:600;
+  }
+  .md-edit-toolbar button.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .md-edit-toolbar button:disabled{opacity:.45;cursor:not-allowed;}
+  .md-edit-status{font-size:11.5px;color:#6b7785;flex:1 1 100%;min-width:0;}
+  .md-edit-status.ok{color:var(--ok);}
+  .md-edit-status.err{color:#b3261e;}
+  .md-edit-area{
+    flex:1 1 0; min-height:0; width:100%; border:none; outline:none; resize:none;
+    padding:12px 14px; font-family:Consolas,"Malgun Gothic",monospace;
+    font-size:13px; line-height:1.55; tab-size:2; background:#fff; color:#1c2430;
+  }
+  @media print{
+    .md-edit-panel,.pane-switch-btn[data-pane="md-edit"]{display:none!important;}
+  }
 
   /* ── 반응형: 태블릿 ── */
   @media (max-width:1100px){
     .top h1{font-size:18px;}
     .top .sub{font-size:11px;line-height:1.45;}
     .pane-head{padding:8px 12px;font-size:12.5px;}
-    .main-placeholder{padding:20px 16px;}
-    .md-body{padding:20px 16px;font-size:14px;}
+    .main-placeholder{padding:0;}
+    .md-body{padding:0;font-size:14px;}
     .embed-pdf{min-height:160px;}
   }
   @media (max-width:900px){
@@ -306,15 +350,17 @@
     }
     body[data-view-pane="left"] .pane.right{display:none!important;}
     body[data-view-pane="right"] .pane.left{display:none!important;}
+    body[data-view-pane="md-edit"] .pane.left{display:none!important;}
     .pane.left,.pane.right{
       flex:1 1 0; min-height:0!important; border-bottom:none;
     }
     .pane-body{min-height:0;}
-    .main-placeholder{padding:16px 12px;}
-    .md-body{padding:16px 14px;font-size:14px;}
+    .main-placeholder{padding:0;}
+    .md-body{padding:0;font-size:14px;}
     .md-body h1{font-size:19px;}
     .md-body h2{font-size:16px;}
     .md-body table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .md-body .sintrust-list-wrap table{display:table!important;width:max-content;min-width:100%;overflow:visible;}
     .ref-card h3{font-size:12px;padding:8px 10px;}
     .ref-card .body{padding:8px 10px;font-size:12.5px;}
     .ref-img{max-height:160px;}
@@ -358,7 +404,8 @@
   }
   .file-banner code{background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;}
   .file-banner a{color:var(--blue);font-weight:600;}
-  .md-body{padding:28px 34px;background:#fff;line-height:1.7;color:#1f2733;font-size:15px;}
+  /* md 본문 — 화면·인쇄 공통(단순 문서형) */
+  .md-body{padding:0;background:#fff;line-height:1.7;color:#1f2733;font-size:15px;}
   .md-body h1{font-size:22px;margin:.2em 0 .6em;padding-bottom:.3em;border-bottom:2px solid var(--line);}
   .md-body h2{font-size:18px;margin:1.4em 0 .5em;padding-bottom:.25em;border-bottom:1px solid var(--line);}
   .md-body h3{font-size:16px;margin:1.2em 0 .4em;}
@@ -370,24 +417,168 @@
   .md-body pre{background:#f4f6fa;padding:12px 14px;border-radius:8px;overflow:auto;}
   .md-body pre code{background:none;padding:0;}
   .md-body blockquote{margin:.6em 0;padding:.4em 1em;border-left:4px solid #c5d0e6;background:#f7f9fc;color:#445;}
-  .md-body table{border-collapse:collapse;margin:1em 0;font-size:13px;}
-  .md-body th,.md-body td{border:1px solid #dce1ea;padding:5px 10px;text-align:left;}
-  .md-body th{background:#eef2f9;text-align:center;font-weight:700;}
+  .md-body table{width:100%;border-collapse:collapse;margin:1em 0;font-size:12.5px;table-layout:fixed;}
+  .md-body th,.md-body td{border:1px solid #dce1ea;padding:5px 8px;text-align:left;vertical-align:middle;word-break:keep-all;}
+  .md-body th[align="center"],.md-body td[align="center"]{text-align:center;}
+  .md-body th[align="right"],.md-body td[align="right"]{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .md-body th[align="left"],.md-body td[align="left"]{text-align:left;}
+  .md-body th{background:#eef2f9;font-weight:700;}
+  .md-body thead th:not([align]){text-align:center;}
+  .md-body thead th{text-align:center;}
+  /* 토지조서 — Ⅰ항 본표(10열) */
+  .md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) th:nth-child(1),.md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) td:nth-child(1){width:4%;}
+  .md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) th:nth-child(2),.md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) td:nth-child(2){width:8%;}
+  .md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) th:nth-child(3),.md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) td:nth-child(3){width:5%;}
+  .md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) th:nth-child(4),.md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) td:nth-child(4){width:7%;}
+  .md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) th:nth-child(5),.md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) td:nth-child(5){width:6%;}
+  .md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) th:nth-child(6),.md-body table:has(thead th:nth-child(10):last-child):not(:has(thead th:nth-child(11))) td:nth-child(6){width:20%;}
+  /* 획지·기반시설(6열, 참조표 제외) — 가구/시설 | 획지/종류 | 위치 | 면적 | 면적(평) | 용도/비고 */
+  .md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) th:nth-child(1),.md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) td:nth-child(1){width:14%;}
+  .md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) th:nth-child(2),.md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) td:nth-child(2){width:10%;}
+  .md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) th:nth-child(3),.md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) td:nth-child(3){width:22%;}
+  .md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) th:nth-child(4),.md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) td:nth-child(4){width:10%;}
+  .md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) th:nth-child(5),.md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) td:nth-child(5){width:9%;}
+  .md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) th:nth-child(6),.md-body table:has(thead th:nth-child(6):last-child):not(:has(thead th:nth-child(7))):not(.tbl-ref) td:nth-child(6){width:35%;}
+  /* Ⅱ항 편입(9열) */
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(1),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(1){width:3%;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(2),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(2){width:7%;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(3),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(3){width:4%;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(4),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(4){width:6%;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(5),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(5){width:5%;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(6),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(6){width:38%;font-size:12px;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(7),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(7){width:6%;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(8),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(8){width:5%;}
+  .md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) th:nth-child(9),.md-body table:has(thead th:nth-child(9):last-child):not(:has(thead th:nth-child(10))) td:nth-child(9){width:11%;}
+  /* 신탁원부 교차표(11열) */
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(1),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(1){width:3%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(2),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(2){width:9%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(3),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(3){width:5%;text-align:left;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(4),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(4){width:4%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(5),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(5){width:5%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(6),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(6){width:5%;text-align:left;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(7),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(7){width:4%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(8),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(8){width:5%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(9),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(9){width:7%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(10),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(10){width:7%;}
+  .md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) th:nth-child(11),.md-body table:has(thead th:nth-child(11):last-child):not(:has(thead th:nth-child(12))) td:nth-child(11){width:18%;font-size:12px;}
+  /* 등기부 통합표(18열) — .sintrust-list-wrap */
+  .md-body .sintrust-list-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;margin:1em 0;}
+  .md-body .sintrust-list-wrap table{
+    display:table!important;width:max-content;min-width:100%;table-layout:auto;font-size:11px;margin:0;border-collapse:collapse;
+  }
+  .md-body .sintrust-list-wrap th,.md-body .sintrust-list-wrap td{
+    padding:4px 7px;white-space:nowrap;overflow:visible;line-height:1.4;vertical-align:middle;width:auto;
+  }
+  .md-body .sintrust-list-wrap thead th{text-align:center!important;white-space:nowrap;font-size:11px;}
+  .md-body .sintrust-list-wrap th:nth-child(1),.md-body .sintrust-list-wrap td:nth-child(1){min-width:2.4em;}
+  .md-body .sintrust-list-wrap td:nth-child(1){text-align:center;}
+  .md-body .sintrust-list-wrap th:nth-child(2),.md-body .sintrust-list-wrap td:nth-child(2){min-width:3.4em;}
+  .md-body .sintrust-list-wrap td:nth-child(2){text-align:center;}
+  .md-body .sintrust-list-wrap th:nth-child(3),.md-body .sintrust-list-wrap td:nth-child(3){min-width:2.6em;}
+  .md-body .sintrust-list-wrap td:nth-child(3){text-align:center;}
+  .md-body .sintrust-list-wrap th:nth-child(4),.md-body .sintrust-list-wrap td:nth-child(4){min-width:4.6em;}
+  .md-body .sintrust-list-wrap td:nth-child(4){text-align:right;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(5),.md-body .sintrust-list-wrap td:nth-child(5){min-width:4.6em;}
+  .md-body .sintrust-list-wrap td:nth-child(5){text-align:right;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(6),.md-body .sintrust-list-wrap td:nth-child(6){min-width:5.8em;}
+  .md-body .sintrust-list-wrap td:nth-child(6){text-align:center;font-size:10.5px;}
+  .md-body .sintrust-list-wrap th:nth-child(7),.md-body .sintrust-list-wrap td:nth-child(7){min-width:4.8em;}
+  .md-body .sintrust-list-wrap td:nth-child(7){text-align:center;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(8),.md-body .sintrust-list-wrap td:nth-child(8){min-width:10em;}
+  .md-body .sintrust-list-wrap td:nth-child(8){text-align:left;}
+  .md-body .sintrust-list-wrap th:nth-child(9),.md-body .sintrust-list-wrap td:nth-child(9){min-width:8.5em;}
+  .md-body .sintrust-list-wrap td:nth-child(9){text-align:center;font-size:10px;white-space:normal;}
+  .md-body .sintrust-list-wrap th:nth-child(10),.md-body .sintrust-list-wrap td:nth-child(10){min-width:6.8em;}
+  .md-body .sintrust-list-wrap td:nth-child(10){text-align:right;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(11),.md-body .sintrust-list-wrap td:nth-child(11){min-width:5.5em;}
+  .md-body .sintrust-list-wrap td:nth-child(11){text-align:right;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(12),.md-body .sintrust-list-wrap td:nth-child(12){min-width:5.5em;}
+  .md-body .sintrust-list-wrap td:nth-child(12){text-align:right;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(13),.md-body .sintrust-list-wrap td:nth-child(13){min-width:6.8em;}
+  .md-body .sintrust-list-wrap td:nth-child(13){text-align:right;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(14),.md-body .sintrust-list-wrap td:nth-child(14){min-width:7.5em;}
+  .md-body .sintrust-list-wrap td:nth-child(14){text-align:center;font-size:10px;white-space:normal;}
+  .md-body .sintrust-list-wrap th:nth-child(15),.md-body .sintrust-list-wrap td:nth-child(15){min-width:6.8em;}
+  .md-body .sintrust-list-wrap td:nth-child(15){text-align:left;white-space:normal;}
+  .md-body .sintrust-list-wrap th:nth-child(16),.md-body .sintrust-list-wrap td:nth-child(16){min-width:5.5em;}
+  .md-body .sintrust-list-wrap td:nth-child(16){text-align:center;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(17),.md-body .sintrust-list-wrap td:nth-child(17){min-width:4.8em;}
+  .md-body .sintrust-list-wrap td:nth-child(17){text-align:center;font-variant-numeric:tabular-nums;}
+  .md-body .sintrust-list-wrap th:nth-child(18),.md-body .sintrust-list-wrap td:nth-child(18){min-width:7.5em;}
+  .md-body .sintrust-list-wrap td:nth-child(18){text-align:center;font-size:10px;white-space:normal;}
+  .md-body .sintrust-list-wrap tfoot td{background:#eef2f9;font-weight:700;border-top:2px solid #c5d0e6;}
+  .md-body .sintrust-list-wrap tfoot .sub{font-weight:400;font-size:10.5px;}
+  .md-body .sintrust-list-wrap tbody tr.in-jigu td{background:#f0f2f5;}
+  .md-body .sintrust-list-wrap tbody tr.in-jigu td.lot-pick.active{background:#dbeafe;}
+  .md-body .ref-tables{margin:1.2em 0 0.8em;display:flex;flex-wrap:wrap;gap:1.2em 2em;}
+  .md-body .ref-h4{margin:0 0 0.35em;font-size:13px;font-weight:700;color:#1a2744;}
+  .md-body .ref-table-wrap{overflow-x:auto;max-width:100%;}
+  .md-body table.tbl-ref{font-size:11px;border-collapse:collapse;margin:0 0 0.5em;width:100%;table-layout:fixed;}
+  .md-body table.tbl-ref th,.md-body table.tbl-ref td{
+    padding:4px 10px;border:1px solid #d8dee8;white-space:normal;line-height:1.45;vertical-align:middle;
+  }
+  .md-body table.tbl-ref thead th{background:#eef2f9;text-align:center;font-weight:600;}
+  /* 매매목록(필지별) — 6열: 매매목록번호 | 지번 | 취득일 | 취득면적 | 취득가액 | 비고 */
+  .md-body table.tbl-ref-sale thead th:nth-child(1){width:16%;}
+  .md-body table.tbl-ref-sale thead th:nth-child(2){width:9%;}
+  .md-body table.tbl-ref-sale thead th:nth-child(3){width:11%;}
+  .md-body table.tbl-ref-sale thead th:nth-child(4){width:13%;}
+  .md-body table.tbl-ref-sale thead th:nth-child(5){width:18%;}
+  .md-body table.tbl-ref-sale thead th:nth-child(6){width:33%;}
+  .md-body table.tbl-ref-sale td.slno{text-align:left;font-weight:600;color:#1f3a5f;}
+  .md-body table.tbl-ref-sale td.lots{text-align:left;}
+  .md-body table.tbl-ref-sale td.remark{text-align:left;font-size:10px;line-height:1.45;}
+  .md-body table.tbl-ref-sale tr.sl-subtotal td{background:#eef2fb;font-weight:600;}
+  /* 공동담보·신탁 — 6열: 공동담보번호 | 채권최고액 | 지번 | 소유자 | 신탁번호 | 신탁일 */
+  .md-body table.tbl-ref-consist thead th:nth-child(1){width:16%;}
+  .md-body table.tbl-ref-consist thead th:nth-child(2){width:17%;}
+  .md-body table.tbl-ref-consist thead th:nth-child(3){width:10%;}
+  .md-body table.tbl-ref-consist thead th:nth-child(4){width:18%;}
+  .md-body table.tbl-ref-consist thead th:nth-child(5){width:27%;}
+  .md-body table.tbl-ref-consist thead th:nth-child(6){width:12%;}
+  .md-body table.tbl-ref-consist td.slno{text-align:left;font-weight:600;color:#1f3a5f;}
+  .md-body table.tbl-ref-consist td.lots{text-align:left;}
+  .md-body table.tbl-ref-consist td.trust-l{text-align:left;}
+  .md-body table.tbl-ref-consist tbody tr.in-jigu td{background:#f0f2f5;}
+  .md-body table.tbl-ref td.c{text-align:center;}
+  .md-body table.tbl-ref td.r{text-align:right;font-variant-numeric:tabular-nums;}
+  .md-body table.tbl-ref td.lots{font-size:10.5px;line-height:1.5;word-break:keep-all;}
+  .md-body table.tbl-ref tfoot td,.md-body table.tbl-ref tr.subtotal td{background:#dbe6f6;font-weight:700;border-top:2px solid #aebfe0;}
+  .md-body td.lot-pick{cursor:pointer;color:#2f5fb3;font-weight:600;}
+  .md-body td.lot-pick:hover{text-decoration:underline;}
+  .md-body td.lot-pick.active{background:#dbeafe;}
+  .deunggi-hint{padding:16px 20px;color:#5a6578;font-size:14px;line-height:1.55;}
+  .deunggi-hint b{color:#1a2744;}
+  .md-body table:has(thead th:nth-child(6):last-child):has(thead th:nth-child(4)){width:100%;}
   .md-body a{color:#2f5fb3;}
   .md-body img{max-width:100%;}
 
-  /* 인쇄 — Ctrl+P 시 마우스 위치 패널만 (브라우저 인쇄 메뉴는 동일 규칙) */
+  /* 인쇄 여백 — 콘텐츠 내장(page-box). @page·인쇄대화상자 「여백 없음」과 무관 */
+  table.page-box{width:100%;border-collapse:collapse;border:0;background:transparent;}
+  table.page-box>thead>tr>td,
+  table.page-box>tbody>tr>td,
+  table.page-box>tfoot>tr>td{border:0;background:transparent;padding:0;}
+  .pm-top,.pm-bot{height:0;}
+  @media screen{
+    table.page-box,table.page-box>tbody,table.page-box>tbody>tr,table.page-box>tbody>tr>td{display:block;}
+    table.page-box>thead,table.page-box>tfoot{display:none;}
+    table.page-box>tbody>tr>td{padding:28px 24px;}
+  }
+
+  @page{margin:0;}
   @media print {
     html, body{
       height:auto!important; overflow:visible!important;
       display:block!important; background:#fff!important;
+      padding:0!important; margin:0!important;
     }
-    .top, footer.bar{display:none!important;}
+    .top,.pane-switch,footer.bar{display:none!important;}
     .workspace{display:block!important; min-height:0!important;}
     .pane{
       display:none!important; border:none!important;
       width:100%!important; max-width:none!important;
       min-height:0!important; page-break-inside:auto;
+      padding:0!important; margin:0!important;
     }
     .pane-head{
       background:#fff!important; border-bottom:1px solid #ccc!important;
@@ -406,18 +597,29 @@
     .pane-body{
       position:static!important; overflow:visible!important;
       height:auto!important; min-height:0!important;
+      padding:0!important; margin:0!important;
     }
     #main-frame, #main-placeholder{
       position:static!important; width:100%!important;
       height:auto!important; min-height:0!important; overflow:visible!important;
       border:none!important;
+      padding:0!important; margin:0!important;
+      background:#fff!important;
     }
     body.print-scope-left #main-frame:not([hidden]){
-      display:block!important; min-height:400px!important;
+      display:block!important; min-height:0!important;
     }
+    .main-placeholder,
+    .md-body,
+    .html-body,
     #main-placeholder .md-body,
+    #main-placeholder .html-body,
     #main-placeholder .xlsx-wrap,
-    #main-placeholder .xlsx-body{overflow:visible!important; max-height:none!important;}
+    #main-placeholder .xlsx-body{
+      overflow:visible!important; max-height:none!important;
+      padding:0!important; margin:0!important;
+      background:#fff!important;
+    }
     .refs{overflow:visible!important; display:block!important;}
     .ref-preview{
       border-top:none!important; overflow:visible!important;
@@ -425,11 +627,22 @@
     }
     .ref-preview[hidden]{display:none!important;}
     .ref-preview .xlsx-body,
-    .ref-preview .md-body{
+    .ref-preview .md-body,
+    .ref-preview .html-body{
       overflow:visible!important; max-height:none!important; height:auto!important;
+      padding:0!important; margin:0!important; background:#fff!important;
     }
     .ref-img{max-width:100%; page-break-inside:avoid;}
     .xlsx-tabs{display:none!important;}
+    table.page-box>thead{display:table-header-group;}
+    table.page-box>tfoot{display:table-footer-group;}
+    table.page-box>tbody{display:table-row-group;}
+    table.page-box>tbody>tr{page-break-inside:auto;}
+    table.page-box>tbody>tr>td{padding:0 10mm;}
+    .pm-top{height:15mm;}
+    .pm-bot{height:10mm;}
+    .md-body table{display:table!important;overflow:visible!important;font-size:12px;}
+    .md-body table tr{page-break-inside:avoid;}
   }
   @media screen {
     .pane-focused .pane-head{box-shadow:inset 0 -2px 0 var(--blue);}
@@ -452,9 +665,13 @@
   </div>
   <nav class="tabs" role="tablist" aria-label="주요 메뉴">
     <button type="button" class="tab active" data-tab="jinmyeong" role="tab" aria-selected="true">진명개발(주)</button>
+    <div id="drop-nav-jinmyeong" class="drop-nav"></div>
+    <button type="button" class="tab" data-tab="budongsan" role="tab">부동산개발</button>
+    <button type="button" class="tab" data-tab="pf" role="tab">PF구조</button>
     <div id="drop-nav-jmy" class="drop-nav"></div>
     <div id="drop-nav-contract" class="drop-nav"></div>
-    <button type="button" class="tab" data-tab="toji" role="tab">토지조서</button>
+    <button type="button" class="tab" data-tab="toji" role="tab">토지조서·신탁</button>
+    <button type="button" class="tab" data-tab="bunmyo" role="tab">분묘기지권</button>
     <button type="button" class="tab" data-tab="env" role="tab">환경영향평가</button>
     <button type="button" class="tab" data-tab="plan" role="tab">지구단위계획</button>
     <button type="button" class="tab" data-tab="permit" role="tab">인허가도면</button>
@@ -466,6 +683,7 @@
     <button type="button" class="tab" data-tab="cost-jigu" role="tab">지구단위</button>
     <button type="button" class="tab" data-tab="cost-waste" role="tab">폐기물</button>
     <div id="drop-nav-schedule" class="drop-nav"></div>
+    <button type="button" class="tab" data-tab="taegyeon" role="tab">타견적비교</button>
     <button type="button" class="tab" data-tab="report" role="tab">종합보고</button>
   </nav>
 </header>
@@ -479,6 +697,10 @@
     근거자료
     <span class="sub" id="switch-ref-label">등기·공개정보</span>
   </button>
+  <button type="button" class="pane-switch-btn" data-pane="md-edit" role="tab" aria-selected="false">
+    MD 수정
+    <span class="sub" id="switch-mdedit-label">—</span>
+  </button>
 </div>
 
 <main class="workspace">
@@ -488,7 +710,7 @@
       <span class="tag" id="main-tag">진명개발(주)</span>
     </div>
     <div class="pane-body">
-      <iframe id="main-frame" title="본문" src="00_진명개발(주)/진명개발_팩트체크.html"></iframe>
+      <iframe id="main-frame" title="본문" hidden></iframe>
       <div id="main-placeholder" class="main-placeholder" hidden></div>
     </div>
   </section>
@@ -500,30 +722,44 @@
     <div class="pane-body refs">
       <div id="refs-list"></div>
       <div id="ref-preview" class="ref-preview" hidden></div>
+      <div id="md-edit-panel" class="md-edit-panel" hidden aria-label="MD 편집">
+        <div class="md-edit-toolbar">
+          <span class="path" id="md-edit-path" title="">—</span>
+          <button type="button" id="md-edit-reload">되돌리기</button>
+          <button type="button" id="md-edit-save" class="primary" disabled>저장</button>
+          <span class="md-edit-status" id="md-edit-status"></span>
+        </div>
+        <textarea id="md-edit-area" class="md-edit-area" spellcheck="false" placeholder="현재 탭의 .md 본문이 여기에 표시됩니다."></textarea>
+      </div>
     </div>
   </section>
 </main>
 
-<footer class="bar">화성 청원지구 포털 · 좌측 본문 · 우측 근거자료 · 2026. 6. 29.</footer>
+<footer class="bar">화성 청원지구 포털 · 좌측 본문 · 우측 근거자료 · 작성 삼아건설(주) · 2026. 6. 29.</footer>
 
 <script src="05_내역서/내역서작업/_공통/portal_stats.js"></script>
 <script src="05_내역서/내역서작업/_공통/portal_ka_stats.js"></script>
 
 <script>
 (function(){
-  const DEPLOY_V = "20260630a";
+  const DEPLOY_V = "20260704merge";
   const PS = window.PORTAL_STATS || {};
   const KA = window.PORTAL_KA_STATS || {};
   const SUM_DESC = PS.sumDesc || "직접공사비 · 매칭 현황 (총괄표 미생성 — build_consolidated_summary.py 실행)";
   const KA_DESC = KA.sumDesc || "★ 제출 최종 _ka (build_report_html.py 실행)";
   const IS_FILE_PROTO = location.protocol === "file:";
   const enc = p => p.split("/").map(encodeURIComponent).join("/");
+  /** refs·TABS에 이미 enc()된 href — iframe에 재인코딩하면 %20→%2520 404 */
+  const refHrefPath = href => {
+    const h = (href || "").split("#")[0].split("?")[0];
+    return h.startsWith("/") ? h.slice(1) : h;
+  };
   const encMain = p => {
     const path = p.replace(/[#?].*$/, "");
     const hash = p.includes("#") ? p.slice(p.indexOf("#")) : "";
     if (!/\.html$/i.test(path)) return enc(p);
-    /* file:// — ?v= 쿼리 시 일부 브라우저가 로컬 HTML iframe 로드를 실패함 */
-    if (IS_FILE_PROTO) return enc(path) + hash;
+    /* file:// — ?v= 쿼리 시 일부 브라우저가 로컬 HTML iframe 로드를 실패 → 해시로 캐시 무효화 */
+    if (IS_FILE_PROTO) return enc(path) + "#portal-v=" + DEPLOY_V;
     return enc(path) + "?v=" + DEPLOY_V + hash;
   };
   function refLinkClass(path) {
@@ -539,27 +775,112 @@
     return "xls";
   }
 
-  const TABS = {
-    jinmyeong: {
-      label: "진명개발(주)",
-      refTag: "등기·공개정보",
-      main: "00_진명개발(주)/진명개발_팩트체크.html",
-      refs: `
+  const JIN_BASE = "00_진명개발(주)";
+
+  function refJinDeunggi() {
+    return `
         <div class="ref-card">
-          <h3>Ⅰ. 1차 근거 (법인)</h3>
+          <h3>법인등기부등본</h3>
           <div class="body">
             <ul class="ref-list">
               <li>
                 <span class="badge b-pdf">PDF</span>
-                <a href="${enc("00_진명개발(주)/진명개발(주)_법인등기부등본.pdf")}" target="_blank" rel="noopener">진명개발(주) 법인등기부등본</a>
+                <a class="ref-open-pdf" href="${enc(JIN_BASE + "/진명개발(주)_법인등기부등본.pdf")}" role="button">진명개발(주) 법인등기부등본</a>
                 <span class="desc">법인등록번호 134811-0724593 · 본점 청원산단로 129 · 설립 2023. 1. 10.</span>
-                <iframe class="embed-pdf" src="${enc("00_진명개발(주)/진명개발(주)_법인등기부등본.pdf")}#view=FitH" title="법인등기부"></iframe>
+                <iframe class="embed-pdf" src="${enc(JIN_BASE + "/진명개발(주)_법인등기부등본.pdf")}#view=FitH" title="법인등기부"></iframe>
+              </li>
+            </ul>
+          </div>
+        </div>`;
+  }
+
+  function refJinJysteel() {
+    return `
+        <div class="ref-card">
+          <h3>진영철강(주) — 등기·조사</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-md">조사</span>
+                <a class="ref-open-md" href="${enc(JIN_BASE + "/진영철강(주)_기업실태조사.md")}" role="button">진영철강(주) — 기업실태조사</a>
+                <span class="desc">비상장 · 매출 <b>약 811억</b>(2025) · CHQ·소둔선 · ISO·KS · BB+</span>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a class="ref-open-pdf" href="${enc(JIN_BASE + "/진영철강(주)_화성.pdf")}" role="button">진영철강(주) 등기 — 화성(현재)</a>
+                <span class="desc">등기번호 098591 · 본점 마도공단로6길 11 · 대표 <b>차상환(620616)</b></span>
+                <iframe class="embed-pdf" src="${enc(JIN_BASE + "/진영철강(주)_화성.pdf")}#view=FitH" title="진영철강 화성 등기"></iframe>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a class="ref-open-pdf" href="${enc(JIN_BASE + "/진영철강(주)_안산.pdf")}" role="button">진영철강(주) 등기 — 안산(폐쇄·본점전출)</a>
+                <span class="desc">등기번호 015616 · 2011. 8. 화성 마도면 이전</span>
+                <iframe class="embed-pdf" src="${enc(JIN_BASE + "/진영철강(주)_안산.pdf")}#view=FitH" title="진영철강 안산 등기"></iframe>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="http://www.jinyoungsteel.co.kr/" target="_blank" rel="noopener">진영철강(주) 홈페이지</a>
+                <span class="desc">금속선·소둔선 · <b>대표 차상환 = 진명개발 공동대표(동일인)</b></span>
+              </li>
+            </ul>
+          </div>
+        </div>`;
+  }
+
+  function refJinCross() {
+    return `
+        <div class="ref-card">
+          <h3>교차 참고</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-md">MD</span>
+                <a class="ref-open-md" href="${enc(JIN_BASE + "/진명개발_팩트체크.md")}" role="button">진명개발(주) — 팩트체크</a>
+              </li>
+              <li>
+                <span class="badge b-md">조사</span>
+                <a class="ref-open-md" href="${enc(JIN_BASE + "/차상환_동일인_조사.md")}" role="button">차상환 — 동일인·관련 법인 조사</a>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://seenthis.kr/page/index?b_no=8398702917" target="_blank" rel="noopener">진명개발 사업자 839-87-02917</a>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://seenthis.kr/page/index?b_no=2938602905" target="_blank" rel="noopener">진영스틸(주) 293-86-02905</a>
+                <span class="desc">청원산단로 129 <b>204호</b> · 진명개발과 동일 건물</span>
+              </li>
+            </ul>
+          </div>
+        </div>`;
+  }
+
+  const TABS = {
+    jinmyeong: {
+      label: "진명개발(주)",
+      refTag: "등기·공개정보",
+      dropGroup: "jinmyeong",
+      main: JIN_BASE + "/진명개발_팩트체크.md",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 팩트체크 보고서</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-md">MD</span>
+                <a class="ref-open-md" href="${enc(JIN_BASE + "/진명개발_팩트체크.md")}" role="button">진명개발(주) — 팩트체크 보고서</a>
+                <span class="desc">법인·PF·신탁 · 한국투자부동산신탁 · 사업시행자</span>
+              </li>
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-html" href="${enc(JIN_BASE + "/진명개발_팩트체크.html")}" role="button">진명개발(주) — 팩트체크 보고서 (HTML)</a>
               </li>
             </ul>
           </div>
         </div>
+        ${refJinDeunggi()}
         <div class="ref-card">
-          <h3>Ⅱ. 공개 참고</h3>
+          <h3>Ⅲ. 공개 참고</h3>
           <div class="body">
             <ul class="ref-list">
               <li>
@@ -574,27 +895,141 @@
               </li>
             </ul>
           </div>
-        </div>`
-    },
-    toji: {
-      label: "토지조서",
-      refTag: "지적도·열람",
-      main: "01_토지조서/청원지구_토지조서.html",
-      refs: `
+        </div>
+        ${refJinJysteel()}
         <div class="ref-card">
-          <h3>Ⅰ. 토지이음 지적·구역도</h3>
+          <h3>Ⅳ. 동일인·관련 법인</h3>
           <div class="body">
             <ul class="ref-list">
               <li>
-                <span class="badge b-img">JPG</span>
-                <a href="${enc("01_토지조서/토지이음_지구단위구역도.jpg")}" target="_blank" rel="noopener">지구단위구역도</a>
-                <img class="ref-img" src="${enc("01_토지조서/토지이음_지구단위구역도.jpg")}" alt="지구단위구역도" onclick="window.open(this.src,'_blank')">
+                <span class="badge b-md">조사</span>
+                <a class="ref-open-md" href="${enc(JIN_BASE + "/차상환_동일인_조사.md")}" role="button">차상환 — 동일인·관련 법인 조사</a>
+                <span class="desc"><b>620616 동일인 확정</b> · 진명개발·진영철강·진영스틸(129 204호) · 토지 513-8·599·601</span>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://seenthis.kr/page/index?b_no=2938602905" target="_blank" rel="noopener">진영스틸(주) — 293-86-02905</a>
+                <span class="desc">청원산단로 129 <b>204호</b> · 1차 금속 도매 · 진명개발과 동일 건물</span>
+              </li>
+            </ul>
+          </div>
+        </div>`
+    },
+    "jinmyeong-jysteel": {
+      label: "진영철강(주) — 기업실태조사",
+      refTag: "등기·재무·인증",
+      dropGroup: "jinmyeong",
+      main: JIN_BASE + "/진영철강(주)_기업실태조사.md",
+      refs: refJinCross() + refJinDeunggi() + refJinJysteel(),
+    },
+    "jinmyeong-cha": {
+      label: "차상환 — 동일인 조사",
+      refTag: "등기·토지·계열",
+      dropGroup: "jinmyeong",
+      main: JIN_BASE + "/차상환_동일인_조사.md",
+      refs: refJinCross() + refJinDeunggi() + `
+        <div class="ref-card">
+          <h3>토지·신탁 교차</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-md">MD</span>
+                <a class="ref-open-md" href="${enc("01_토지조서/청원지구_토지조서.md")}" role="button">청원지구 토지조서</a>
+                <span class="desc">513-8·599·601 개인 소유 · 신탁 수익자 진명개발</span>
+              </li>
+            </ul>
+          </div>
+        </div>` + refJinJysteel(),
+    },
+    budongsan: {
+      label: "부동산개발",
+      refTag: "절차·관계도",
+      main: "00_부동산개발/청원지구_부동산개발_절차서.md",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 시공·계약 관계도</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-html" href="${enc("09_공사지명원/관계도_안내.html")}" target="_blank" rel="noopener">공사지명원 관계도</a>
+                <span class="desc">도급사(희상·책임준공/면탈) · 하도급(토공·포장·근일) · 공종·면허·도급액</span>
+              </li>
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-html" href="${enc("09_공사지명원/하도급사_시공참여조건.html")}" target="_blank" rel="noopener">하도급사 시공참여 조건</a>
+                <span class="desc">토공·포장 공종별 하도급 배분 · 직접 시공</span>
+              </li>
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-html" href="${enc("09_공사지명원/계약검토_안내.html")}" target="_blank" rel="noopener">계약검토 · 표준도급·PF</a>
+                <span class="desc">표준도급 일반조건 · PF 책임준공 모범규준 · 체크리스트</span>
               </li>
             </ul>
           </div>
         </div>
         <div class="ref-card">
-          <h3>Ⅱ. 공식 열람</h3>
+          <h3>Ⅱ. 사업 근거</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-md" href="${enc(JIN_BASE + "/진명개발_팩트체크.md")}" role="button">진명개발(주) 팩트체크</a>
+                <span class="desc">사업시행자 · 법인·PF·자금조달 구조</span>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://www.eiass.go.kr/" target="_blank" rel="noopener">EIASS 사업조회 HG20250176</a>
+                <span class="desc">전략환경영향평가 협의 · 사업개요</span>
+              </li>
+            </ul>
+          </div>
+        </div>`
+    },
+    pf: {
+      label: "PF구조",
+      refTag: "자금·책준입보",
+      main: "00_부동산개발/청원지구_PF구조.html",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 핵심 숫자 (사업수지 SSOT)</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li><span class="badge b-txt">전체</span><span>총비 <b>~460억</b> · 자기자본 <b>240</b> · PF 요청 <b>300</b></span></li>
+              <li><span class="badge b-txt">책준</span><span>공사 <b>~139억</b> · 공사비PF·입보 <b>100억</b>(한도 300 전부 아님)</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅱ. 교차 참조</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-html" href="${enc("00_부동산개발/청원지구_사업수지분석표(추정).html")}" role="button">사업수지분석표(추정)</a>
+                <span class="desc">숫자 SSOT · 총비·자기자본·PF 요청·공사비</span>
+              </li>
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-html" href="${enc("09_공사지명원/계약검토_안내.html")}" role="button">계약검토 · PF 책임준공</a>
+                <span class="desc">모범규준 · 체크리스트</span>
+              </li>
+              <li>
+                <span class="badge b-txt">문서</span>
+                <a class="ref-open-md" href="${enc("00_부동산개발/청원지구_부동산개발_절차서.md")}" role="button">부동산개발 절차서</a>
+                <span class="desc">자금조달·시공사·책임준공 절차</span>
+              </li>
+            </ul>
+          </div>
+        </div>`
+    },
+    toji: {
+      label: "토지조서·신탁",
+      refTag: "등기부",
+      main: "01_토지조서/청원지구_토지조서.md",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 공식 열람·참고</h3>
           <div class="body">
             <ul class="ref-list">
               <li><span class="badge b-link">링크</span><a href="https://www.eum.go.kr/web/cp/cm/cmMain.jsp" target="_blank" rel="noopener">토지이음 토지이용계획 열람</a></li>
@@ -603,10 +1038,103 @@
           </div>
         </div>`
     },
+    bunmyo: {
+      label: "분묘기지권",
+      refTag: "개장·법령",
+      main: "01_토지조서/청원지구_분묘기지권.md",
+      refs: `
+        <div class="ref-card">
+          <h3>Ⅰ. 교차 참조</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-html">HTML</span>
+                <a class="ref-open-html" href="${enc("01_토지조서/청원지구_분묘_현장조사서.html")}" role="button">분묘 현장조사서 (A4)</a>
+                <span class="desc">현장 기수·좌표·연고 추정 · 인쇄용 1장</span>
+              </li>
+              <li>
+                <span class="badge b-md">MD</span>
+                <a class="ref-open-md" href="${enc("01_토지조서/청원지구_분묘기지권.md")}" role="button">분묘·이장 안내서</a>
+                <span class="desc">1장 요약 · 필지별 카드 · 일정 · 연락처 · 체크리스트</span>
+              </li>
+              <li>
+                <span class="badge b-md">MD</span>
+                <a class="ref-open-md" href="${enc("01_토지조서/청원지구_토지조서.md")}" role="button">청원지구 토지조서</a>
+                <span class="desc">산177-3 · 산178 · 513-9 필지·소유·신탁</span>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a class="ref-open-pdf" href="${enc("01_토지조서/등기부_청원리 산177-3.pdf")}" role="button">등기부 — 산177-3</a>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a class="ref-open-pdf" href="${enc("01_토지조서/등기부_청원리 산178.pdf")}" role="button">등기부 — 산178(국)</a>
+              </li>
+              <li>
+                <span class="badge b-pdf">PDF</span>
+                <a class="ref-open-pdf" href="${enc("01_토지조서/등기부_청원리 513-9.pdf")}" role="button">등기부 — 513-9(홍순효 지분)</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅱ. 개장 민원·법령</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14600000136" target="_blank" rel="noopener">정부24 — 개장신고 또는 개장허가</a>
+                <span class="desc">관할 화성시 · 유연=신고 · 무연=허가</span>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://www.law.go.kr/법령/장사등에관한법률" target="_blank" rel="noopener">장사 등에 관한 법률</a>
+                <span class="desc">제22조(묘적부) · 제27조(개장) · 제28조(무연분묘)</span>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://www.hscity.go.kr/www/user/bbs/BD_selectBbsList.do?q_bbsCode=1027" target="_blank" rel="noopener">화성시 장사 공고게시판</a>
+                <span class="desc">분묘개장공고 1·2차 · 위생정책과 031-5189-3157</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="ref-card">
+          <h3>Ⅲ. 묘적부·산림청 협의 연락처</h3>
+          <div class="body">
+            <ul class="ref-list">
+              <li>
+                <span class="badge b-txt">연락</span>
+                <span>화성시 환경국 위생정책과 — <b>031-5189-3157</b></span>
+                <span class="desc">묘적부·개장신고(허가)·장사 공고</span>
+              </li>
+              <li>
+                <span class="badge b-txt">연락</span>
+                <span>마도행정복지센터 — <b>031-5189-2751</b></span>
+                <span class="desc">읍면 민원·1차 접수</span>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://www.hscity.go.kr/manse/msTown/mado/madoGuide.jsp" target="_blank" rel="noopener">마도행정복지센터 안내</a>
+              </li>
+              <li>
+                <span class="badge b-txt">연락</span>
+                <span>수원국유림관리소 — <b>031-240-8920</b></span>
+                <span class="desc">산178 국유림·분묘 협의(북부지방산림청)</span>
+              </li>
+              <li>
+                <span class="badge b-link">링크</span>
+                <a href="https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=14000000066" target="_blank" rel="noopener">정부24 — 국유림 대부(사용허가)</a>
+                <span class="desc">실시계획 편입·재구분 연계 시</span>
+              </li>
+            </ul>
+          </div>
+        </div>`
+    },
     env: {
       label: "환경영향평가",
       refTag: "협의서·평가서",
-      main: "02_환경영향평가/청원지구_전략환경영향평가_요약.html",
+      main: "02_환경영향평가/청원지구_전략환경영향평가_요약.md",
       refs: `
         <div class="ref-card">
           <h3>Ⅰ. 전략환경영향평가 원문</h3>
@@ -641,7 +1169,7 @@
     plan: {
       label: "지구단위계획",
       refTag: "고시·법령·특례",
-      main: "03_지구단위계획/청원지구_지구단위계획_관련자료.html",
+      main: "03_지구단위계획/청원지구_지구단위계획_관련자료.md",
       refs: `
         <div class="ref-card">
           <h3>Ⅰ. 결정고시 원문</h3>
@@ -688,7 +1216,7 @@
     permit: {
       label: "인허가도면",
       refTag: "설계도면 PDF",
-      main: "04_인허가도면/인허가도면_안내.html",
+      main: "04_인허가도면/인허가도면_안내.md",
       refs: `
         <div class="ref-card">
           <h3>Ⅰ. 실시계획인가·공사도면</h3>
@@ -712,7 +1240,7 @@
       label: "공내역서 · 목록",
       refTag: "원본 XLS·xlsx",
       dropGroup: "gong",
-      main: "05_내역서/공내역서/공내역서_안내.html",
+      main: "05_내역서/공내역서/공내역서_안내.md",
       refs: `
         <div class="ref-card">
           <h3>Ⅰ. 공내역서 원본 (01~07)</h3>
@@ -735,7 +1263,7 @@
           <div class="body">
             <p style="margin:0 0 8px;font-size:13px;color:var(--muted)">총공사비·내역집계 + 구분 5시트(공종 소계, 7시트)</p>
             <ul class="ref-list">
-              <li><span class="badge b-xls">xlsx</span><a href="${enc("08_제출내역서/청원지구_단가통합(전기제외).xlsx")}" target="_blank" rel="noopener">청원지구 단가통합(전기제외)</a>
+              <li><span class="badge b-xls">xlsx</span><a href="${enc("07_타견적/청원지구_단가통합(전기제외).xlsx")}" target="_blank" rel="noopener">청원지구 단가통합(전기제외)</a>
                 <span class="desc">01 토목·조경 + 04~07</span></li>
             </ul>
           </div>
@@ -748,7 +1276,7 @@
   };
 
   const B = "05_내역서";
-  const KA_XLSX = "08_제출내역서/청원지구_단가통합(전기제외)_ka.xlsx";
+  const KA_XLSX = "07_타견적/청원지구_단가통합(전기제외)_ka.xlsx";
 
   function kaRef(sheetNote) {
     return [KA_XLSX, "단가통합 _ka", (sheetNote ? sheetNote + " · " : "") + KA_DESC];
@@ -830,9 +1358,9 @@
     label: "공사공정표",
     refTag: "제출내역서·총괄",
     dropGroup: "schedule",
-    main: "08_제출내역서/청원지구_공사공정표.html",
+    main: "07_타견적/청원지구_공사공정표.html",
     refs: refFiles([
-      ["08_제출내역서/청원지구_단가통합(전기제외).xlsx", "단가통합", "02 전기 제외 · 14개월 부대공"],
+      ["07_타견적/청원지구_단가통합(전기제외).xlsx", "단가통합", "02 전기 제외 · 14개월 부대공"],
       [B + "/공내역서/01_화성 청원지구 토목.XLS", "01 토목", "품질관리 14개월·단지내 토목"],
       [B + "/공내역서/04_화성 청원지구 진입도로 실시설계.XLS", "04 진입도로", "단지외 트랙"],
       [B + "/공내역서/05_화성 청원로(회전교차로).XLS", "05 회전교차로", "단지외 트랙"],
@@ -850,12 +1378,23 @@
       [TOGONG_CMP, "토공 물량비교표.html", "도면 ↔ 공내역 · 토량수지", "HTML"],
       [B + "/내역서작업/토목/토공_물량비교표.md", "토공 물량비교표.md", "원문", "MD"],
       [B + "/공내역서/01_화성 청원지구 토목.XLS", "01 토목", "1. 토공", "XLS"],
-      ["08_제출내역서/청원지구_공사공정표.html", "공사공정표", "토공 물량·기간", "HTML"],
+      ["07_타견적/청원지구_공사공정표.html", "공사공정표", "토공 물량·기간", "HTML"],
     ]) + refPdfCard(
       "04_인허가도면/00. 토공 합본_260616_102331.pdf",
       "토공 합본 PDF",
       "인허가도면 · 45쪽"
     ),
+  };
+
+  TABS["taegyeon"] = {
+    label: "타견적비교",
+    refTag: "세흥·근일 견적",
+    main: "07_타견적/청원지구_타견적비교.html",
+    refs: refFiles([
+      ["07_타견적/견적비교.xlsx", "견적비교.xlsx", "원가계산서·내역서·세부내역서 3시트 (세흥 기준)"],
+      ["07_타견적/세흥건설(청원지구).xlsx", "세흥건설(청원지구).xlsx", "PDF→xlsx 변환 견적서"],
+      ["07_타견적/근일건설(청원지구).xlsx", "근일건설(청원지구).xlsx", "총공사비·내역집계 견적서"],
+    ]),
   };
 
   TABS["report"] = {
@@ -864,7 +1403,7 @@
     main: B + "/내역서작업/_공통/청원지구_종합보고서.html",
     refs: refFiles([
       kaRef("총공사비·구분 시트 · SSOT"),
-      ["08_제출내역서/청원지구_공사공정표.html", "공사공정표", "02 전기 제외 · 14개월 · 공종별 공정"],
+      ["07_타견적/청원지구_공사공정표.html", "공사공정표", "02 전기 제외 · 14개월 · 공종별 공정"],
       [B + "/내역서작업/_공통/청원지구_미확정_ka.html", "미확정 내역", "검토·미매칭 20건 (품질관리·조경확인 제외)"],
     ]),
   };
@@ -936,10 +1475,12 @@
   }
 
   const JMY_BASE = "09_공사지명원";
+  const JMY_HEESANG = "지명원_희상건설";
+  const JMY_GEUNIL = "지명원_근일건설";
   const JMY_PDFS = [
     ["jimy-relation", "관계도", "관계도.pdf", "관계도_안내.html", "시공참여 · 책임준공 → 면탈(보증 해지)"],
-    ["jimy-heesang", "희상건설 지명원", "희상건설 공사지명원 2024-47(24.05.31).pdf", "희상건설_지명요약.html", "2024-47 · 책임준공·면탈"],
-    ["jimy-geunil", "근일건설 지명원", "근일건설_지명원.pdf", "근일건설_지명요약.html", "2025 · 하도급 직접시공"],
+    ["jimy-heesang", "희상건설 지명원", JMY_HEESANG + "/희상건설 공사지명원 2024-47(24.05.31).pdf", JMY_HEESANG + "/희상건설_지명요약.html", "2024-47 · 책임준공·면탈"],
+    ["jimy-geunil", "근일건설 지명원", JMY_GEUNIL + "/근일건설_지명원.pdf", JMY_GEUNIL + "/근일건설_지명요약.html", "2025 · 하도급 직접시공"],
   ];
   const JMY_HTML_ONLY = [
     ["jimy-sub", "하도급(토공·포장)", "하도급사_시공참여조건.html", "신규면허 · 시공참여 조건"],
@@ -972,7 +1513,7 @@
     return refFiles([
       [JMY_BASE + "/외부수집/외부수집_안내.html", "외부 수집", "공개·현장 자료", "HTML"],
       [JMY_BASE + "/관계도_안내.html", "관계도", "책임준공·면탈", "HTML"],
-      [JMY_BASE + "/희상건설_지명요약.html", "희상 지명원", "도급", "HTML"],
+      [JMY_BASE + "/" + JMY_HEESANG + "/희상건설_지명요약.html", "희상 지명원", "도급", "HTML"],
     ]);
   }
 
@@ -981,11 +1522,12 @@
       `<li><span class="badge b-txt">HTML</span>
         <a class="ref-open-md" href="${enc(JMY_BASE + "/건설업_안내.html")}" role="button">건설업 안내</a>
         <span class="desc">면허·공종 표</span></li>`,
-    ].concat(JMY_PDFS.map(([, , file, , desc]) =>
-      `<li><span class="badge b-pdf">PDF</span>
-        <a href="${enc(JMY_BASE + "/" + file)}" target="_blank" rel="noopener">${file}</a>
-        <span class="desc">${desc}</span></li>`
-    ));
+    ].concat(JMY_PDFS.map(([, , file, , desc]) => {
+      const pdfName = file.includes("/") ? file.split("/").pop() : file;
+      return `<li><span class="badge b-pdf">PDF</span>
+        <a href="${enc(JMY_BASE + "/" + file)}" target="_blank" rel="noopener">${pdfName}</a>
+        <span class="desc">${desc}</span></li>`;
+    }));
     return `<div class="ref-card"><h3>Ⅰ. 근거 파일</h3><div class="body"><ul class="ref-list">${lis.join("")}</ul></div></div>`;
   }
 
@@ -993,17 +1535,19 @@
     label: "건설업 안내",
     refTag: "공사지명원",
     dropGroup: "jimy",
-    main: JMY_BASE + "/건설업_안내.html",
+    main: JMY_BASE + "/건설업_안내.md",
     refs: refJimyMain(),
   };
+  const toMd = p => p.replace(/\.html$/i, ".md");
   JMY_PDFS.forEach(([id, menu, file, html, desc]) => {
     const pdfPath = JMY_BASE + "/" + file;
+    const pdfName = file.includes("/") ? file.split("/").pop() : file;
     TABS[id] = {
       label: menu,
       refTag: "공사지명원",
       dropGroup: "jimy",
-      main: JMY_BASE + "/" + html,
-      refs: refPdfCard(pdfPath, file, desc),
+      main: JMY_BASE + "/" + toMd(html),
+      refs: refPdfCard(pdfPath, pdfName, desc),
     };
   });
   JMY_HTML_ONLY.forEach(([id, menu, html, desc]) => {
@@ -1011,7 +1555,7 @@
       label: menu,
       refTag: "공사지명원",
       dropGroup: "jimy",
-      main: JMY_BASE + "/" + html,
+      main: JMY_BASE + "/" + toMd(html),
       refs: refHtmlCard(JMY_BASE + "/" + html, html, desc),
     };
   });
@@ -1021,10 +1565,21 @@
       label: menu,
       refTag: "계약검토",
       dropGroup: "contract",
-      main: JMY_BASE + "/" + html,
+      main: JMY_BASE + "/" + toMd(html),
       refs: id === "contract" ? refContractMain() : refContractExt(),
     };
   });
+
+  const DROPS_JINMYEONG = {
+    group: "jinmyeong",
+    label: "시행사",
+    navId: "drop-nav-jinmyeong",
+    items: [
+      { id: "jinmyeong", menu: "팩트체크" },
+      { id: "jinmyeong-jysteel", menu: "진영철강 실태조사" },
+      { id: "jinmyeong-cha", menu: "차상환 동일인" },
+    ],
+  };
 
   const DROPS_JMY = {
     group: "jimy",
@@ -1066,7 +1621,7 @@
     },
   ];
 
-  const ALL_DROPS = [DROPS_JMY, DROPS_CONTRACT, DROPS_SCHEDULE].concat(DROPS);
+  const ALL_DROPS = [DROPS_JINMYEONG, DROPS_JMY, DROPS_CONTRACT, DROPS_SCHEDULE].concat(DROPS);
 
   const TAB_DROP = {};
   ALL_DROPS.forEach(d => d.items.forEach(it => { TAB_DROP[it.id] = d.group; }));
@@ -1085,8 +1640,19 @@
   const paneSwitchBtns = document.querySelectorAll(".pane-switch-btn");
   const switchMainLabel = document.getElementById("switch-main-label");
   const switchRefLabel = document.getElementById("switch-ref-label");
+  const switchMdEditLabel = document.getElementById("switch-mdedit-label");
+  const mdEditPanel = document.getElementById("md-edit-panel");
+  const mdEditArea = document.getElementById("md-edit-area");
+  const mdEditPathEl = document.getElementById("md-edit-path");
+  const mdEditSaveBtn = document.getElementById("md-edit-save");
+  const mdEditReloadBtn = document.getElementById("md-edit-reload");
+  const mdEditStatus = document.getElementById("md-edit-status");
 
   let activePane = "left";
+  let _refTagLabel = "등기·공개정보";
+  let _tabMainMdEnc = "";
+  let _lastMdEnc = "";
+  let _mdEdit = { encPath: "", relPath: "", saved: "", dirty: false };
   let _printFrameHeight = "";
   let _mouseX = window.innerWidth / 2;
   let _mouseY = window.innerHeight / 2;
@@ -1135,7 +1701,7 @@
 
   function mountPdfViewer(container, encPath, label) {
     container.hidden = false;
-    if (rightPane) rightPane.classList.add("ref-preview-open");
+    if (container === refPreview && rightPane) rightPane.classList.add("ref-preview-open");
     container.innerHTML =
       '<div class="ref-card" style="height:100%;display:flex;flex-direction:column;margin:0;border:none;box-shadow:none">' +
       '<h3 style="flex:0 0 auto">' + label + '</h3>' +
@@ -1202,6 +1768,7 @@
     const el = document.elementFromPoint(_mouseX, _mouseY);
     if (el && paneRight && paneRight.contains(el)) {
       let refArea = null;
+      if (activePane === "md-edit") return { pane: "md-edit", refArea: null };
       if (refsList && refsList.contains(el)) refArea = "list";
       else if (refPreview && refPreview.contains(el)) refArea = "preview";
       else if (refPreview && !refPreview.hidden) refArea = "preview";
@@ -1297,20 +1864,171 @@
       ? { pane: forced, refArea: (opts.refArea != null ? opts.refArea : null) }
       : resolvePrintTarget();
     setActivePane(pane);
-    if (pane === "left" && canPrintLeftIframe() && !(opts && opts.useParentPrint)) {
+    /* md·xlsx placeholder는 iframe이 아니므로 항상 포털 본문 인쇄(page-box 여백 적용) */
+    const mdPrint = pane === "left" && placeholder && !placeholder.hidden;
+    if (pane === "left" && canPrintLeftIframe() && !mdPrint && !(opts && opts.useParentPrint)) {
       printLeftIframe();
       return;
     }
     applyPrintScope(pane, refArea);
     window.print();
   }
+  function decPath(encPath) {
+    return decodeURIComponent((encPath || "").replace(/[#?].*$/, ""));
+  }
+
+  function trackMdPath(encPath) {
+    if (encPath && /\.md(\?|#|$)/i.test(encPath)) _lastMdEnc = encPath.replace(/[#?].*$/, "");
+  }
+
+  function mdEditTargetEnc() {
+    return _lastMdEnc || _tabMainMdEnc || "";
+  }
+
+  function setMdEditStatus(msg, kind) {
+    if (!mdEditStatus) return;
+    mdEditStatus.textContent = msg || "";
+    mdEditStatus.classList.remove("ok", "err");
+    if (kind) mdEditStatus.classList.add(kind);
+  }
+
+  function syncMdEditUi() {
+    const on = activePane === "md-edit";
+    if (mdEditPanel) mdEditPanel.hidden = !on;
+    if (rightPane) rightPane.classList.toggle("md-edit-mode", on);
+    if (switchMdEditLabel) {
+      const p = _mdEdit.relPath || decPath(mdEditTargetEnc()).split("/").pop() || "—";
+      switchMdEditLabel.textContent = p;
+    }
+    if (mdEditSaveBtn) mdEditSaveBtn.disabled = !_mdEdit.dirty || !_mdEdit.relPath || IS_FILE_PROTO;
+  }
+
+  function refreshMdViews(encPath) {
+    if (!encPath) return;
+    const norm = encPath.replace(/[#?].*$/, "");
+    if (!placeholder.hidden && _lastMdEnc === norm) {
+      mountMdViewer(placeholder, norm, "");
+    }
+    if (!refPreview.hidden && refPreview.dataset.mdPath === norm) {
+      mountMdViewer(refPreview, norm, refPreview.dataset.mdLabel || "");
+    }
+  }
+
+  function loadMdEditContent(encPath, force) {
+    const path = (encPath || mdEditTargetEnc()).replace(/[#?].*$/, "");
+    if (!path) {
+      _mdEdit = { encPath: "", relPath: "", saved: "", dirty: false };
+      if (mdEditArea) mdEditArea.value = "";
+      if (mdEditPathEl) { mdEditPathEl.textContent = "편집할 .md 없음"; mdEditPathEl.title = ""; }
+      setMdEditStatus("좌측 본문이 .md인 탭을 선택하거나, 근거자료에서 .md를 여세요.", "");
+      syncMdEditUi();
+      return;
+    }
+    if (!force && _mdEdit.encPath === path && _mdEdit.dirty) return;
+    if (mdEditArea) mdEditArea.value = "불러오는 중…";
+    setMdEditStatus("", "");
+    const loadFromText = txt => {
+      _mdEdit = {
+        encPath: path,
+        relPath: decPath(path),
+        saved: txt,
+        dirty: false,
+      };
+      if (mdEditArea) mdEditArea.value = txt;
+      if (mdEditPathEl) {
+        mdEditPathEl.textContent = _mdEdit.relPath;
+        mdEditPathEl.title = _mdEdit.relPath;
+      }
+      setMdEditStatus("불러옴 · " + new Date().toLocaleTimeString("ko-KR"), "ok");
+      syncMdEditUi();
+    };
+    if (IS_FILE_PROTO) {
+      if (mdEditArea) mdEditArea.value = "";
+      if (mdEditPathEl) mdEditPathEl.textContent = decPath(path);
+      setMdEditStatus("file:// — 아래에 직접 붙여넣기 후, 저장은 로컬서버(http://localhost:8080)에서 가능합니다.", "err");
+      _mdEdit = { encPath: path, relPath: decPath(path), saved: "", dirty: false };
+      syncMdEditUi();
+      return;
+    }
+    fetch(path)
+      .then(r => { if (!r.ok) throw new Error(String(r.status)); return r.text(); })
+      .then(loadFromText)
+      .catch(err => {
+        if (mdEditArea) mdEditArea.value = "";
+        setMdEditStatus("읽기 실패: " + err, "err");
+        syncMdEditUi();
+      });
+  }
+
+  function openMdEditPanel() {
+    loadMdEditContent(mdEditTargetEnc(), false);
+    syncMdEditUi();
+  }
+
+  function saveMdEditor() {
+    if (!_mdEdit.relPath || IS_FILE_PROTO) {
+      setMdEditStatus("저장하려면 로컬서버(로컬서버.ps1)로 포털을 여세요.", "err");
+      return;
+    }
+    const content = mdEditArea ? mdEditArea.value : "";
+    setMdEditStatus("저장 중…", "");
+    if (mdEditSaveBtn) mdEditSaveBtn.disabled = true;
+    fetch("/api/md", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({ path: _mdEdit.relPath, content }),
+    })
+      .then(r => r.json().then(j => ({ ok: r.ok, j })))
+      .then(({ ok, j }) => {
+        if (!ok || !j.ok) throw new Error(j.error || "저장 실패");
+        _mdEdit.saved = content;
+        _mdEdit.dirty = false;
+        setMdEditStatus("저장됨 · " + new Date().toLocaleTimeString("ko-KR"), "ok");
+        refreshMdViews(_mdEdit.encPath);
+      })
+      .catch(err => setMdEditStatus(String(err.message || err), "err"))
+      .finally(() => syncMdEditUi());
+  }
+
+  if (mdEditArea) {
+    mdEditArea.addEventListener("input", () => {
+      if (!_mdEdit.relPath) return;
+      _mdEdit.dirty = mdEditArea.value !== _mdEdit.saved;
+      syncMdEditUi();
+      if (_mdEdit.dirty) setMdEditStatus("수정됨(미저장)", "");
+    });
+    mdEditArea.addEventListener("keydown", e => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "s" || e.key === "S")) {
+        e.preventDefault();
+        saveMdEditor();
+      }
+      if (e.key === "Tab") {
+        e.preventDefault();
+        const start = mdEditArea.selectionStart;
+        const end = mdEditArea.selectionEnd;
+        mdEditArea.value = mdEditArea.value.slice(0, start) + "  " + mdEditArea.value.slice(end);
+        mdEditArea.selectionStart = mdEditArea.selectionEnd = start + 2;
+        mdEditArea.dispatchEvent(new Event("input"));
+      }
+    });
+  }
+  if (mdEditSaveBtn) mdEditSaveBtn.addEventListener("click", saveMdEditor);
+  if (mdEditReloadBtn) mdEditReloadBtn.addEventListener("click", () => {
+    if (_mdEdit.dirty && !confirm("저장하지 않은 변경을 버리고 다시 불러올까요?")) return;
+    loadMdEditContent(_mdEdit.encPath || mdEditTargetEnc(), true);
+  });
+
   function syncPaneSwitchLabels() {
     if (switchMainLabel) switchMainLabel.textContent = mainTag.textContent || "본문";
     if (switchRefLabel) switchRefLabel.textContent = refTag.textContent || "근거자료";
+    if (switchMdEditLabel) {
+      const p = _mdEdit.relPath || decPath(mdEditTargetEnc()).split("/").pop() || "—";
+      switchMdEditLabel.textContent = p;
+    }
   }
 
   function setMobileViewPane(pane) {
-    const p = pane === "right" ? "right" : "left";
+    const p = pane === "right" ? "right" : pane === "md-edit" ? "md-edit" : "left";
     document.body.dataset.viewPane = p;
     paneSwitchBtns.forEach(btn => {
       const on = btn.dataset.pane === p;
@@ -1320,10 +2038,13 @@
   }
 
   function setActivePane(pane) {
-    activePane = pane === "right" ? "right" : "left";
+    activePane = pane === "right" ? "right" : pane === "md-edit" ? "md-edit" : "left";
     if (paneLeft) paneLeft.classList.toggle("pane-focused", activePane === "left");
-    if (paneRight) paneRight.classList.toggle("pane-focused", activePane === "right");
+    if (paneRight) paneRight.classList.toggle("pane-focused", activePane === "right" || activePane === "md-edit");
+    if (refTag) refTag.textContent = activePane === "md-edit" ? "MD 수정" : (_refTagLabel || "근거자료");
     setMobileViewPane(activePane);
+    syncMdEditUi();
+    if (activePane === "md-edit") openMdEditPanel();
   }
 
   [paneLeft, paneRight].forEach(el => {
@@ -1397,9 +2118,74 @@
     }
   }
 
+  let _activeTabId = "jinmyeong";
+
+  function deunggiPdfEnc(lot) {
+    return enc("01_토지조서/등기부_청원리 " + lot + ".pdf");
+  }
+
+  function showDeunggiHint() {
+    setActivePane("right");
+    refPreview.hidden = false;
+    if (rightPane) rightPane.classList.add("ref-preview-open");
+    refPreview.innerHTML =
+      '<div class="deunggi-hint"><b>등기부 열람</b> — 좌측 표에서 ' +
+      '<b>지번</b>(또는 Ⅱ항 <b>소재지</b>) 셀을 클릭하면 해당 ' +
+      '등기사항전부증명서 PDF가 여기에 표시됩니다.</div>';
+  }
+
+  function openDeunggiPdf(lot) {
+    if (!lot) return;
+    const path = deunggiPdfEnc(lot);
+    const label = "등기부 — 청원리 " + lot;
+    setActivePane("right");
+    refPreview.hidden = false;
+    if (rightPane) rightPane.classList.add("ref-preview-open");
+    fetch(path, { method: "HEAD" })
+      .then(r => {
+        const len = parseInt(r.headers.get("content-length") || "0", 10);
+        if (!r.ok || len === 0) {
+          refPreview.innerHTML =
+            '<div class="deunggi-hint"><b>' + label + '</b> — PDF가 없거나 <b>0바이트(손상)</b>입니다. ' +
+            "인터넷 등기소에서 재열람·다운로드 후 " +
+            "<code>01_토지조서/등기부_청원리 " + lot + ".pdf</code>로 저장해 주세요.</div>";
+          return;
+        }
+        mountPdfViewer(refPreview, path, label);
+      })
+      .catch(() => mountPdfViewer(refPreview, path, label));
+  }
+
+  function bindTojiLotPick(container) {
+    if (_activeTabId !== "toji") return;
+    const root = container.querySelector(".md-body") || container;
+    root.querySelectorAll(".sintrust-list-wrap tbody td:nth-child(2), td.lot-pick[data-lot]").forEach(td => {
+      if (!td.dataset.lot) td.dataset.lot = (td.textContent || "").trim();
+      td.classList.add("lot-pick");
+      td.title = "클릭 — 등기부 PDF";
+    });
+    root.querySelectorAll("table").forEach(tbl => {
+      if (tbl.closest(".sintrust-list-wrap")) return;
+      const ths = [...tbl.querySelectorAll("thead th")];
+      const idx = ths.findIndex(th => /지번|소재지/.test((th.textContent || "").replace(/\s/g, "")));
+      if (idx < 0) return;
+      tbl.querySelectorAll("tbody tr").forEach(tr => {
+        const td = tr.cells[idx];
+        if (!td || td.classList.contains("lot-pick")) return;
+        const lot = (td.textContent || "").trim().replace(/\*\*/g, "");
+        if (!lot || /^(합계|소계|고시|Ⅰ항)/.test(lot)) return;
+        if (!/^(\d|산)/.test(lot)) return;
+        td.classList.add("lot-pick");
+        td.dataset.lot = lot;
+        td.title = "클릭 — 등기부 PDF";
+      });
+    });
+  }
+
   function switchTab(id) {
     const cfg = TABS[id];
     if (!cfg) return;
+    _activeTabId = id;
     tabBtns.forEach(btn => {
       const on = btn.dataset.tab === id;
       btn.classList.toggle("active", on);
@@ -1413,6 +2199,9 @@
     } else if (cfg.main && /\.md(\?|#|$)/i.test(cfg.main)) {
       showLeftPane("placeholder");
       renderMdUrl(enc(cfg.main), cfg.label);
+    } else if (cfg.main && /\.pdf(\?|#|$)/i.test(cfg.main)) {
+      showLeftPane("placeholder");
+      renderPdfUrl(enc(cfg.main), cfg.label);
     } else if (cfg.main) {
       showLeftPane("iframe");
       frame.src = encMain(cfg.main);
@@ -1421,14 +2210,28 @@
       placeholder.innerHTML = viewerNote(cfg.label, "본문 경로가 없습니다.");
     }
     mainTag.textContent = cfg.label;
-    refTag.textContent = cfg.refTag;
+    _refTagLabel = cfg.refTag;
+    refTag.textContent = activePane === "md-edit" ? "MD 수정" : cfg.refTag;
+    _tabMainMdEnc = (cfg.main && /\.md(\?|#|$)/i.test(cfg.main)) ? enc(cfg.main) : "";
+    if (_tabMainMdEnc) trackMdPath(_tabMainMdEnc);
     syncPaneSwitchLabels();
     refsList.innerHTML = cfg.refs;
     clearRefPreview();
     const xlsxLinks = refsList.querySelectorAll("a.ref-open-xlsx");
-    if (xlsxLinks.length === 1) {
+    const pdfLinks = refsList.querySelectorAll("a.ref-open-pdf");
+    if (activePane === "md-edit") loadMdEditContent(_tabMainMdEnc, true);
+    if (id === "toji") {
+      showDeunggiHint();
+    } else if (xlsxLinks.length === 1) {
       const a = xlsxLinks[0];
       openRefPreview(a.getAttribute("href"), (a.textContent || "").trim(), "xlsx");
+    } else if (pdfLinks.length === 1 && activePane !== "md-edit") {
+      const a = pdfLinks[0];
+      setActivePane("right");
+      refPreview.hidden = false;
+      if (rightPane) rightPane.classList.add("ref-preview-open");
+      markRefActive(a.getAttribute("href"));
+      mountPdfViewer(refPreview, refHrefPath(a.getAttribute("href")), (a.textContent || "").trim());
     } else {
       setActivePane("left");
     }
@@ -1443,7 +2246,7 @@
   }
 
   function markRefActive(href) {
-    refsList.querySelectorAll("a.ref-open-xlsx, a.ref-open-md, a.ref-open-html").forEach(a => {
+    refsList.querySelectorAll("a.ref-open-xlsx, a.ref-open-md, a.ref-open-html, a.ref-open-pdf").forEach(a => {
       a.classList.toggle("ref-active", a.getAttribute("href") === href);
     });
   }
@@ -1453,8 +2256,11 @@
     refPreview.hidden = false;
     if (rightPane) rightPane.classList.add("ref-preview-open");
     markRefActive(encPath);
-    if (kind === "md") mountMdViewer(refPreview, encPath, label);
-    else if (kind === "html") mountHtmlViewer(refPreview, encPath, label);
+    if (kind === "md") {
+      refPreview.dataset.mdPath = encPath.replace(/[#?].*$/, "");
+      refPreview.dataset.mdLabel = label || "";
+      mountMdViewer(refPreview, encPath, label);
+    } else if (kind === "html") mountHtmlViewer(refPreview, encPath, label);
     else mountXlsxViewer(refPreview, encPath, label);
   }
 
@@ -1471,8 +2277,8 @@
       setActivePane("right");
       refPreview.hidden = false;
       if (rightPane) rightPane.classList.add("ref-preview-open");
-      const pdfPath = href.startsWith("/") ? enc(href.slice(1)) : enc(href);
-      mountPdfViewer(refPreview, pdfPath, label);
+      markRefActive(href);
+      mountPdfViewer(refPreview, refHrefPath(href), label);
     } else if (/\.(hwp|hwpx)(\?|#|$)/i.test(href)) {
       const absUrl = new URL(href, location.href).href;
       triggerFileDownload(absUrl, a.getAttribute("download") || label);
@@ -1532,22 +2338,27 @@
     _xlsxRenderSheet(names[0]);
   }
   function _renderMdText(container, txt, encPath) {
-    let body = container.querySelector(".md-body");
-    if (!body) {
-      container.innerHTML = '<div class="md-body"></div>';
-      body = container.querySelector(".md-body");
-    }
     const base = encPath.slice(0, encPath.lastIndexOf("/") + 1);
     if (typeof marked === "undefined") {
-      body.innerHTML = "<pre>" + txt.replace(/[<&]/g, c => c === "<" ? "&lt;" : "&amp;") + "</pre>";
+      container.innerHTML =
+        '<table class="page-box" role="presentation"><thead><tr><td aria-hidden="true"><div class="pm-top"></div></td></tr></thead>' +
+        '<tbody><tr><td><div class="md-body"><pre>' +
+        txt.replace(/[<&]/g, c => c === "<" ? "&lt;" : "&amp;") +
+        '</pre></div></td></tr></tbody>' +
+        '<tfoot><tr><td aria-hidden="true"><div class="pm-bot"></div></td></tr></tfoot></table>';
       return;
     }
-    body.innerHTML = marked.parse(txt);
-    body.querySelectorAll('a[href]').forEach(a => {
+    const inner = marked.parse(txt);
+    container.innerHTML =
+      '<table class="page-box" role="presentation"><thead><tr><td aria-hidden="true"><div class="pm-top"></div></td></tr></thead>' +
+      '<tbody><tr><td><div class="md-body">' + inner + '</div></td></tr></tbody>' +
+      '<tfoot><tr><td aria-hidden="true"><div class="pm-bot"></div></td></tr></tfoot></table>';
+    container.querySelectorAll('.md-body a[href]').forEach(a => {
       const h = a.getAttribute("href") || "";
       if (!/^([a-z]+:|\/|#)/i.test(h)) a.setAttribute("href", base + h);
       if (/^https?:/i.test(a.getAttribute("href"))) a.setAttribute("target", "_blank");
     });
+    bindTojiLotPick(container);
   }
 
   function _mdFilePicker(container, encPath, label) {
@@ -1625,6 +2436,7 @@
   }
 
   function mountMdViewer(container, encPath, label) {
+    trackMdPath(encPath);
     const name = label || decodeURIComponent(encPath.split("/").pop());
     if (IS_FILE_PROTO) {
       _mdFilePicker(container, encPath, label || name);
@@ -1688,8 +2500,13 @@
       .then(html => _injectHtmlDoc(container, html, path))
       .catch(() => _htmlFilePicker(container, encPath, label || name));
   }
+  function renderPdfUrl(encPath, label) {
+    showLeftPane("placeholder");
+    mountPdfViewer(placeholder, encPath, label);
+  }
   function renderMdUrl(encPath, label) {
     showLeftPane("placeholder");
+    trackMdPath(encPath);
     mountMdViewer(placeholder, encPath, label);
   }
   function renderHtmlUrl(encPath, label) {
@@ -1699,6 +2516,16 @@
 
   /* 본문(좌) 안의 md/xlsx 링크만 좌측 미리보기 — 우측 근거자료 링크는 target=_blank 유지 */
   placeholder.addEventListener("click", e => {
+    const lotTd = e.target.closest ? e.target.closest("td.lot-pick") : null;
+    if (lotTd && _activeTabId === "toji") {
+      e.preventDefault();
+      e.stopPropagation();
+      const lot = lotTd.dataset.lot || (lotTd.textContent || "").trim();
+      placeholder.querySelectorAll("td.lot-pick.active").forEach(x => x.classList.remove("active"));
+      lotTd.classList.add("active");
+      openDeunggiPdf(lot);
+      return;
+    }
     const a = e.target.closest ? e.target.closest("a[href]") : null;
     if (!a || a.hasAttribute("download") || a.classList.contains("xlsx-dl")) return;
     const href = a.getAttribute("href") || "";
@@ -1715,8 +2542,26 @@
     }
   });
 
-  tabBtns.forEach(btn => btn.addEventListener("click", () => switchTab(btn.dataset.tab)));
+  tabBtns.forEach(btn => btn.addEventListener("click", () => {
+    const id = btn.dataset.tab;
+    /* 같은 탭 재클릭 — iframe 캐시 무시하고 본문 HTML 다시 로드 */
+    if (btn.classList.contains("active")) {
+      const cfg = TABS[id];
+      if (cfg && cfg.main && !cfg.placeholder) {
+        if (/\.md(\?|#|$)/i.test(cfg.main)) {
+          renderMdUrl(enc(cfg.main), cfg.label);
+        } else if (/\.pdf(\?|#|$)/i.test(cfg.main)) {
+          renderPdfUrl(enc(cfg.main), cfg.label);
+        } else if (!/\.md(\?|#|$)/i.test(cfg.main)) {
+          frame.src = encMain(cfg.main);
+        }
+      }
+      return;
+    }
+    switchTab(id);
+  }));
   document.addEventListener("click", closeAllDrops);
+  buildDropNav(document.getElementById("drop-nav-jinmyeong"), [DROPS_JINMYEONG]);
   buildDropNav(document.getElementById("drop-nav-jmy"), [DROPS_JMY]);
   buildDropNav(document.getElementById("drop-nav-contract"), [DROPS_CONTRACT]);
   buildDropNav(document.getElementById("drop-nav-schedule"), [DROPS_SCHEDULE]);
@@ -1727,7 +2572,7 @@
     if (banner) banner.hidden = false;
   }
 
-  const HASH_ALIAS = { "um-review": "um-ka", "um-review-il": "um-ka" };
+  const HASH_ALIAS = { "um-review": "um-ka", "um-review-il": "um-ka", "sintrust": "toji" };
   let hash = HASH_ALIAS[location.hash.replace("#", "")] || location.hash.replace("#", "");
   if (!TABS[hash] && /^(um-|rv-)/.test(hash)) hash = "um-ka";
   if (TABS[hash]) switchTab(hash);

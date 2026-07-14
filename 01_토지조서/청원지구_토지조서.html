@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>화성 청원지구 산업유통형 지구단위계획 — 토지조서</title>
+<title>화성 청원지구 산업유통형 지구단위계획 — 토지조서(추정)</title>
 <style>
   :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;
         --ok:#1a7f37;--warn:#b25e00;--bad:#b3261e;--mid:#7a5cc0;}
@@ -25,156 +25,177 @@
   table.tbl-daeryang{table-layout:fixed;}
   table.tbl-daeryang-sum{margin-top:4px;}
   th,td{padding:7px 9px;border:1px solid var(--line);text-align:left;vertical-align:top;}
-  th{background:#eaf0f8;color:var(--navy);font-weight:700;text-align:center;}
+  th{background:#eef0f2;color:var(--navy);font-weight:700;text-align:center;}
   td.c,th.c{text-align:center;white-space:nowrap;}
   td.r{text-align:right;white-space:nowrap;}
-  tfoot td{font-weight:700;background:#f4f7fb;}
+  td.l{text-align:left;}
+  tfoot td,tr.subtotal td,tr.total td{font-weight:700;background:transparent;border-top:2px solid #cfd4da;}
+  /* 소계·합계행: 문자 좌측(라벨) · 숫자(.r)는 우측 유지 */
+  tfoot td.c,tr.subtotal td.c,tr.total td.c{text-align:left;white-space:normal;}
   .badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
   .b-ok{background:var(--ok);} .b-mid{background:var(--mid);} .b-warn{background:var(--warn);}
   .sub{color:#6b7785;font-size:12px;}
+
+  table.tbl-ref{width:100%;table-layout:fixed;font-size:11px;}
+  table.tbl-ref thead th{text-align:center;}
+  table.tbl-ref-sale th:nth-child(1){width:16%;}
+  table.tbl-ref-sale th:nth-child(2){width:9%;}
+  table.tbl-ref-sale th:nth-child(3){width:11%;}
+  table.tbl-ref-sale th:nth-child(4){width:13%;}
+  table.tbl-ref-sale th:nth-child(5){width:18%;}
+  table.tbl-ref-sale th:nth-child(6){width:33%;}
+  table.tbl-ref-sale td.slno{text-align:left;font-weight:600;color:#1f3a5f;}
+  table.tbl-ref-sale td.lots{text-align:left;}
+  table.tbl-ref-sale td.remark{text-align:left;font-size:10px;line-height:1.45;}
+  table.tbl-ref-sale tr.sl-subtotal td{background:transparent;font-weight:600;}
+  table.tbl-ref-consist th:nth-child(1){width:16%;}
+  table.tbl-ref-consist th:nth-child(2){width:17%;}
+  table.tbl-ref-consist th:nth-child(3){width:10%;}
+  table.tbl-ref-consist th:nth-child(4){width:18%;}
+  table.tbl-ref-consist th:nth-child(5){width:27%;}
+  table.tbl-ref-consist th:nth-child(6){width:12%;}
+  table.tbl-ref-consist td.slno{text-align:left;font-weight:600;color:#1f3a5f;}
+  table.tbl-ref-consist td.lots{text-align:left;}
+  table.tbl-ref-consist td.trust-l{text-align:left;}
+  table.tbl-ref td.lots{font-size:10.5px;line-height:1.5;word-break:keep-all;}
+  table.tbl-ref thead th,.sintrust-list-wrap thead th{background:#eef0f2;color:#1f3a5f;}
+  table.tbl-ref tfoot td,table.tbl-ref tr.subtotal td,.sintrust-list-wrap tfoot td,.sintrust-list-wrap tr.subtotal td{background:transparent;font-weight:700;border-top:2px solid #cfd4da;}
+  table.tbl-ref-consist tbody tr.in-jigu td{background:transparent;}
+  .sintrust-list-wrap td .sl-date{display:block;font-weight:600;color:#374151;margin-top:2px;}
+  .sintrust-list-wrap td .sl-date:first-child{margin-top:0;}
+  .sintrust-list-wrap tbody tr.in-jigu td{background:transparent;}
+  .sintrust-list-wrap tbody tr.in-jigu td.lot-pick.active{background:#dbeafe;}
+  .sintrust-list-wrap{overflow-x:auto;}
+  .sintrust-list-wrap table{table-layout:fixed;font-size:11px;}
+  .sintrust-list-wrap th,.sintrust-list-wrap td{padding:6px 5px;line-height:1.4;word-break:keep-all;overflow-wrap:anywhere;vertical-align:middle;}
+  .sintrust-list-wrap td.sl-lots,.sintrust-list-wrap td.sl-share{font-size:10px;line-height:1.5;}
+  .sintrust-list-wrap td.remark-col{font-size:9px;line-height:1.45;text-align:left;}
+  .sintrust-list-wrap td.lot-pick{font-weight:600;color:#1d4ed8;cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+  .sintrust-list-wrap thead th{text-align:center;}
+  .sintrust-list-wrap td:nth-child(2),.sintrust-list-wrap td:nth-child(3),.sintrust-list-wrap td:nth-child(6),.sintrust-list-wrap td:nth-child(7),.sintrust-list-wrap td:nth-child(8),.sintrust-list-wrap td:nth-child(13),.sintrust-list-wrap td:nth-child(14),.sintrust-list-wrap td:nth-child(15){text-align:left;}
+  .sintrust-list-wrap td:nth-child(1),.sintrust-list-wrap td:nth-child(4),.sintrust-list-wrap td:nth-child(5),.sintrust-list-wrap td:nth-child(9),.sintrust-list-wrap td:nth-child(10),.sintrust-list-wrap td:nth-child(11),.sintrust-list-wrap td:nth-child(12){text-align:right;}
   footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:#8a94a3;}
+  @page{size:A4 landscape;margin:0;}   /* 여백은 .wrap padding이 담당(변환기 호환) */
   @media print{
-    body{background:#fff;}
-    .wrap{max-width:none;padding:16px 18px 32px;}
-    .note,.danger,.ok{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    table{page-break-inside:auto;}
+    html,body{background:#fff!important;width:auto!important;margin:0!important;padding:0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{zoom:0.85;}   /* 인쇄 배율 85% */
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-sizing:border-box;}
+    .wrap{max-width:none!important;width:auto!important;margin:0!important;padding:12mm 12mm!important;}   /* 인쇄 상하좌우 여백 */
+    /* 래퍼·표를 인쇄 가능 폭(100%)에 강제로 맞춰 우측 잘림 방지 */
+    .sintrust-list-wrap,.ref-table-wrap{width:100%!important;max-width:100%!important;overflow:visible!important;}
+    table{page-break-inside:auto;width:100%!important;max-width:100%!important;}
     tr{page-break-inside:avoid;}
-    h2,h3{page-break-after:avoid;}
+    thead{display:table-header-group;}      /* 헤더는 페이지마다 반복 */
+    tfoot{display:table-row-group;}         /* 합계는 표 끝에 1회만(페이지별 반복 방지) */
+    h2,h3,h4{page-break-after:avoid;}
+    /* 와이드 표(Ⅰ 통합 15열·매매목록·정합성) — A4 가로 폭에 축소 고정 */
+    .sintrust-list-wrap table,table.tbl-ref{font-size:8px!important;table-layout:fixed!important;width:100%!important;max-width:100%!important;}
+    .sintrust-list-wrap th,.sintrust-list-wrap td,
+    table.tbl-ref th,table.tbl-ref td{padding:2px 2px!important;line-height:1.25!important;}
+    /* 모든 셀 줄바꿈 허용 — 긴 숫자·신탁번호가 셀 밖으로 넘쳐 잘리는 것 방지 */
+    td,th,.sintrust-list-wrap td,.sintrust-list-wrap th,
+    table.tbl-ref td,table.tbl-ref th{white-space:normal!important;word-break:break-all!important;overflow-wrap:anywhere!important;}
+    .sintrust-list-wrap td.sl-lots,.sintrust-list-wrap td.sl-share,
+    table.tbl-ref td.lots,table.tbl-ref-sale td.remark{font-size:7.5px!important;}
   }
+  /* A4 세로로 인쇄하려면 아래 한 줄의 주석을 해제(위 landscape 규칙보다 뒤이므로 우선 적용)
+  @page{size:A4 portrait;margin:7mm;} */
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header class="doc">
-  <h1>화성 청원지구 산업유통형 지구단위계획 — 토지조서</h1>
+  <h1>화성 청원지구 산업유통형 지구단위계획 — 토지조서(추정)</h1>
   <div class="meta">
-    <b>작성일</b> 2026. 6. 20. &nbsp;|&nbsp;
+    <b>작성일</b> 2026. 7. 4. &nbsp;|&nbsp; &nbsp;|&nbsp; <b>작성</b> 삼아건설(주)
     <b>위치</b> 화성시 만세구 마도면 청원리 산175-2번지 일원 &nbsp;|&nbsp;
     <b>구역면적</b> 80,617㎡(계획관리지역 100%)
   </div>
   <div class="meta" style="margin-top:4px">
-    <b>근거</b> 화성시 고시 제2026-76호(2026. 1. 28.) 결정조서 +
-    정부24 토지·임야대장 등본(2026. 6. 20.~21. 발급 21필지) + 토지이음 지적도(구역도)
-  </div>
+    <b>근거</b> 화성시 고시 제2026-76호(2026. 1. 28.) 결정조서 + 등기사항전부증명서(2026. 7. 3.~6. 열람 36필지 전수) + 신탁원부 제2026-5980호 + 토지이음 지적도(구역도)</div>
   <div class="meta" style="margin-top:4px">
-    <b>개정</b> 2026. 6. 21. · <b>21필지</b> — Ⅰ항 지적공부(대장) · Ⅱ항 편입 대조(고시 11 + 인접 10)
-  </div>
+    <b>개정</b> 2026. 6. 21. · <b>21필지</b> — Ⅰ항 등기부(소유권) · Ⅱ항 편입 대조(고시 11 + 인접 10)</div>
 </header>
 
 <div class="note ok">
-  <b>대장 반영(2026. 6. 20.).</b> 아래 <b>Ⅰ항</b>은 정부24 발급 <b>토지·임야대장 등본 21필지</b>(지목·면적·소유자·취득일·공시지가).
-  <b>Ⅱ항</b>은 동일 21필지 순서로 고시 편입면적을 대조한 것입니다(구버전 「Ⅰ. 요약 10지번」은 폐기).
-  Ⅱ항 이하 「편입면적」은 여전히 <b>고시 결정조서상 획지·시설 면적</b>이며, 필지 전체가 아닌 <b>일부 편입</b>일 수 있습니다.
-  편입선 확정·분할 후 지번은 실시계획인가 편입토지조서·지적(임야)도로 최종 확인해야 합니다.
+  <b>Ⅰ항</b>은 <b>등기부 통합 36필지</b>(2026. 7. 3.~6. 열람 36필지 전수) 통합표 — 지목·공부·지분면적·소유자·취득가액·<b>공시지가</b>·신탁을 한 표에 병기합니다. 21필지 중 <b>21필지</b>는 신탁·차상환·국, <b>0필지</b>는 기타 소유자입니다.  Ⅱ항 「편입면적」은 <b>고시 결정조서상 획지·시설 면적</b>입니다.
 </div>
 <div class="note">
   <b>OCR 한계.</b> 스캔 PDF는 EasyOCR로 추출 후 원본 대조함. 산177-5 면적은 OCR 568㎡ → 원본 <b>7,568㎡</b>로 정정.
 </div>
 
-<h2>Ⅰ. 지적공부 — 토지·임야대장 정리</h2>
-<p class="sub">발급일 2026. 6. 20.~21. · 발급처 정부24 · 소재지 「경기도 화성시 만세구 마도면 청원리」 · 임야 13필지 · 토지 8필지</p>
-<table class="tbl-daeryang">
-  <colgroup>
-    <col style="width:3.5%"><col style="width:7%"><col style="width:5%"><col style="width:5%">
-    <col style="width:8%"><col style="width:38%"><col style="width:9%"><col style="width:8%"><col style="width:16.5%">
-  </colgroup>
-  <thead>
-    <tr>
-      <th class="c">연번</th>
-      <th class="c">지번</th>
-      <th class="c">대장</th>
-      <th class="c">지목</th>
-      <th class="c">면적(㎡)</th>
-      <th>현재 소유자</th>
-      <th class="c">취득일</th>
-      <th class="c">공시지가<br>2026(원/㎡)</th>
-      <th class="c">합계금액(원)<br><span class="sub">면적×공시지가</span></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td class="c">1</td><td class="c">산175</td><td class="c">임야</td><td class="c">임야</td><td class="r">9,535</td>
-        <td>이영순</td><td class="c">2023. 12. 19.</td><td class="r">53,100</td><td class="r">506,308,500</td></tr>
-    <tr><td class="c">2</td><td class="c">산175-1</td><td class="c">임야</td><td class="c">임야</td><td class="r">1,671</td>
-        <td>진명개발(주)</td><td class="c">2024. 6. 28.</td><td class="r">54,100</td><td class="r">90,401,100</td></tr>
-    <tr><td class="c">3</td><td class="c">산175-2</td><td class="c">임야</td><td class="c">임야</td><td class="r">10,880</td>
-        <td>진명개발(주)</td><td class="c">2024. 6. 28.</td><td class="r">53,100</td><td class="r">577,728,000</td></tr>
-    <tr><td class="c">4</td><td class="c">산175-3</td><td class="c">임야</td><td class="c">임야</td><td class="r">327</td>
-        <td>진명개발(주)</td><td class="c">2025. 12. 30.</td><td class="r">54,100</td><td class="r">17,690,700</td></tr>
-    <tr><td class="c">5</td><td class="c">산176</td><td class="c">임야</td><td class="c">임야</td><td class="r">1,488</td>
-        <td>성순이</td><td class="c">1987. 12. 19.</td><td class="r">54,100</td><td class="r">80,500,800</td></tr>
-    <tr><td class="c">6</td><td class="c">산177-1</td><td class="c">임야</td><td class="c">임야</td><td class="r">8,490</td>
-        <td>이영순</td><td class="c">1996. 5. 10.</td><td class="r">53,800</td><td class="r">456,762,000</td></tr>
-    <tr><td class="c">7</td><td class="c">산177-3</td><td class="c">임야</td><td class="c">임야</td><td class="r">2,363</td>
-        <td>진명개발(주)</td><td class="c">2025. 12. 30.</td><td class="r">54,800</td><td class="r">129,492,400</td></tr>
-    <tr><td class="c">8</td><td class="c">산177-4</td><td class="c">임야</td><td class="c">임야</td><td class="r">9,149</td>
-        <td>진명개발(주)</td><td class="c">2024. 6. 28.</td><td class="r">52,100</td><td class="r">476,662,900</td></tr>
-    <tr><td class="c">9</td><td class="c">산177-5</td><td class="c">임야</td><td class="c">임야</td><td class="r">7,568</td>
-        <td>한국투자부동산신탁(주)<span class="sub"> ←2025.12.22 진명→신탁</span></td>
-        <td class="c">2025. 12. 22.</td><td class="r">53,800</td><td class="r">407,158,400</td></tr>
-    <tr><td class="c">10</td><td class="c">산178</td><td class="c">임야</td><td class="c">임야</td><td class="r">5,950</td>
-        <td><b>국(산림청)</b></td><td class="c">1971. 8. 13.<span class="sub"> 보존</span></td><td class="r">54,700</td><td class="r">325,465,000</td></tr>
-    <tr><td class="c">11</td><td class="c">산183</td><td class="c">임야</td><td class="c">임야</td><td class="r">5,058</td>
-        <td>심재필</td><td class="c">1994. 4. 21.</td><td class="r">53,800</td><td class="r">272,120,400</td></tr>
-    <tr><td class="c">12</td><td class="c">산184-1</td><td class="c">임야</td><td class="c">임야</td><td class="r">1,308</td>
-        <td>이순열<span class="sub"> · 지구 편입 일부(408㎡)</span></td><td class="c">2003. 7. 28.</td><td class="r">54,800</td><td class="r">71,678,400</td></tr>
-    <tr><td class="c">13</td><td class="c">산184-3</td><td class="c">임야</td><td class="c">임야</td><td class="r">4,572</td>
-        <td>이영순</td><td class="c">2023. 12. 19.</td><td class="r">53,900</td><td class="r">246,430,800</td></tr>
-    <tr><td class="c">14</td><td class="c">513-8</td><td class="c">토지</td><td class="c">전</td><td class="r">2,715</td>
-        <td>차상환 외 1인<span class="sub"> · 2026.3.27 분할</span></td><td class="c">2026. 1. 8.</td><td class="r">79,800</td><td class="r">216,657,000</td></tr>
-    <tr><td class="c">15</td><td class="c">513-9</td><td class="c">토지</td><td class="c">임야</td><td class="r">3,666</td>
-        <td>홍순호 외 1인<span class="sub"> · 2026.3.27 분할·경정</span></td><td class="c">2026. 2. 10.</td><td class="r">53,100</td><td class="r">194,664,600</td></tr>
-    <tr><td class="c">16</td><td class="c">513-10</td><td class="c">토지</td><td class="c">임야</td><td class="r">1,122</td>
-        <td>한국투자부동산신탁(주)</td><td class="c">2026. 1. 20.</td><td class="r">54,100</td><td class="r">60,700,200</td></tr>
-    <tr><td class="c">17</td><td class="c">599</td><td class="c">토지</td><td class="c">전</td><td class="r">807</td>
-        <td>차상환</td><td class="c">2024. 10. 30.</td><td class="r">104,000</td><td class="r">83,928,000</td></tr>
-    <tr><td class="c">18</td><td class="c">600</td><td class="c">토지</td><td class="c">전</td><td class="r">721</td>
-        <td>유정숙 외 9인</td><td class="c">2021. 5. 10.</td><td class="r">99,600</td><td class="r">71,811,600</td></tr>
-    <tr><td class="c">19</td><td class="c">601</td><td class="c">토지</td><td class="c">전</td><td class="r">767</td>
-        <td>차상환</td><td class="c">2026. 2. 19.</td><td class="r">99,600</td><td class="r">76,393,200</td></tr>
-    <tr><td class="c">20</td><td class="c">601-1</td><td class="c">토지</td><td class="c">전</td><td class="r">2,345</td>
-        <td>허송</td><td class="c">2006. 3. 10.</td><td class="r">100,700</td><td class="r">236,141,500</td></tr>
-    <tr><td class="c">21</td><td class="c">601-2</td><td class="c">토지</td><td class="c">전</td><td class="r">531</td>
-        <td>허송</td><td class="c">2006. 3. 10.</td><td class="r">100,700</td><td class="r">53,471,700</td></tr>
-  </tbody>
-</table>
-
-<p class="sub">※ 취득일 = 대장상 현재 소유자의 최종 소유권이전(03) 일자. ※ 합계금액 = 지적공부 면적(㎡) × 2026년 개별공시지가(원/㎡).</p>
-
-<h3>소유자별 필지</h3>
+<h2>Ⅰ. 등기부 통합(36필지)</h2>
+<p>신탁일자 <b>26/01/08</b><br>
+신탁원부번호 <b>제2026-5980호</b><br>
+우선수익자 <b>한국투자저축은행</b><br>
+우선수익권금액 <b>12,000,000,000원</b><br>
+수익자 <b>진명개발</b></p>
+<div class="sintrust-list-wrap">
 <table>
-  <thead><tr><th>소유자</th><th class="c" style="width:120px">필지</th><th class="c" style="width:90px">면적합(㎡)</th><th>비고</th></tr></thead>
-  <tbody>
-    <tr><td>진명개발(주)</td><td class="c">산175-1·175-2·175-3·177-3·177-4</td><td class="r">24,390</td><td>법인등록 134811-0724593</td></tr>
-    <tr><td>한국투자부동산신탁(주)<span class="sub"> · 진명계열</span></td><td class="c">산177-5·513-10</td><td class="r">8,690</td><td>2025.12.22·2026.1.20 신탁 명의 — 협의·집계는 진명개발과 연계</td></tr>
-    <tr><td>이영순</td><td class="c">산175·177-1·184-3</td><td class="r">22,597</td><td>개인 — 협의·매입 대상 검토</td></tr>
-    <tr><td>이순열</td><td class="c">산184-1</td><td class="r">1,308</td><td>지구 편입 일부(408㎡) · 필지 전체 1,308㎡</td></tr>
-    <tr><td>성순이</td><td class="c">산176</td><td class="r">1,488</td><td>개인</td></tr>
-    <tr><td>국(산림청)</td><td class="c">산178</td><td class="r">5,950</td><td>국유림 — 경관녹지1(4,054㎡) 편입 시 절차 별도</td></tr>
-    <tr><td>심재필</td><td class="c">산183</td><td class="r">5,058</td><td>공업용지 A1(C29) 획지</td></tr>
-    <tr><td>차상환<span class="sub"> · 513-8 외 1인</span></td><td class="c">513-8·599·601</td><td class="r">4,289</td><td>도로·구역 서측 전답</td></tr>
-    <tr><td>홍순호 외 1인</td><td class="c">513-9</td><td class="r">3,666</td><td>소공원1(4,034㎡) · 2026.3.27 분할</td></tr>
-    <tr><td>유정숙 외 9인</td><td class="c">600</td><td class="r">721</td><td>구역 북측 전답</td></tr>
-    <tr><td>허송</td><td class="c">601-1·601-2</td><td class="r">2,876</td><td>동측 전답</td></tr>
-  </tbody>
+<colgroup><col style="width:3%"><col style="width:5%"><col style="width:3%"><col style="width:7%"><col style="width:7%"><col style="width:6%"><col style="width:8%"><col style="width:9%"><col style="width:5%"><col style="width:8%"><col style="width:7%"><col style="width:8%"><col style="width:6%"><col style="width:10%"><col style="width:8%"></colgroup>
+<thead><tr><th class="c">연번</th><th class="c">지번</th><th class="c">지목</th><th class="r">공부면적</th><th class="r">지분면적</th><th class="c">취득일</th><th class="c">소유자</th><th class="c">매매목록</th><th class="r">매매지분</th><th class="r">취득가액</th><th class="r">공시지가</th><th class="r">합계금액</th><th class="c">신탁일</th><th class="c">신탁번호</th><th class="c">비고</th></tr></thead>
+<tbody><tr class="in-jigu"><td class="c">1</td><td class="c lot-pick" data-lot="513-8" title="클릭 — 등기부 PDF">513-8</td><td class="c">전</td><td class="r">2,985.00</td><td class="r">2,714.50</td><td class="c">25/12/15</td><td class="c">차상환</td><td class="c sl-lots">—</td><td class="r sl-share">2,714.50</td><td class="r">600,000,000</td><td class="r">79,800</td><td class="r">216,617,100</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">갑2 2,714.50</td></tr><tr class="in-jigu"><td class="c">2</td><td class="c lot-pick" data-lot="513-9" title="클릭 — 등기부 PDF">513-9</td><td class="c">임야</td><td class="r">3,727.00</td><td class="r">3,666.00</td><td class="c">25/12/15</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">3,666.00</td><td class="r">824,376,000</td><td class="r">53,100</td><td class="r">194,664,600</td><td class="c">25/12/30</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 3,666.00</td></tr><tr class="in-jigu"><td class="c">3</td><td class="c lot-pick" data-lot="513-10" title="클릭 — 등기부 PDF">513-10</td><td class="c">임야</td><td class="r">1,122.00</td><td class="r">1,122.00</td><td class="c">25/12/15</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">1,122.00</td><td class="r">277,980,000</td><td class="r">54,100</td><td class="r">60,700,200</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 1,122.00</td></tr><tr><td class="c">4</td><td class="c lot-pick" data-lot="588-3" title="클릭 — 등기부 PDF">588-3</td><td class="c">도로</td><td class="r">237.00</td><td class="r">138.00</td><td class="c">—</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호<br>협의취득</td><td class="r sl-share">49.00<br>10.00<br>13.02<br>21.00<br>45.00</td><td class="r">43,000,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑15 49.00<br>갑16 10.00<br>갑17 13.02<br>갑18 21.00<br>갑20 45.00</td></tr><tr><td class="c">5</td><td class="c lot-pick" data-lot="588-4" title="클릭 — 등기부 PDF">588-4</td><td class="c">도로</td><td class="r">83.00</td><td class="r">83.00</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-621호</td><td class="r sl-share">83.00</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 83.00<br>제2024-621호 전부이전(묶음가)</td></tr><tr><td class="c">6</td><td class="c lot-pick" data-lot="588-5" title="클릭 — 등기부 PDF">588-5</td><td class="c">도로</td><td class="r">407.00</td><td class="r">126.80</td><td class="c">—</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호<br>협의취득</td><td class="r sl-share">31.00<br>20.00<br>24.80<br>40.00<br>11.00</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="c">25/12/22</td><td class="c">제2025-365196호</td><td class="c remark-col">갑15 31.00<br>갑16 20.00<br>갑17 24.80<br>갑18 40.00<br>갑20 11.00</td></tr><tr><td class="c">7</td><td class="c lot-pick" data-lot="588-6" title="클릭 — 등기부 PDF">588-6</td><td class="c">도로</td><td class="r">201.00</td><td class="r">201.00</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-621호</td><td class="r sl-share">201.00</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">201.00<br>제2024-621호 전부이전(묶음가)</td></tr><tr><td class="c">8</td><td class="c lot-pick" data-lot="589-2" title="클릭 — 등기부 PDF">589-2</td><td class="c">도로</td><td class="r">87.00</td><td class="r">30.50</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">22.00<br>2.00<br>2.50<br>4.00</td><td class="r">119,483,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑17 22.00<br>갑18 2.00<br>갑19 2.50<br>갑20 4.00</td></tr><tr><td class="c">9</td><td class="c lot-pick" data-lot="590-6" title="클릭 — 등기부 PDF">590-6</td><td class="c">도로</td><td class="r">370.00</td><td class="r">84.40</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">59.00<br>6.00<br>7.40<br>12.00</td><td class="r">13,645,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑18 59.00<br>갑19 6.00<br>갑20 7.40<br>갑21 12.00</td></tr><tr><td class="c">10</td><td class="c lot-pick" data-lot="590-10" title="클릭 — 등기부 PDF">590-10</td><td class="c">도로</td><td class="r">301.00</td><td class="r">113.06</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">54.36<br>13.75<br>17.20<br>27.75</td><td class="r">119,483,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑20 54.36<br>갑21 13.75<br>갑22 17.20<br>갑23 27.75</td></tr><tr><td class="c">11</td><td class="c lot-pick" data-lot="590-11" title="클릭 — 등기부 PDF">590-11</td><td class="c">도로</td><td class="r">230.00</td><td class="r">85.58</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">41.01<br>10.21<br>13.15<br>21.21</td><td class="r">119,483,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑19 41.01<br>갑20 10.21<br>갑21 13.15<br>갑22 21.21</td></tr><tr><td class="c">12</td><td class="c lot-pick" data-lot="590-12" title="클릭 — 등기부 PDF">590-12</td><td class="c">도로</td><td class="r">6.00</td><td class="r">2.00</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">0.90<br>0.50<br>0.60</td><td class="r">119,483,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑17 0.90<br>갑18 0.50<br>갑19 0.60</td></tr><tr><td class="c">13</td><td class="c lot-pick" data-lot="590-15" title="클릭 — 등기부 PDF">590-15</td><td class="c">도로</td><td class="r">99.00</td><td class="r">41.66</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">29.00<br>3.00<br>3.66<br>6.00</td><td class="r">15,000,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑14 29.00<br>갑15 3.00<br>갑16 3.66<br>갑17 6.00</td></tr><tr><td class="c">14</td><td class="c lot-pick" data-lot="590-17" title="클릭 — 등기부 PDF">590-17</td><td class="c">도로</td><td class="r">112.00</td><td class="r">43.70</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">31.00<br>3.00<br>3.72<br>6.00</td><td class="r">18,500,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑14 31.00<br>갑15 3.00<br>갑16 3.72<br>갑17 6.00</td></tr><tr><td class="c">15</td><td class="c lot-pick" data-lot="590-19" title="클릭 — 등기부 PDF">590-19</td><td class="c">도로</td><td class="r">287.00</td><td class="r">111.80</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">55.70<br>13.30<br>16.23<br>26.60</td><td class="r">88,000,000</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑15 55.70<br>갑16 13.30<br>갑17 16.23<br>갑18 26.60</td></tr><tr><td class="c">16</td><td class="c lot-pick" data-lot="590-22" title="클릭 — 등기부 PDF">590-22</td><td class="c">도로</td><td class="r">717.00</td><td class="r">295.00</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호<br>제2024-619호<br>제2024-620호<br>제2024-621호</td><td class="r sl-share">189.00<br>25.00<br>31.00<br>50.00</td><td class="r">39,014,500</td><td class="r">—</td><td class="r">—</td><td class="c">26/01/08</td><td class="c">제2026-5980호</td><td class="c remark-col">갑19 189.00<br>갑20 25.00<br>갑21 31.00<br>갑22 50.00</td></tr><tr><td class="c">17</td><td class="c lot-pick" data-lot="590-28" title="클릭 — 등기부 PDF">590-28</td><td class="c">임야</td><td class="r">621.00</td><td class="r">621.00</td><td class="c">24/02/07</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2024-618호</td><td class="r sl-share">621.00</td><td class="r">358,400,000</td><td class="r">—</td><td class="r">—</td><td class="c">25/12/19</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 621.00</td></tr><tr class="in-jigu"><td class="c">18</td><td class="c lot-pick" data-lot="591" title="클릭 — 등기부 PDF">591</td><td class="c">전</td><td class="r">357.00</td><td class="r">357.00</td><td class="c">25/07/05</td><td class="c">차상환</td><td class="c sl-lots">—</td><td class="r sl-share">357.00</td><td class="r">80,000,000</td><td class="r">—</td><td class="r">—</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">갑3 357.00</td></tr><tr class="in-jigu"><td class="c">19</td><td class="c lot-pick" data-lot="599" title="클릭 — 등기부 PDF">599</td><td class="c">전</td><td class="r">807.00</td><td class="r">807.00</td><td class="c">24/10/30</td><td class="c">차상환</td><td class="c sl-lots">—</td><td class="r sl-share">807.00</td><td class="r">207,400,000</td><td class="r">104,000</td><td class="r">83,928,000</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">갑3 807.00</td></tr><tr class="in-jigu"><td class="c">20</td><td class="c lot-pick" data-lot="600" title="클릭 — 등기부 PDF">600</td><td class="c">전</td><td class="r">721.00</td><td class="r">721.00</td><td class="c">21/02/07</td><td class="c">차상환</td><td class="c sl-lots">—</td><td class="r sl-share">721.00</td><td class="r">163,000,000</td><td class="r">99,600</td><td class="r">71,811,600</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">갑18 721.00</td></tr><tr class="in-jigu"><td class="c">21</td><td class="c lot-pick" data-lot="601" title="클릭 — 등기부 PDF">601</td><td class="c">전</td><td class="r">767.00</td><td class="r">767.00</td><td class="c">26/02/19</td><td class="c">차상환</td><td class="c sl-lots">—</td><td class="r sl-share">767.00</td><td class="r">180,970,000</td><td class="r">99,600</td><td class="r">76,393,200</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">갑3 767.00</td></tr><tr class="in-jigu"><td class="c">22</td><td class="c lot-pick" data-lot="601-1" title="클릭 — 등기부 PDF">601-1</td><td class="c">전</td><td class="r">2,345.00</td><td class="r">2,345.00</td><td class="c">24/05/30</td><td class="c">차상환</td><td class="c sl-lots">제2024-2238호</td><td class="r sl-share">2,345.00</td><td class="r">496,559,458</td><td class="r">100,700</td><td class="r">236,141,500</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">갑23 2,345.00</td></tr><tr class="in-jigu"><td class="c">23</td><td class="c lot-pick" data-lot="601-2" title="클릭 — 등기부 PDF">601-2</td><td class="c">전</td><td class="r">531.00</td><td class="r">531.00</td><td class="c">24/05/30</td><td class="c">차상환</td><td class="c sl-lots">제2024-2238호</td><td class="r sl-share">531.00</td><td class="r">112,440,542</td><td class="r">100,700</td><td class="r">53,471,700</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">갑26 531.00</td></tr><tr class="in-jigu"><td class="c">24</td><td class="c lot-pick" data-lot="산175" title="클릭 — 등기부 PDF">산175</td><td class="c">임야</td><td class="r">9,535.00</td><td class="r">9,535.00</td><td class="c">23/11/27</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2023-3865호</td><td class="r sl-share">9,535.00</td><td class="r">2,018,984,978</td><td class="r">53,100</td><td class="r">506,308,500</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑3 9,535.00</td></tr><tr class="in-jigu"><td class="c">25</td><td class="c lot-pick" data-lot="산175-1" title="클릭 — 등기부 PDF">산175-1</td><td class="c">임야</td><td class="r">1,671.00</td><td class="r">1,671.00</td><td class="c">23/11/27</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2023-3865호</td><td class="r sl-share">1,671.00</td><td class="r">353,825,265</td><td class="r">54,100</td><td class="r">90,401,100</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑1 1,671.00</td></tr><tr class="in-jigu"><td class="c">26</td><td class="c lot-pick" data-lot="산175-2" title="클릭 — 등기부 PDF">산175-2</td><td class="c">임야</td><td class="r">10,880.00</td><td class="r">10,880.00</td><td class="c">23/11/27</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2023-3865호</td><td class="r sl-share">10,880.00</td><td class="r">2,303,781,495</td><td class="r">53,100</td><td class="r">577,728,000</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑1 10,880.00</td></tr><tr class="in-jigu"><td class="c">27</td><td class="c lot-pick" data-lot="산175-3" title="클릭 — 등기부 PDF">산175-3</td><td class="c">임야</td><td class="r">327.00</td><td class="r">327.00</td><td class="c">23/03/11</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">327.00</td><td class="r">200,000,000</td><td class="r">54,100</td><td class="r">17,690,700</td><td class="c">25/12/30</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 327.00</td></tr><tr class="in-jigu"><td class="c">28</td><td class="c lot-pick" data-lot="산176" title="클릭 — 등기부 PDF">산176</td><td class="c">임야</td><td class="r">1,488.00</td><td class="r">1,488.00</td><td class="c">21/12/10</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">1,488.00</td><td class="r">380,000,000</td><td class="r">54,100</td><td class="r">80,500,800</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 1,488.00</td></tr><tr class="in-jigu"><td class="c">29</td><td class="c lot-pick" data-lot="산177-1" title="클릭 — 등기부 PDF">산177-1</td><td class="c">임야</td><td class="r">8,490.00</td><td class="r">8,490.00</td><td class="c">23/11/27</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2023-3865호</td><td class="r sl-share">8,490.00</td><td class="r">1,797,711,847</td><td class="r">53,800</td><td class="r">456,762,000</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑1 8,490.00</td></tr><tr class="in-jigu"><td class="c">30</td><td class="c lot-pick" data-lot="산177-3" title="클릭 — 등기부 PDF">산177-3</td><td class="c">임야</td><td class="r">2,363.00</td><td class="r">2,363.00</td><td class="c">25/12/15</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">2,363.00</td><td class="r">536,000,000</td><td class="r">54,800</td><td class="r">129,492,400</td><td class="c">25/12/30</td><td class="c">제2026-5980호</td><td class="c remark-col">갑3 2,363.00</td></tr><tr class="in-jigu"><td class="c">31</td><td class="c lot-pick" data-lot="산177-4" title="클릭 — 등기부 PDF">산177-4</td><td class="c">임야</td><td class="r">9,149.00</td><td class="r">9,149.00</td><td class="c">23/11/27</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">9,149.00</td><td class="r">1,937,600,000</td><td class="r">52,100</td><td class="r">476,662,900</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 9,149.00</td></tr><tr class="in-jigu"><td class="c">32</td><td class="c lot-pick" data-lot="산177-5" title="클릭 — 등기부 PDF">산177-5</td><td class="c">임야</td><td class="r">7,568.00</td><td class="r">7,568.00</td><td class="c">23/11/27</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">7,568.00</td><td class="r">1,602,300,000</td><td class="r">53,800</td><td class="r">407,158,400</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 7,568.00</td></tr><tr class="in-jigu"><td class="c">33</td><td class="c lot-pick" data-lot="산178" title="클릭 — 등기부 PDF">산178</td><td class="c">임야</td><td class="r">5,950.00</td><td class="r">5,950.00</td><td class="c">71/08/13</td><td class="owner"><b>국(산림청)</b></td><td class="c sl-lots">—</td><td class="r sl-share">5,950.00</td><td class="r">소유권보존</td><td class="r">54,700</td><td class="r">325,465,000</td><td class="c">—</td><td class="c">—</td><td class="c remark-col">5,950.00</td></tr><tr class="in-jigu"><td class="c">34</td><td class="c lot-pick" data-lot="산183" title="클릭 — 등기부 PDF">산183</td><td class="c">임야</td><td class="r">5,058.00</td><td class="r">5,058.00</td><td class="c">23/09/01</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">5,058.00</td><td class="r">1,000,000,000</td><td class="r">53,800</td><td class="r">272,120,400</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 5,058.00</td></tr><tr class="in-jigu"><td class="c">35</td><td class="c lot-pick" data-lot="산184-1" title="클릭 — 등기부 PDF">산184-1</td><td class="c">임야</td><td class="r">1,308.00</td><td class="r">1,308.00</td><td class="c">25/03/21</td><td class="c">진명개발(주)</td><td class="c sl-lots">—</td><td class="r sl-share">1,308.00</td><td class="r">316,536,000</td><td class="r">54,800</td><td class="r">71,678,400</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑2 1,308.00</td></tr><tr class="in-jigu"><td class="c">36</td><td class="c lot-pick" data-lot="산184-3" title="클릭 — 등기부 PDF">산184-3</td><td class="c">임야</td><td class="r">4,572.00</td><td class="r">4,572.00</td><td class="c">23/11/27</td><td class="c">진명개발(주)</td><td class="c sl-lots">제2023-3865호</td><td class="r sl-share">4,572.00</td><td class="r">968,096,415</td><td class="r">53,900</td><td class="r">246,430,800</td><td class="c">25/12/22</td><td class="c">제2026-5980호</td><td class="c remark-col">갑1 4,572.00</td></tr><tr class="subtotal"><td class="c"><b>사업구역 내 소계</b></td><td class="c"><b>25필지</b></td><td></td><td class="r"><b>70,079.00</b></td><td class="r"><b>67,967.00</b></td><td class="c">—</td><td></td><td class="c">—</td><td class="r"><b>67,967.07</b></td><td class="r"><b>13,808,607,085</b></td><td class="r">—</td><td class="r"><b>3,595,566,400</b></td><td class="c">—</td><td class="c">—</td><td class="sub"></td></tr><tr class="subtotal"><td class="c"><b>사업구역 외 소계</b></td><td class="c"><b>11필지</b></td><td></td><td class="r"><b>15,400.00</b></td><td class="r"><b>15,400.00</b></td><td class="c">—</td><td></td><td class="c">—</td><td class="r"><b>15,400.00</b></td><td class="r"><b>3,602,446,415</b></td><td class="r">—</td><td class="r"><b>1,056,560,900</b></td><td class="c">—</td><td class="c">—</td><td class="sub"></td></tr><tr class="subtotal"><td class="c"><b>합계</b></td><td class="c"><b>36필지</b></td><td></td><td class="r"><b>85,479.00</b></td><td class="r"><b>83,367.00</b></td><td class="c">—</td><td></td><td class="c">—</td><td class="r"><b>83,367.07</b></td><td class="r"><b>17,411,053,500</b></td><td class="r">—</td><td class="r"><b>4,652,127,300</b></td><td class="c">—</td><td class="c">—</td><td class="sub"></td></tr></tbody>
 </table>
-
-<table class="tbl-daeryang tbl-daeryang-sum" aria-label="21필지 합계">
-  <colgroup>
-    <col style="width:3.5%"><col style="width:7%"><col style="width:5%"><col style="width:5%">
-    <col style="width:8%"><col style="width:38%"><col style="width:9%"><col style="width:8%"><col style="width:16.5%">
-  </colgroup>
-  <tfoot>
-    <tr><td class="c" colspan="4">21필지 합계</td><td class="r">81,033</td>
-        <td class="sub">2026년 개별공시지가×지적공부면적 · 실거래·보상가 아님 · 세금·보상·매입가 산정 기준이 아닌 공시 참고액</td>
-        <td class="c">—</td>
-        <td class="c">—</td>
-        <td class="r"><b>4,652,167,200</b><br><span class="sub">약 46.52억</span></td></tr>
-  </tfoot>
+</div>
+<div class="ref-tables">
+<h4 class="ref-h4">매매목록(필지별)</h4>
+<div class="ref-table-wrap">
+<table class="tbl-ref tbl-ref-sale">
+<thead><tr><th class="col-slno">매매목록번호</th><th class="col-lots">지번</th><th class="c">취득일</th><th class="r col-contract">취득면적(㎡)</th><th class="r">취득가액</th><th class="col-remark">비고</th></tr></thead>
+<tbody>
+<tr><td class="slno" rowspan="5">제2023-3865호</td><td class="lots">산175</td><td class="c">23/11/27</td><td class="r contract">9,535.00</td><td class="r">2,018,984,978</td><td class="remark">—</td></tr><tr><td class="lots">산175-1</td><td class="c">23/11/27</td><td class="r contract">1,671.00</td><td class="r">353,825,265</td><td class="remark">—</td></tr><tr><td class="lots">산175-2</td><td class="c">23/11/27</td><td class="r contract">10,880.00</td><td class="r">2,303,781,495</td><td class="remark">—</td></tr><tr><td class="lots">산177-1</td><td class="c">23/11/27</td><td class="r contract">8,490.00</td><td class="r">1,797,711,847</td><td class="remark">—</td></tr><tr><td class="lots">산184-3</td><td class="c">23/11/27</td><td class="r contract">4,572.00</td><td class="r">968,096,415</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">제2023-3865호 · 5필지</td><td class="r contract"><b>35,148.00</b></td><td class="r"><b>7,442,400,000</b></td><td class="remark"><b>거래가액 7,442,400,000원</b></td></tr><tr><td class="slno" rowspan="12">제2024-618호</td><td class="lots">588-3</td><td class="c">24/02/07</td><td class="r contract">49.00</td><td class="r">15,265,903</td><td class="remark">—</td></tr><tr><td class="lots">588-5</td><td class="c">24/02/07</td><td class="r contract">31.00</td><td class="r">—</td><td class="remark">—</td></tr><tr><td class="lots">589-2</td><td class="c">24/02/07</td><td class="r contract">22.00</td><td class="r">86,184,459</td><td class="remark">—</td></tr><tr><td class="lots">590-6</td><td class="c">24/02/07</td><td class="r contract">59.00</td><td class="r">9,538,566</td><td class="remark">—</td></tr><tr><td class="lots">590-10</td><td class="c">24/02/07</td><td class="r contract">54.36</td><td class="r">57,448,221</td><td class="remark">—</td></tr><tr><td class="lots">590-11</td><td class="c">24/02/07</td><td class="r contract">41.01</td><td class="r">57,256,343</td><td class="remark">—</td></tr><tr><td class="lots">590-12</td><td class="c">24/02/07</td><td class="r contract">0.90</td><td class="r">53,767,350</td><td class="remark">—</td></tr><tr><td class="lots">590-15</td><td class="c">24/02/07</td><td class="r contract">29.00</td><td class="r">10,441,671</td><td class="remark">—</td></tr><tr><td class="lots">590-17</td><td class="c">24/02/07</td><td class="r contract">31.00</td><td class="r">13,117,566</td><td class="remark">—</td></tr><tr><td class="lots">590-19</td><td class="c">24/02/07</td><td class="r contract">55.70</td><td class="r">43,830,815</td><td class="remark">—</td></tr><tr><td class="lots">590-22</td><td class="c">24/02/07</td><td class="r contract">189.00</td><td class="r">24,995,731</td><td class="remark">—</td></tr><tr><td class="lots">590-28</td><td class="c">24/02/07</td><td class="r contract">621.00</td><td class="r">358,400,000</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">제2024-618호 · 12필지</td><td class="r contract"><b>1,182.97</b></td><td class="r"><b>730,246,625</b></td><td class="remark"><b>거래가액 635,500,000원</b></td></tr><tr><td class="slno" rowspan="10">제2024-619호</td><td class="lots">588-3</td><td class="c">24/02/07</td><td class="r contract">10.00</td><td class="r">3,115,491</td><td class="remark">—</td></tr><tr><td class="lots">588-5</td><td class="c">24/02/07</td><td class="r contract">20.00</td><td class="r">—</td><td class="remark">—</td></tr><tr><td class="lots">589-2</td><td class="c">24/02/07</td><td class="r contract">2.00</td><td class="r">7,834,951</td><td class="remark">—</td></tr><tr><td class="lots">590-6</td><td class="c">24/02/07</td><td class="r contract">6.00</td><td class="r">970,024</td><td class="remark">—</td></tr><tr><td class="lots">590-10</td><td class="c">24/02/07</td><td class="r contract">13.75</td><td class="r">14,531,145</td><td class="remark">—</td></tr><tr><td class="lots">590-11</td><td class="c">24/02/07</td><td class="r contract">10.21</td><td class="r">14,254,749</td><td class="remark">—</td></tr><tr><td class="lots">590-15</td><td class="c">24/02/07</td><td class="r contract">3.00</td><td class="r">1,080,173</td><td class="remark">—</td></tr><tr><td class="lots">590-17</td><td class="c">24/02/07</td><td class="r contract">3.00</td><td class="r">1,269,442</td><td class="remark">—</td></tr><tr><td class="lots">590-19</td><td class="c">24/02/07</td><td class="r contract">13.30</td><td class="r">10,465,886</td><td class="remark">—</td></tr><tr><td class="lots">590-22</td><td class="c">24/02/07</td><td class="r contract">25.00</td><td class="r">3,306,314</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">제2024-619호 · 10필지</td><td class="r contract"><b>106.26</b></td><td class="r"><b>56,828,175</b></td><td class="remark"><b>거래가액 93,300,000원</b></td></tr><tr><td class="slno" rowspan="11">제2024-620호</td><td class="lots">588-3</td><td class="c">24/02/07</td><td class="r contract">13.02</td><td class="r">4,056,369</td><td class="remark">—</td></tr><tr><td class="lots">588-5</td><td class="c">24/02/07</td><td class="r contract">24.80</td><td class="r">—</td><td class="remark">—</td></tr><tr><td class="lots">589-2</td><td class="c">24/02/07</td><td class="r contract">2.50</td><td class="r">9,793,689</td><td class="remark">—</td></tr><tr><td class="lots">590-6</td><td class="c">24/02/07</td><td class="r contract">7.40</td><td class="r">1,196,363</td><td class="remark">—</td></tr><tr><td class="lots">590-10</td><td class="c">24/02/07</td><td class="r contract">17.20</td><td class="r">18,177,141</td><td class="remark">—</td></tr><tr><td class="lots">590-11</td><td class="c">24/02/07</td><td class="r contract">13.15</td><td class="r">18,359,447</td><td class="remark">—</td></tr><tr><td class="lots">590-12</td><td class="c">24/02/07</td><td class="r contract">0.50</td><td class="r">29,870,750</td><td class="remark">—</td></tr><tr><td class="lots">590-15</td><td class="c">24/02/07</td><td class="r contract">3.66</td><td class="r">1,317,811</td><td class="remark">—</td></tr><tr><td class="lots">590-17</td><td class="c">24/02/07</td><td class="r contract">3.72</td><td class="r">1,574,108</td><td class="remark">—</td></tr><tr><td class="lots">590-19</td><td class="c">24/02/07</td><td class="r contract">16.23</td><td class="r">12,771,528</td><td class="remark">—</td></tr><tr><td class="lots">590-22</td><td class="c">24/02/07</td><td class="r contract">31.00</td><td class="r">4,099,829</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">제2024-620호 · 11필지</td><td class="r contract"><b>133.18</b></td><td class="r"><b>101,217,035</b></td><td class="remark"><b>거래가액 116,000,000원</b></td></tr><tr><td class="slno" rowspan="13">제2024-621호</td><td class="lots">588-3</td><td class="c">24/02/07</td><td class="r contract">21.00</td><td class="r">6,542,530</td><td class="remark">—</td></tr><tr><td class="lots">588-4</td><td class="c">24/02/07</td><td class="r contract">—</td><td class="r">—</td><td class="remark">—</td></tr><tr><td class="lots">588-5</td><td class="c">24/02/07</td><td class="r contract">40.00</td><td class="r">—</td><td class="remark">—</td></tr><tr><td class="lots">588-6</td><td class="c">24/02/07</td><td class="r contract">—</td><td class="r">—</td><td class="remark">—</td></tr><tr><td class="lots">589-2</td><td class="c">24/02/07</td><td class="r contract">4.00</td><td class="r">15,669,901</td><td class="remark">—</td></tr><tr><td class="lots">590-6</td><td class="c">24/02/07</td><td class="r contract">12.00</td><td class="r">1,940,047</td><td class="remark">—</td></tr><tr><td class="lots">590-10</td><td class="c">24/02/07</td><td class="r contract">27.75</td><td class="r">29,326,493</td><td class="remark">—</td></tr><tr><td class="lots">590-11</td><td class="c">24/02/07</td><td class="r contract">21.21</td><td class="r">29,612,461</td><td class="remark">—</td></tr><tr><td class="lots">590-12</td><td class="c">24/02/07</td><td class="r contract">0.60</td><td class="r">35,844,900</td><td class="remark">—</td></tr><tr><td class="lots">590-15</td><td class="c">24/02/07</td><td class="r contract">6.00</td><td class="r">2,160,345</td><td class="remark">—</td></tr><tr><td class="lots">590-17</td><td class="c">24/02/07</td><td class="r contract">6.00</td><td class="r">2,538,884</td><td class="remark">—</td></tr><tr><td class="lots">590-19</td><td class="c">24/02/07</td><td class="r contract">26.60</td><td class="r">20,931,771</td><td class="remark">—</td></tr><tr><td class="lots">590-22</td><td class="c">24/02/07</td><td class="r contract">50.00</td><td class="r">6,612,626</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">제2024-621호 · 13필지</td><td class="r contract"><b>215.16</b></td><td class="r"><b>151,179,958</b></td><td class="remark"><b>거래가액 211,400,000원</b></td></tr><tr><td class="slno" rowspan="2">제2024-2238호</td><td class="lots">601-1</td><td class="c">24/05/30</td><td class="r contract">2,345.00</td><td class="r">496,559,458</td><td class="remark">—</td></tr><tr><td class="lots">601-2</td><td class="c">24/05/30</td><td class="r contract">531.00</td><td class="r">112,440,542</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">제2024-2238호 · 2필지</td><td class="r contract"><b>2,876.00</b></td><td class="r"><b>609,000,000</b></td><td class="remark"><b>거래가액 609,000,000원</b></td></tr><tr><td class="slno" rowspan="2">협의취득</td><td class="lots">588-3</td><td class="c">24/08/13</td><td class="r contract">45.00</td><td class="r">14,019,707</td><td class="remark">—</td></tr><tr><td class="lots">588-5</td><td class="c">24/08/13</td><td class="r contract">11.00</td><td class="r">—</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">협의취득 · 2필지</td><td class="r contract"><b>56.00</b></td><td class="r"><b>14,019,707</b></td><td class="remark"><b>—</b></td></tr><tr><td class="slno" rowspan="15">매매목록 없음</td><td class="lots">513-8</td><td class="c">25/12/15</td><td class="r contract">2,714.50</td><td class="r">600,000,000</td><td class="remark">—</td></tr><tr><td class="lots">513-9</td><td class="c">25/12/15</td><td class="r contract">3,666.00</td><td class="r">824,376,000</td><td class="remark">—</td></tr><tr><td class="lots">513-10</td><td class="c">25/12/15</td><td class="r contract">1,122.00</td><td class="r">277,980,000</td><td class="remark">—</td></tr><tr><td class="lots">591</td><td class="c">25/07/05</td><td class="r contract">357.00</td><td class="r">80,000,000</td><td class="remark">—</td></tr><tr><td class="lots">599</td><td class="c">24/10/30</td><td class="r contract">807.00</td><td class="r">207,400,000</td><td class="remark">—</td></tr><tr><td class="lots">600</td><td class="c">21/02/07</td><td class="r contract">721.00</td><td class="r">163,000,000</td><td class="remark">—</td></tr><tr><td class="lots">601</td><td class="c">26/02/19</td><td class="r contract">767.00</td><td class="r">180,970,000</td><td class="remark">—</td></tr><tr><td class="lots">산175-3</td><td class="c">23/03/11</td><td class="r contract">327.00</td><td class="r">200,000,000</td><td class="remark">—</td></tr><tr><td class="lots">산176</td><td class="c">21/12/10</td><td class="r contract">1,488.00</td><td class="r">380,000,000</td><td class="remark">—</td></tr><tr><td class="lots">산177-3</td><td class="c">25/12/15</td><td class="r contract">2,363.00</td><td class="r">536,000,000</td><td class="remark">—</td></tr><tr><td class="lots">산177-4</td><td class="c">23/11/27</td><td class="r contract">9,149.00</td><td class="r">1,937,600,000</td><td class="remark">—</td></tr><tr><td class="lots">산177-5</td><td class="c">23/11/27</td><td class="r contract">7,568.00</td><td class="r">1,602,300,000</td><td class="remark">—</td></tr><tr><td class="lots">산178</td><td class="c">71/08/13</td><td class="r contract">5,950.00</td><td class="r">—</td><td class="remark">소유권보존</td></tr><tr><td class="lots">산183</td><td class="c">23/09/01</td><td class="r contract">5,058.00</td><td class="r">1,000,000,000</td><td class="remark">—</td></tr><tr><td class="lots">산184-1</td><td class="c">25/03/21</td><td class="r contract">1,308.00</td><td class="r">316,536,000</td><td class="remark">—</td></tr><tr class="sl-subtotal"><td class="c">소계</td><td class="c" colspan="2">매매목록 없음 · 15필지</td><td class="r contract"><b>43,365.50</b></td><td class="r"><b>8,306,162,000</b></td><td class="remark"><b>—</b></td></tr><tr class="subtotal"><td class="c"><b>합계</b></td><td class="c"><b>70건</b></td><td class="c">—</td><td class="r contract"><b>83,083.07</b></td><td class="r"><b>17,411,053,500</b></td><td class="remark">—</td></tr>
+</tbody>
 </table>
-
+</div>
+<h4 class="ref-h4">공동담보·신탁 (필지별 정합성)</h4>
+<div class="ref-table-wrap">
+<table class="tbl-ref tbl-ref-consist">
+<thead><tr><th class="c col-slno">공동담보번호</th><th class="r">채권최고액</th><th class="c col-lots">지번</th><th class="c">소유자</th><th class="c">신탁번호</th><th class="c">신탁일</th></tr></thead>
+<tbody>
+<tr class="in-jigu"><td class="slno" rowspan="5">제2025-69190호<br><span class="sub">5필지</span></td><td class="r" rowspan="5">1,187,000,000</td><td class="lots">591</td><td class="trust-l">차상환</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="in-jigu"><td class="lots">599</td><td class="trust-l">차상환</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="in-jigu"><td class="lots">600</td><td class="trust-l">차상환</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="in-jigu"><td class="lots">601-1</td><td class="trust-l">차상환</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="in-jigu"><td class="lots">601-2</td><td class="trust-l">차상환</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="in-jigu"><td class="slno" rowspan="28">제2025-69192호<br><span class="sub">28필지</span></td><td class="r" rowspan="28">1,000,000,000</td><td class="lots">513-9</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/30</td></tr>
+<tr class="in-jigu"><td class="lots">513-10</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">588-3</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">588-4</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">588-5</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2025-365196호</td><td class="c">25/12/22</td></tr>
+<tr><td class="lots">588-6</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">589-2</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-6</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-10</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-11</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-12</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-15</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-17</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-19</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-22</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">26/01/08</td></tr>
+<tr><td class="lots">590-28</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/19</td></tr>
+<tr class="in-jigu"><td class="lots">산175</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산175-1</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산175-2</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산175-3</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/30</td></tr>
+<tr class="in-jigu"><td class="lots">산176</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산177-1</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산177-3</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/30</td></tr>
+<tr class="in-jigu"><td class="lots">산177-4</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산177-5</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산183</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산184-1</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="lots">산184-3</td><td class="trust-l">진명개발(주)</td><td class="trust-l">제2026-5980호</td><td class="c">25/12/22</td></tr>
+<tr class="in-jigu"><td class="slno" rowspan="3">공동담보 없음<br><span class="sub">3필지</span></td><td class="r">1,609,000,000</td><td class="lots">513-8</td><td class="trust-l">차상환</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="in-jigu"><td class="r">88,000,000</td><td class="lots">601</td><td class="trust-l">차상환</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="in-jigu"><td class="r">—</td><td class="lots">산178</td><td class="trust-l">국(산림청)</td><td class="trust-l">—</td><td class="c">—</td></tr>
+<tr class="subtotal"><td class="c"><b>합계</b></td><td class="r"><b>3,884,000,000</b></td><td class="c"><b>36필지</b></td><td class="c" colspan="3">신탁 제2025-365196호 1필지 · 제2026-5980호 27필지</td></tr><tr class="subtotal"><td class="c">우선수익권</td><td class="r"><b>12,000,000,000</b></td><td class="c" colspan="4">신탁원부 제2026-5980호 · 우선수익자 한국투자저축은행(513-10)</td></tr>
+</tbody>
+</table>
+</div>
+</div>
 <h2>Ⅱ. 지번별 편입 토지조서 (고시 결정조서 대조)</h2>
-<p class="sub">「편입면적(고시)」= 결정조서 획지·시설 면적. 「지적공부면적」= Ⅰ항 대장(21필지). Ⅰ항 미포함·일부편입 필지는 「—」. 한 지번에 도로·시설이 겹치면 고시면적만 표기.</p>
+
 <table>
   <thead>
     <tr>
@@ -184,89 +205,179 @@
       <th class="c" style="width:78px">지적공부<br>면적(㎡)</th>
       <th>편입 용도 · 시설</th>
       <th class="c" style="width:86px">편입면적<br>고시(㎡)</th>
-      <th style="width:120px">소유자(대장)</th>
+      <th style="width:120px">소유자(등기부)</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td class="c">1</td><td class="c">산175</td><td class="c">임야</td><td class="r">9,535</td>
-        <td>공업용지 B2(C25 금속가공) 8,448 · 도로(중로2-1 기점/중로3-2 종점) 일부</td>
-        <td class="r">8,448<span class="sub"> +도로</span></td><td>이영순</td></tr>
-    <tr><td class="c">2</td><td class="c">산175-1</td><td class="c">임야</td><td class="r">1,671</td>
-        <td>공업용지 A4(C24 1차금속) 4,996</td>
-        <td class="r">4,996</td><td>진명개발(주)</td></tr>
-    <tr><td class="c">3</td><td class="c">산175-2</td><td class="c">임야</td><td class="r">10,880</td>
-        <td>공업용지 A5(C24) 3,425 · 지원시설 C1 1,139 · 주차장 C2 745 · 오수처리 D1 466 ·
-            소공원2 1,712(유수지1 상부 중복) · 유수지1(저류) 1,712 · 도로(중로3-1·3-2·소로1-1·2-1·3-1) 다수 · 진입도로(중로3-4) 종점</td>
-        <td class="r">7,487<span class="sub"> +시설·도로</span></td><td>진명개발(주)</td></tr>
-    <tr><td class="c">4</td><td class="c">산175-3</td><td class="c">임야</td><td class="r">327</td>
-        <td><span class="sub">고시 미포함</span> · 175-2와 인접 · 구역 경계 인접</td>
-        <td class="c">—</td><td>진명개발(주)</td></tr>
-    <tr><td class="c">5</td><td class="c">산176</td><td class="c">임야</td><td class="r">1,488</td>
-        <td><span class="sub">고시 미포함</span> · 구역 경계 인접</td>
-        <td class="c">—</td><td>성순이</td></tr>
-    <tr><td class="c">6</td><td class="c">산177-1</td><td class="c">임야</td><td class="r">8,490</td>
-        <td>공업용지 A3(C24) 7,803 · 경관녹지2 10,405 · 전기공급설비(송전탑) 164</td>
-        <td class="r">18,372</td><td>이영순</td></tr>
-    <tr><td class="c">7</td><td class="c">산177-3</td><td class="c">임야</td><td class="r">2,363</td>
-        <td><span class="sub">고시 미포함</span> · 177-4·177-5와 인접 · 구역 경계 인접</td>
-        <td class="c">—</td><td>진명개발(주)</td></tr>
-    <tr><td class="c">8</td><td class="c">산177-4</td><td class="c">임야</td><td class="r">9,149</td>
-        <td>공업용지 A2(C24) 8,617</td>
-        <td class="r">8,617</td><td>진명개발(주)</td></tr>
-    <tr><td class="c">9</td><td class="c">산177-5</td><td class="c">임야</td><td class="r">7,568</td>
-        <td>공업용지 B1(C25 금속가공) 8,897</td>
-        <td class="r">8,897</td><td>한국투자부동산신탁(주)</td></tr>
-    <tr><td class="c">10</td><td class="c">산178</td><td class="c">임야</td><td class="r">5,950</td>
-        <td>경관녹지1 4,054</td>
-        <td class="r">4,054</td><td><b>국(산림청)</b></td></tr>
-    <tr><td class="c">11</td><td class="c">산183</td><td class="c">임야</td><td class="r">5,058</td>
-        <td>공업용지 A1(C29 기타 기계·장비) 4,650</td>
-        <td class="r">4,650</td><td>심재필</td></tr>
-    <tr><td class="c">12</td><td class="c">산184-1</td><td class="c">임야</td><td class="r">1,308</td>
-        <td>일부편입(고시 결정조서) · 필지 전체 1,308㎡</td>
-        <td class="r">408<span class="sub"> 일부</span></td><td>이순열</td></tr>
-    <tr><td class="c">13</td><td class="c">산184-3</td><td class="c">임야</td><td class="r">4,572</td>
-        <td><span class="sub">고시 미포함</span> · 184-1과 인접 · 구역 경계 인접</td>
-        <td class="c">—</td><td>이영순</td></tr>
-    <tr><td class="c">14</td><td class="c">513-8</td><td class="c">전</td><td class="r">2,715</td>
-        <td>도로(중로2-1 종점 / 소로1-1 기점) 편입 일부</td>
-        <td class="r"><span class="sub">도로 일부</span></td><td>차상환 외 1인</td></tr>
-    <tr><td class="c">15</td><td class="c">513-9</td><td class="c">임야</td><td class="r">3,666</td>
-        <td>소공원1 4,034</td>
-        <td class="r">4,034</td><td>홍순호 외 1인</td></tr>
-    <tr><td class="c">16</td><td class="c">513-10</td><td class="c">임야</td><td class="r">1,122</td>
-        <td><span class="sub">고시 미포함</span> · 513-8·9 분할 인접(2026. 3. 27.) · 구역 서측</td>
-        <td class="c">—</td><td>한국투자부동산신탁(주)</td></tr>
-    <tr><td class="c">17</td><td class="c">599</td><td class="c">전</td><td class="r">807</td>
-        <td><span class="sub">고시 미포함</span> · 구역 서·북측 전답 인접</td>
-        <td class="c">—</td><td>차상환</td></tr>
-    <tr><td class="c">18</td><td class="c">600</td><td class="c">전</td><td class="r">721</td>
-        <td><span class="sub">고시 미포함</span> · 구역 북측 전답 인접</td>
-        <td class="c">—</td><td>유정숙 외 9인</td></tr>
-    <tr><td class="c">19</td><td class="c">601</td><td class="c">전</td><td class="r">767</td>
-        <td><span class="sub">고시 미포함</span> · 구역 동·북측 전답 인접</td>
-        <td class="c">—</td><td>차상환</td></tr>
-    <tr><td class="c">20</td><td class="c">601-1</td><td class="c">전</td><td class="r">2,345</td>
-        <td><span class="sub">고시 미포함</span> · 구역 동측 전답 인접</td>
-        <td class="c">—</td><td>허송</td></tr>
-    <tr><td class="c">21</td><td class="c">601-2</td><td class="c">전</td><td class="r">531</td>
-        <td><span class="sub">고시 미포함</span> · 구역 동측 전답 인접</td>
-        <td class="c">—</td><td>허송</td></tr>
+    <tr><td class="c">1</td><td class="c">513-8</td><td class="c">전</td><td class="r">2,714.5</td><td>도로(중로2-1 종점 / 소로1-1 기점) 편입 일부</td><td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">2</td><td class="c">513-9</td><td class="c">임야</td><td class="r">3,666</td><td>소공원1 4,034</td><td class="r">4,034</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">3</td><td class="c">513-10</td><td class="c">임야</td><td class="r">1,122</td><td><span class="sub">고시 편입면적 미배정 · 513-8·9 분할 인접(2026. 3. 27.) · 구역 서측</span></td><td class="c">—</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">19</td><td class="c">599</td><td class="c">전</td><td class="r">807</td><td><span class="sub">고시 편입면적 미배정 · 구역 서·북측 전답 인접</span></td><td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">20</td><td class="c">600</td><td class="c">전</td><td class="r">721</td><td><span class="sub">고시 편입면적 미배정 · 구역 북측 전답 인접</span></td><td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">21</td><td class="c">601</td><td class="c">전</td><td class="r">767</td><td><span class="sub">고시 편입면적 미배정 · 구역 동·북측 전답 인접</span></td><td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">22</td><td class="c">601-1</td><td class="c">전</td><td class="r">2,345</td><td><span class="sub">고시 편입면적 미배정 · 구역 동측 전답 인접</span></td><td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">23</td><td class="c">601-2</td><td class="c">전</td><td class="r">531</td><td><span class="sub">고시 편입면적 미배정 · 구역 동측 전답 인접</span></td><td class="c">—</td><td>차상환</td></tr>
+    <tr><td class="c">24</td><td class="c">산175</td><td class="c">임야</td><td class="r">9,535</td><td>공업용지 B2(C25 금속가공) 8,448 · 도로(중로2-1 기점/중로3-2 종점) 일부</td><td class="r">8,448</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">25</td><td class="c">산175-1</td><td class="c">임야</td><td class="r">1,671</td><td>공업용지 A4(C24 1차금속) 4,996</td><td class="r">4,996</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">26</td><td class="c">산175-2</td><td class="c">임야</td><td class="r">10,880</td><td>공업용지 A5(C24) 3,425 · 지원시설 C1 1,139 · 주차장 C2 745 · 오수처리 D1 466 · 소공원2 1,712(유수지1 상부 중복) · 유수지1(저류) 1,712 · 도로(중로3-1·3-2·소로1-1·2-1·3-1) 다수 · 진입도로(중로3-4) 종점</td><td class="r">7,487</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">27</td><td class="c">산175-3</td><td class="c">임야</td><td class="r">327</td><td><span class="sub">고시 편입면적 미배정 · 175-2와 인접 · 구역 경계 인접</span></td><td class="c">—</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">28</td><td class="c">산176</td><td class="c">임야</td><td class="r">1,488</td><td><span class="sub">고시 편입면적 미배정 · 구역 경계 인접</span></td><td class="c">—</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">29</td><td class="c">산177-1</td><td class="c">임야</td><td class="r">8,490</td><td>공업용지 A3(C24) 7,803 · 경관녹지2 10,405 · 전기공급설비(송전탑) 164</td><td class="r">18,372</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">30</td><td class="c">산177-3</td><td class="c">임야</td><td class="r">2,363</td><td><span class="sub">고시 편입면적 미배정 · 177-4·177-5와 인접 · 구역 경계 인접</span></td><td class="c">—</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">31</td><td class="c">산177-4</td><td class="c">임야</td><td class="r">9,149</td><td>공업용지 A2(C24) 8,617</td><td class="r">8,617</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">32</td><td class="c">산177-5</td><td class="c">임야</td><td class="r">7,568</td><td>공업용지 B1(C25 금속가공) 8,897</td><td class="r">8,897</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">33</td><td class="c">산178</td><td class="c">임야</td><td class="r">5,950</td><td>경관녹지1 4,054</td><td class="r">4,054</td><td><b>국(산림청)</b></td></tr>
+    <tr><td class="c">34</td><td class="c">산183</td><td class="c">임야</td><td class="r">5,058</td><td>공업용지 A1(C29 기타 기계·장비) 4,650</td><td class="r">4,650</td><td>진명개발(주)</td></tr>
+    <tr><td class="c">35</td><td class="c">산184-1</td><td class="c">임야</td><td class="r">1,308</td><td>일부편입(고시 결정조서) · 필지 전체 1,308㎡</td><td class="r">408<span class="sub"> 일부</span></td><td>진명개발(주)</td></tr>
+    <tr><td class="c">36</td><td class="c">산184-3</td><td class="c">임야</td><td class="r">4,572</td><td><span class="sub">고시 편입면적 미배정 · 184-1과 인접 · 구역 경계 인접</span></td><td class="c">—</td><td>진명개발(주)</td></tr>
+    <tr class="subtotal"><td class="c"><b>소계</b></td><td class="c"><b>21필지</b></td><td colspan="2"></td><td class="r"><b>81,032.5</b></td><td class="sub">신탁·국·차상환</td><td class="c">—</td><td></td></tr>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   </tbody>
-  <tfoot>
-    <tr><td class="c" colspan="3">고시 편입 해당(11지번·도로)</td><td class="r">65,990</td>
-        <td class="sub">184-1은 일부(408㎡)만 고시</td><td class="r">80,617</td><td class="c">—</td></tr>
-    <tr><td class="c" colspan="3">Ⅰ항 지적공부 합계(21필지)</td><td class="r">81,033</td>
-        <td class="sub">인접 10필지 — 고시 편입면적 없음</td><td class="c">—</td><td class="c">—</td></tr>
-  </tfoot>
+  
 </table>
 <div class="note ok">
-  <b>고시 외 인접 필지(10).</b> <b>산175-3·176·177-3·184-3</b> · <b>513-10</b> · <b>599·600·601·601-1·601-2</b> — Ⅰ항 대장 확보(2026. 6.). 고시 결정조서에는 개별 편입면적 없음. 실시계획인가·편입선 확정 후 재대조.
+  <b>고시 외 인접 필지(11).</b> <b>산175-3·176·177-3·184-3</b> · <b>513-10</b> · <b>591·599·600·601·601-1·601-2</b> — Ⅰ항 등기 확보(2026. 7.). 고시 결정조서에는 개별 편입면적 없음. 실시계획인가·편입선 확정 후 재대조.
 </div>
-<div class="note">
-  <b>진입도로(구역 외 별도 결정).</b> 중로3-4호선(L=294m, B=12~18m, 4,018㎡)은 <b>청원리 588-5</b>(기점) ~ <b>산175-2 일원</b>(종점)을 잇는 진입도로로, 지구단위계획구역(80,617㎡) 면적에는 포함되지 않습니다.
-</div>
-
 <h2>Ⅲ. 획지 결정조서 (공업용지·지원·주차·오수처리)</h2>
 <p class="sub">고시문 「가구 및 획지의 규모와 조성에 관한 결정조서」 그대로.</p>
 <table>
@@ -276,16 +387,16 @@
     <th>용도(유치업종)</th>
   </tr></thead>
   <tbody>
-    <tr><td class="c" rowspan="5">A<br>(29,491)</td><td class="c">1</td><td class="c">산183 일원</td><td class="r">4,650</td><td>공업용지 — C29 기타 기계 및 장비 제조업</td></tr>
+    <tr><td class="l" rowspan="5">A<br>(29,491)</td><td class="c">1</td><td class="c">산183 일원</td><td class="r">4,650</td><td>공업용지 — C29 기타 기계 및 장비 제조업</td></tr>
     <tr><td class="c">2</td><td class="c">산177-4 일원</td><td class="r">8,617</td><td>공업용지 — C24 1차 금속 제조업</td></tr>
     <tr><td class="c">3</td><td class="c">산177-1 일원</td><td class="r">7,803</td><td>공업용지 — C24 1차 금속 제조업</td></tr>
     <tr><td class="c">4</td><td class="c">산175-1 일원</td><td class="r">4,996</td><td>공업용지 — C24 1차 금속 제조업</td></tr>
     <tr><td class="c">5</td><td class="c">산175-2 일원</td><td class="r">3,425</td><td>공업용지 — C24 1차 금속 제조업</td></tr>
-    <tr><td class="c" rowspan="2">B<br>(17,345)</td><td class="c">1</td><td class="c">산177-5 일원</td><td class="r">8,897</td><td>공업용지 — C25 금속 가공제품 제조업</td></tr>
+    <tr><td class="l" rowspan="2">B<br>(17,345)</td><td class="c">1</td><td class="c">산177-5 일원</td><td class="r">8,897</td><td>공업용지 — C25 금속 가공제품 제조업</td></tr>
     <tr><td class="c">2</td><td class="c">산175 일원</td><td class="r">8,448</td><td>공업용지 — C25 금속 가공제품 제조업</td></tr>
-    <tr><td class="c" rowspan="2">C<br>(1,884)</td><td class="c">1</td><td class="c">산175-2 일원</td><td class="r">1,139</td><td>지원시설용지</td></tr>
+    <tr><td class="l" rowspan="2">C<br>(1,884)</td><td class="c">1</td><td class="c">산175-2 일원</td><td class="r">1,139</td><td>지원시설용지</td></tr>
     <tr><td class="c">2</td><td class="c">산175-2 일원</td><td class="r">745</td><td>주차장용지</td></tr>
-    <tr><td class="c">D</td><td class="c">1</td><td class="c">산175-2 일원</td><td class="r">466</td><td>오수처리시설용지</td></tr>
+    <tr><td class="l">D</td><td class="c">1</td><td class="c">산175-2 일원</td><td class="r">466</td><td>오수처리시설용지</td></tr>
   </tbody>
   <tfoot><tr><td class="c" colspan="3">획지 합계</td><td class="r">49,186</td><td></td></tr></tfoot>
 </table>
@@ -351,35 +462,28 @@
   </tbody>
   <tfoot><tr><td class="c">지구단위계획구역 합계</td><td class="r">80,617</td><td>고시 면적과 일치</td></tr></tfoot>
 </table>
-<div class="note ok">
-  <b>검산.</b> 49,186(획지) + 4,034 + 1,712(소공원) + 14,459(녹지) + 164(송전탑) + 11,062(도로) = <b>80,617㎡</b>.
-  유수지 1,712㎡는 소공원2와 상·하부 중복결정이므로 면적 가산에서 제외하면 정확히 구역면적과 일치합니다.
-</div>
-
-<h2>Ⅶ. 지적도·대장 대조 메모</h2>
+<h2>Ⅶ. 지적도 대조 메모</h2>
 <table>
   <thead><tr><th class="c" style="width:170px">자료</th><th>확인 내용</th></tr></thead>
   <tbody>
-    <tr><td class="c">토지·임야대장<br>(21필지 PDF)</td>
-        <td>Ⅰ항 정리(2026. 6. 20.~21.). <b>513-8·513-9</b> 2026. 3. 27. 분할 · <b>513-10</b> 신탁(2026. 1. 20.) · <b>599·601</b> 차상환 · <b>600</b> 유정숙 외 9인 · <b>601-1·601-2</b> 허송 · <b>산184-1</b> 이순열(편입 일부 408㎡).</td></tr>
     <tr><td class="c">토지이음_지구단위구역도.jpg</td><td>구역 경계(적색선)와 인접·편입 지번(산177·175·178·183 등) 위치 확인. <b>산184-1</b> 일부(408㎡) 편입 표기.</td></tr>
   </tbody>
 </table>
 <div class="note danger">
   <b>잔여 확인 사항.</b>
-  ① <b>편입면적(고시) &gt; 지적공부면적</b>인 필지(예: 산177-1 고시 18,372 vs 대장 8,490) — 인접 필지·분할 전 지번 또는 복수 필지 편입 가능성.<br>
-  ② <b>국유림(산178)</b> · <b>타인 소유(이영순·심재필·홍순호 등)</b> — 협의·매입·수용 절차 별도.<br>
+  ① <b>편입면적(고시) &gt; 등기면적</b>인 필지(예: 산177-1 고시 18,372 vs 등기 8,490) — 인접 필지·분할 전 지번 또는 복수 필지 편입 가능성.<br>
+  ② <b>국유림(산178)</b> · <b>타인 소유(이영순·심재필·홍순효 등)</b> — 협의·매입·수용 절차 별도.<br>
   ③ <b>고시 외 인접 10필지</b>(175-3·176·177-3·184-3·513-10·599~601-2) — 편입선·편입면적 미확정.<br>
   ④ 보상·인가용 최종은 <b>등기사항전부증명서</b> + <b>실시계획인가 편입토지조서</b>로 확정.
 </div>
 
 <div class="note">
-  <b>면적 대조.</b> 21필지 면적 합계(지적공부) <b>81,033㎡</b> — 구역면적 <b>80,617㎡</b>와 차이 <b>+416㎡</b>(인접·구역 외 필지 포함 가능).
+  <b>면적 대조.</b> 21필지 면적 합계(등기 표제부) <b>81,033㎡</b> — 구역면적 <b>80,617㎡</b>와 차이 <b>+416㎡</b>(인접·구역 외 필지 포함 가능).
   Ⅰ항에 <b>599·600·601</b> 계열·<b>산176</b> 등 구역 경계 인접 필지 포함. 편입선·실시계획인가 후 재대조 필요.
 </div>
 
 <footer>
-  화성 청원지구 산업유통형 지구단위계획 토지조서 — 고시 제2026-76호 + 정부24 토지·임야대장(2026. 6. 20.) + 토지이음 지적도. 2026. 6. 20. 작성. 끝.
+  화성 청원지구 산업유통형 지구단위계획 토지조서 — 고시 제2026-76호 + 등기사항전부증명서 + 토지이음 지적도. 2026. 7. 4. 삼아건설(주) 작성. 끝.
 </footer>
 
 </div>

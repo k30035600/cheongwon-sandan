@@ -24,7 +24,7 @@ sys.stderr.reconfigure(encoding="utf-8")
 
 ROOT = Path(__file__).resolve().parents[1]
 PORTAL = ROOT / "청원지구_포털.html"
-KA = ROOT / "08_제출내역서" / "청원지구_단가통합(전기제외)_ka.xlsx"
+KA = ROOT / "07_타견적" / "청원지구_단가통합(전기제외)_ka.xlsx"
 PENDING_HTML = ROOT / "05_내역서" / "내역서작업" / "_공통" / "청원지구_미확정_ka.html"
 REPORT_HTML = ROOT / "05_내역서" / "내역서작업" / "_공통" / "청원지구_종합보고서.html"
 PORTAL_STATS = ROOT / "05_내역서" / "내역서작업" / "_공통" / "portal_stats.js"

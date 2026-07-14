@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>화성 청원지구 공내역서 — 표준단가 산출 총괄표</title>
 <style>
+  @page{margin:15mm 10mm 15mm 10mm;}
+
   :root{--navy:#1f3a5f;--blue:#2c5aa0;--line:#d9e1ec;--bg:#f4f6fa;
         --ok:#1a7f37;--warn:#b25e00;--bad:#b3261e;--mid:#7a5cc0;}
   *{box-sizing:border-box;}
@@ -48,7 +50,7 @@
 <header class="doc">
   <h1>화성 청원지구 공내역서 — 표준단가 산출 총괄표</h1>
   <div class="meta">
-    <b>작성일</b> 2026. 6. 19. &nbsp;|&nbsp;
+    <b>작성일</b> 2026. 6. 19. &nbsp; &nbsp;|&nbsp; <b>작성</b> 삼아건설(주)|&nbsp;
     <b>범위</b> 01·02·04·05·06·07 공내역서 표준단가·협회단가 산출 결과 통합 &nbsp;|&nbsp;
     <b>합계 산식</b> 01+02+04+05+06+07 (<b>03 전기(지구외)=02 중복·#REF! → 제외</b>)
   </div>
@@ -58,7 +60,7 @@
 </header>
 
 <div class="meta" style="margin-top:12px;padding:10px 14px;background:#f1f8f2;border:1px solid #bfe0c5;border-radius:8px;font-size:13.5px">
-  <b>확정단가 반영(2026. 6. 19.).</b> 본 문서는 <code>총괄표.xlsx</code>에서 자동 생성된 <b>최종 직접공사비</b>이다(<code>tools/build_summary_html.py</code>). 교정단가·baseline 대비 열은 포함하지 않는다.
+  <b>확정단가 반영(2026. 6. 19.).</b> 본 문서는 총괄표에서 자동 생성된 <b>최종 직접공사비</b>이다. 교정단가·baseline 대비 열은 포함하지 않는다.
 </div>
 
 <div class="kpis">
@@ -131,7 +133,7 @@
 
 <h2>4. 간접비 자동계산 — 총공사비(도급액)</h2>
 <div class="note">
-  <b>적용 요율 = 03 전기설비 「원가」 시트 제비율.</b> 발주처 지정 요율이 확정되면 <code>tools/calc_overhead.py</code>의 <code>ELECTRIC_RATES</code>만 교체하면 결과가 갱신됩니다. 직접공사비 합계(03 제외)에 일괄 적용한 <b>개략 추정</b>이며, 한전수탁비 등 전기 전용 고정액은 미포함입니다.
+  <b>적용 요율 = 03 전기설비 「원가」 시트 제비율.</b> 발주처 지정 요율이 확정되면 전기 요율만 교체하면 결과가 갱신됩니다. 직접공사비 합계(03 제외)에 일괄 적용한 <b>개략 추정</b>이며, 한전수탁비 등 전기 전용 고정액은 미포함입니다.
 </div>
 <div class="kpis">
   <div class="kpi"><div class="lab">직접공사비</div><div class="val">7,136,910,626원</div><div class="sub">03 전기 요율 기준</div></div>

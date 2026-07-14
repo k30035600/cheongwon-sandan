@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성 청원지구 — 타견적 비교(세흥 vs 근일)·요율 팩트체크·책임준공/PF</title>
+<style>
+  @page{margin:15mm 10mm 15mm 10mm;}
+
+body{font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;line-height:1.65;
+  color:#1c2430;max-width:1080px;margin:0 auto;padding:28px 20px 60px;font-size:15px;background:#f7f9fc;}
+h1{font-size:22px;color:#1f3a5f;border-bottom:3px solid #1f3a5f;padding-bottom:10px;}
+h2{font-size:18px;color:#1f3a5f;margin-top:30px;border-left:5px solid #2c5aa0;padding-left:10px;}
+h3{font-size:16px;color:#2c5aa0;margin-top:22px;}
+table{width:100%;border-collapse:collapse;background:#fff;margin:12px 0;font-size:13.5px;
+  border:1px solid #d9e1ec;border-radius:8px;overflow:hidden;}
+th,td{padding:7px 10px;border-bottom:1px solid #e3e9f2;vertical-align:top;text-align:left;}
+th{background:#eaf0f8;color:#1f3a5f;text-align:center;font-weight:700;}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+td.c{text-align:center;white-space:nowrap;}
+tr.total td{font-weight:700;background:#fff2cc;}
+tr.subtotal td{font-weight:600;background:#f4f6fa;}
+.ok{color:#137333;font-weight:700;}
+.warn{color:#b06000;font-weight:700;}
+.bad{color:#b3261e;font-weight:700;}
+.se{background:#ddebf7;}
+.ge{background:#fce4d6;}
+blockquote{background:#eef4fb;border:1px solid #c5d0e6;border-radius:8px;padding:10px 16px;margin:14px 0;}
+.muted{color:#6b7787;font-size:13px;}
+.tag{display:inline-block;background:#2c5aa0;color:#fff;border-radius:5px;padding:1px 8px;font-size:12px;margin-right:4px;}
+ul{margin:8px 0;}
+code{background:#eef1f6;border-radius:4px;padding:1px 5px;font-size:13px;}
+</style></head><body>
+
+<h1>타견적 비교 — 세흥건설 vs 근일건설 · 요율 팩트체크 · 책임준공/PF</h1>
+<ul>
+  <li><strong>비교 파일</strong>: <code>07_타견적/견적비교.xlsx</code> (원가계산서 · 내역서 · 세부내역서 3시트)</li>
+  <li><strong>원본</strong>: <code>세흥건설(청원지구).xlsx</code> · <code>근일건설(청원지구).xlsx</code> (세흥은 PDF→xlsx 변환)</li>
+  <li><strong>기준</strong>: 세흥건설을 기준으로 근일건설 대비 · 금액차이 = 세흥 − 근일</li>
+  <li><strong>작성일</strong>: 2026. 7. 1.</li>
+  <li><strong>작성</strong>: 삼아건설(주)</li>
+</ul>
+
+<blockquote>
+<strong>핵심 3줄 요약</strong>
+<ol style="margin:6px 0">
+  <li>세흥은 <strong>간접인건비가 직접노무비에 산입</strong>되어 있어 19.7% 역산으로 순직접(1,822,447,242) + 간접인건비(359,022,107)로 재분류(총액 불변).</li>
+  <li>근일 <strong>4대보험 요율은 2026 법정기준에 부합</strong>(건강 3.595·연금 4.75·장기요양 13.14) → 이전 2025 보정 철회. 다만 <strong>일반관리비 8%</strong>는 상한 6% 초과. <strong>이행보증·PF 프리미엄</strong>은 표준원가 외 항목이라 0 처리.</li>
+  <li>도급액(부가세 포함): <strong>세흥 13,604,000,000 vs 근일 11,414,018,370</strong> → 세흥이 2,189,981,630원 높음.</li>
+</ol>
+</blockquote>
+
+<h2>Ⅰ. 원가계산서 총괄 비교</h2>
+<p class="muted">근일 요율은 <strong>2026.4.13 조달청 토목 기준</strong>으로 팩트체크 반영. 세흥 노무비는 19.7% 역산(순직접) 표기.</p>
+<table>
+<thead><tr>
+  <th>구분</th><th>항목</th>
+  <th>세흥 요율</th><th class="num">세흥 금액</th>
+  <th>근일 요율</th><th class="num">근일 금액</th>
+  <th class="num">차이(세−근)</th>
+</tr></thead>
+<tbody>
+<tr><td rowspan="4" class="c">직접<br>공사비</td><td>재료비</td><td class="c">—</td><td class="num">3,511,057,175</td><td class="c">—</td><td class="num">1,523,402,421</td><td class="num">1,987,654,754</td></tr>
+<tr><td>직접노무비(순직접)</td><td class="c">직노÷1.197</td><td class="num">1,822,447,242</td><td class="c">—</td><td class="num">4,128,920,489</td><td class="num">-2,306,473,247</td></tr>
+<tr><td>직접경비</td><td class="c">안전·품질 포함</td><td class="num">4,209,447,261</td><td class="c">—</td><td class="num">793,760,574</td><td class="num">3,415,686,687</td></tr>
+<tr class="subtotal"><td>【 직접공사비 계 】</td><td class="c"></td><td class="num">9,542,951,678</td><td class="c"></td><td class="num">6,446,083,486</td><td class="num">3,096,868,192</td></tr>
+
+<tr><td rowspan="15" class="c">간접비</td><td>간접노무비(간접인건비)</td><td class="c">직노×19.7%</td><td class="num">359,022,107</td><td class="c">직노×19.7%</td><td class="num">813,397,337</td><td class="num">-454,375,230</td></tr>
+<tr><td>산재보험료</td><td class="c">노무비×3.56%</td><td class="num">77,660,308</td><td class="c">노무비계×3.56%</td><td class="num">175,946,514</td><td class="num">-98,286,206</td></tr>
+<tr><td>고용보험료</td><td class="c">×1.01%</td><td class="num">22,032,840</td><td class="c">×1.01%</td><td class="num">49,917,410</td><td class="num">-27,884,570</td></tr>
+<tr><td>국민건강보험료</td><td class="c">직노×3.595%</td><td class="num">78,423,823</td><td class="c ok">직노×3.595%</td><td class="num">148,434,690</td><td class="num">-70,010,867</td></tr>
+<tr><td>국민연금보험료</td><td class="c">직노×4.75%</td><td class="num">103,619,794</td><td class="c ok">직노×4.75%</td><td class="num">196,123,723</td><td class="num">-92,503,929</td></tr>
+<tr><td>노인장기요양보험료</td><td class="c">건보×13.14%</td><td class="num">10,304,890</td><td class="c ok">건보×13.14%</td><td class="num">19,504,319</td><td class="num">-9,199,429</td></tr>
+<tr><td>퇴직공제부금</td><td class="c">직노×2.30%</td><td class="num">50,173,795</td><td class="c">직노×2.30%</td><td class="num">94,965,171</td><td class="num">-44,791,376</td></tr>
+<tr><td>산업안전보건관리비</td><td class="c">(재+직노)×2.53%+기초</td><td class="num">147,320,921</td><td class="c">(재+직노)×2.53%+기초</td><td class="num">159,218,077</td><td class="num">-11,897,156</td></tr>
+<tr><td>건설기계대여대금지급보증</td><td class="c">0.40%</td><td class="num">39,607,895</td><td class="c">직공×0.4%</td><td class="num">25,784,334</td><td class="num">13,823,561</td></tr>
+<tr><td>하도급대금지급보증수수료</td><td class="c">직공×0.080%</td><td class="num">7,921,579</td><td class="c">직공×0.080%</td><td class="num">5,156,867</td><td class="num">2,764,712</td></tr>
+<tr><td>환경보전비</td><td class="c">(재+직노+산경)×0.6%</td><td class="num">59,411,842</td><td class="c">직공×0.9%</td><td class="num">58,014,752</td><td class="num">1,397,090</td></tr>
+<tr><td>기타경비(공과잡비)</td><td class="c">—</td><td class="num">—</td><td class="c">(재+노무비계)×6.9% (조달청 토목)</td><td class="num">446,134,697</td><td class="num">-446,134,697</td></tr>
+<tr><td>일반관리비</td><td class="c warn">(재+노+경)×8.0%</td><td class="num">791,464,144</td><td class="c warn">순공사원가×8%</td><td class="num">683,084,747</td><td class="num">108,379,397</td></tr>
+<tr><td>이윤</td><td class="c">×15.0%</td><td class="num">1,077,357,112</td><td class="c">×15%</td><td class="num">1,154,736,251</td><td class="num">-77,379,139</td></tr>
+<tr class="subtotal"><td>【 간접비 계 】</td><td class="c"></td><td class="num">2,824,321,050</td><td class="c"></td><td class="num">3,930,296,850</td><td class="num">-1,105,975,800</td></tr>
+
+<tr class="total"><td rowspan="3" class="c">합계</td><td>【 공급가액 】</td><td class="c"></td><td class="num">12,367,272,728</td><td class="c"></td><td class="num">10,376,380,336</td><td class="num">1,990,892,392</td></tr>
+<tr><td>부가가치세</td><td class="c">10%</td><td class="num">1,236,727,272</td><td class="c">10%</td><td class="num">1,037,638,034</td><td class="num">199,089,238</td></tr>
+<tr class="total"><td>★ 도급액</td><td class="c"></td><td class="num">13,604,000,000</td><td class="c"></td><td class="num">11,414,018,370</td><td class="num">2,189,981,630</td></tr>
+</tbody>
+</table>
+<p class="muted">※ 근일 이행(준공)보증보험료·PF·신용 리스크 프리미엄은 0 처리(표준원가 외 항목)하여 공급가액·부가세·도급액에서 차감함.</p>
+
+<h2>Ⅱ. 근일 요율 팩트체크 (2026년 법정·조달청 기준)</h2>
+<p class="muted">본 건은 <strong>2026.4.13 조달청 토목 간접공사비(제비율) 기준</strong> 적용 대상이며, 사회보험료율은 조달청 <strong>2026.1.1</strong> 인상 기준을 따릅니다.</p>
+
+<h3>1. 4대보험 등 법정요율 부합 (2026 기준) ✓</h3>
+<table>
+<thead><tr><th>항목</th><th class="c">근일 요율</th><th class="c">2026 법정</th><th class="c">판정</th><th>근거</th></tr></thead>
+<tbody>
+<tr><td>국민건강보험료</td><td class="c">직노×3.595%</td><td class="c">3.595%</td><td class="c ok">✓</td><td class="muted">건보료율 7.19%÷2 (2026 인상) · 조달청 26.1.1</td></tr>
+<tr><td>국민연금보험료</td><td class="c">직노×4.75%</td><td class="c">4.75%</td><td class="c ok">✓</td><td class="muted">연금개혁 9.5%÷2 (2026 시행) · 국민연금법 제88조</td></tr>
+<tr><td>노인장기요양보험료</td><td class="c">건보×13.14%</td><td class="c">13.14%</td><td class="c ok">✓</td><td class="muted">2026 인상(소득 0.9448%) · 노인장기요양보험법 시행령 제4조</td></tr>
+<tr><td>산재보험료</td><td class="c">노무비계×3.56%</td><td class="c">3.56%</td><td class="c ok">✓</td><td class="muted">건설업 3.5%+출퇴근재해 0.06% (2026 고시)</td></tr>
+<tr><td>고용보험료</td><td class="c">노무비계×1.01%</td><td class="c">1.01%</td><td class="c ok">✓</td><td class="muted">7등급이하(대형공사)</td></tr>
+<tr><td>퇴직공제부금</td><td class="c">직노×2.30%</td><td class="c">2.30%</td><td class="c ok">✓</td><td class="muted">국토부 고시 2015-610호</td></tr>
+<tr><td>건설기계대여보증</td><td class="c">직공×0.40%</td><td class="c">0.40%</td><td class="c ok">✓</td><td class="muted">토목 종합건설업 · 국토부 고시 2019-286호</td></tr>
+<tr><td>하도급지급보증</td><td class="c">직공×0.080%</td><td class="c">0.080%</td><td class="c ok">✓</td><td class="muted">직공 50~100억 구간</td></tr>
+<tr><td>환경보전비</td><td class="c">직공×0.9%</td><td class="c">0.9%</td><td class="c ok">✓</td><td class="muted">환경관리비 지침(도로) · 택지개발이면 0.6%</td></tr>
+</tbody>
+</table>
+<p class="muted">※ 이전 분석에서 2025년 기준으로 하향 보정했던 건강·연금·장기요양 3건은, 본 건이 <strong>2026.4.13 기준</strong> 적용 대상임이 확인되어 <strong>보정을 철회</strong>하고 근일 원 견적값(2026 법정요율)을 그대로 반영했습니다.</p>
+
+<h3>2. 조달청 분석요율 대조</h3>
+<table>
+<thead><tr><th>항목</th><th class="c">근일</th><th class="c">2026 조달청 토목</th><th class="c">판정</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td>간접노무비</td><td class="c">직노×19.7%</td><td class="c">18.9~21.0%</td><td class="c ok">✓ 범위 내</td><td class="muted">26.4.13 +3.3%p 인상 반영 · 세흥도 동일 19.7%</td></tr>
+<tr><td>기타경비(공과잡비)</td><td class="c">(재+노무비계)×6.9%</td><td class="c">6.9% (50~300억)</td><td class="c ok">✓</td><td class="muted">세금과공과(공과잡비) 포함 통합</td></tr>
+<tr><td>산업안전보건관리비</td><td class="c">2.53%</td><td class="c">토목 50억↑ 2.60%</td><td class="c">≈</td><td class="muted">근일은 내역서별(&lt;50억) 합산</td></tr>
+<tr><td>일반관리비</td><td class="c bad">순공사원가×8%</td><td class="c">6.5% (50~300억)</td><td class="c bad">초과 ⚠</td><td class="muted">국가계약법시행규칙 제8조 상한 6% 초과 · 세흥도 8%</td></tr>
+<tr><td>이윤</td><td class="c warn">15%</td><td class="c">12.0% (50~300억)</td><td class="c warn">상단</td><td class="muted">법정 상한 15% 미만 · 세흥도 15%</td></tr>
+</tbody>
+</table>
+
+<h3>3. 2026 신설 법정부담금 — 세흥·근일 모두 미계상</h3>
+<table>
+<thead><tr><th>항목</th><th class="c">요율(2026 신설)</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td>석면피해구제분담금</td><td class="c">노무비×0.006%</td><td class="muted">석면피해구제법 제31조 · 경비 다-16</td></tr>
+<tr><td>임금채권보장 사업주부담금</td><td class="c">노무비×0.09%</td><td class="muted">임금채권보장법 제9조 · 경비 다-17</td></tr>
+</tbody>
+</table>
+<p class="muted">2026 조달청 기준 개정(260313)으로 경비 항목에 신설됨. 두 견적 모두 미반영으로, 양사 공통 누락분(비교 대칭성에는 영향 없음).</p>
+
+<p class="muted">출처: 2026 조달청 토목·조경·산업환경설비 원가계산 간접공사비(제비율) 적용기준(260101·260413), 국가계약법시행규칙 제8조, 2026 건강보험료율 7.19%·장기요양 13.14%·국민연금 9.5% 고시, 2026 건설업 산재보험료율 고시.</p>
+
+<h2>Ⅲ. 책임준공 / PF 신용보강 수수료 — 실무 기준</h2>
+<p>시행사가 토목공사비를 PF로 조달하면서 <strong>시공사가 책임준공/보증해지(면탈) 책임을 연대</strong>할 때의 수수료는, 성격이 다른 세 가지가 섞여 있습니다. 국가계약 원가계산에는 <strong>「책임준공」 자체의 표준 비목·요율이 없습니다.</strong></p>
+
+<h3>1. 수단별 통상 요율</h3>
+<table>
+<thead><tr><th>구분</th><th>성격</th><th class="c">통상 요율</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td>① 법정 의무보증(공사이행·준공보증)</td><td>계약이행 담보</td><td class="c">보증기관 연 0.1~0.5%<br>(원가 계상기준 연 0.0141~0.016%)</td><td class="muted">조달청식: (재+직노+산출경비)×0.016%+4.3백만원)×공기(년)</td></tr>
+<tr><td>② 건설공제조합 <strong>책임준공보증</strong></td><td>PF 신용보강 대행</td><td class="c warn">기본 연 0.8% (연 0.4~1.44%)</td><td class="muted">보증금액 = PF대출약정금, 기간 = 대출실행~책준이행+6개월</td></tr>
+<tr><td>③ 금융사 신용보강(미분양담보대출확약 등)</td><td>대주 리스크 방어</td><td class="c warn">보증금액의 1~3%</td><td class="muted">증권사·금융사 수취</td></tr>
+<tr><td>④ 시공사 <strong>자체 책임준공확약</strong>(연대·채무인수)</td><td>우발채무 인수</td><td class="c bad">표준요율 없음(민간 협의)</td><td class="muted">근일: (직접공사비+간접노무비)×6% 적용</td></tr>
+</tbody>
+</table>
+<blockquote>시공사가 직접 연대(④)하는 경우는 <strong>제3자에게 내는 수수료가 아니라 시공사가 떠안는 우발채무(채무인수) 리스크의 대가</strong>입니다. 그래서 법정·표준 요율이 없고 도급 협상으로 정해지며, 시장에서는 ②③의 대체비용(연 0.4~1.44% 또는 보증금액 1~3%)을 준거로 삼습니다.</blockquote>
+
+<h3>2. 원가계산서 반영 항목</h3>
+<table>
+<thead><tr><th>대상</th><th class="c">원가 비목</th><th>취급</th></tr></thead>
+<tbody>
+<tr><td>법정 의무보증(①)·건설공제조합 책준보증(②) 실제 납부분</td><td class="c">경비 → <strong>지급수수료</strong></td><td class="muted">예정가격작성기준 제19조 제3항 제20호. 단 관급은 보증기관 최고등급 최저요율만 인정 → 실납부액보다 현저히 낮게 계상</td></tr>
+<tr><td>시공사 자체 책임준공 프리미엄(④)</td><td class="c bad">표준 비목 없음</td><td class="muted">관급·표준원가 <strong>비인정(계상 불가)</strong>. 민간계약에서만 별도 항목("PF·신용리스크 프리미엄") 신설 또는 이윤(위험부담)에 흡수</td></tr>
+</tbody>
+</table>
+
+<h3>3. 근일 견적 대조 및 시사점</h3>
+<ul>
+  <li><strong>이행(준공)보증보험료 = 공급가액×0.3%</strong> → 위 ①(보증기관 실납부 수준). 조달청 계상요율(연 0.0141%)의 약 20배지만 실납부액엔 근접.</li>
+  <li><strong>PF·신용 리스크 프리미엄 = (직공+간노)×6%(≈435백만원)</strong> → 위 ④에 해당하는 <strong>민간 협의 항목</strong>이며 법정·조달청 표준에는 없는 비목 → 본 비교에서 <strong>0 처리(표준원가 정상화)</strong>.</li>
+  <li>2025. 5. 30. 시행 <strong>「책임준공확약 PF대출 업무처리 모범규준」</strong>으로 채무인수비율이 경과일수 90일 비례·자기자본비율 40%↑ 시 면제로 완화 → 시공사 책준 부담 하향, ④ 프리미엄도 하향 여지.</li>
+</ul>
+
+<blockquote>
+<strong>검증 논리 결론</strong> — ① 보증수수료는 <strong>경비-지급수수료</strong>에 실납부액(또는 조달청 최저요율) 기준 계상하여 인정하되, ④ 책임준공 프리미엄은 <strong>관급·표준원가에서는 비인정</strong>이며 민간 협의사항으로만 별도 표기(총원가에서 분리)하는 것이 타당합니다.
+</blockquote>
+
+<p class="muted">끝.</p>
+</body></html>
